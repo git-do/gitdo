@@ -144,7 +144,6 @@ http.createServer(app).listen(app.get('port'), function () {
 app.get('/', function (req, res) {
   res.render('index', 
     { 
-      title: 'The index page!',
       layout: 'landing-page'
     }
   );
@@ -156,7 +155,7 @@ app.get('/repos', function (req, res) {
     res.render('repos', {
       user: {
         avatar: req.user._json.avatar_url, 
-        name: req.user.displayName
+        name: req.user.displayName || req.user.username
       },
       repos: repos
     });
@@ -167,7 +166,7 @@ app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
     user: {
       avatar: req.user._json.avatar_url, 
-      name: req.user.displayName
+      name: req.user.displayName || req.user.username
     },
     repos: [
       {
@@ -203,9 +202,12 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/dashboard/:repo', function (req, res) {
   res.render('issues', {
+    user: {
+      avatar: req.user._json.avatar_url, 
+      name: req.user.displayName || req.user.username
+    },
     issues: [
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -217,7 +219,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -229,7 +230,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "open",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -241,7 +241,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -253,7 +252,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
