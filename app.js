@@ -10,6 +10,7 @@ var
   path = require('path'),
   sass = require('node-sass'),
   ejs = require('ejs'),
+  ejsLayouts = require('express-ejs-layouts'),
   passport = require('passport'),
   GithubStrat = require('passport-github').Strategy;
 
@@ -71,6 +72,7 @@ if (!isProduction) {
 app.set('port', process.env.PORT || port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(ejsLayouts);
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -93,18 +95,16 @@ var github = require('./routes/github/github'),
     gitdoUsers = require('./routes/users'),
     gitdoRepos = require('./routes/repos');
 
-// Views
-app.get('/', function (req, res) {
-  res.render('index', { title: 'The index page!' });
-});
-
 /**
 * Github Routes
 */
 
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), github.authCallback);
+app.get('/auth/github/callback', passport.authenticate('github', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/login' 
+}), github.authCallback);
 app.get('/auth/logout', github.logout);
 
 // Github api
@@ -132,6 +132,35 @@ app.get('/api/repos', gitdoRepos.get);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+/**
+* Views
+*/
+app.get('/', function (req, res) {
+  res.render('index', { title: 'The index page!' });
+});
+app.get('/dashboard', function (req, res) {
+  res.render('dashboard', {
+    //repos: JSON.parse('/api/getRepos')
+    repos: [
+      {
+        name: '[string]',
+        dateCreated: '[string]',
+        github: {
+          id: '[integer]',
+          fullname: '[string]',
+          active: '[boolean]'
+        }
+      }
+    ]
+  });
+});
+
+app.get('/dashboard/:repo', function (req, res) {
+  res.render('issues', {
+    issues: []
+  });
 });
 
 // if run as root, downgrade to the owner of this file

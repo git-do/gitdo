@@ -12,7 +12,6 @@ var
 */
 exports.get = function(req, res) {
   if (req.user) {
-    console.log(req.user);
     var users = new Users(req, res);
     if (req.query.username === req.user.username) {
       users.get({
