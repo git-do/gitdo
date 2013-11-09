@@ -4,8 +4,7 @@ module.exports = (function () {
   * Imports
   */
   var async = require('async'),
-      files = require('../routes/github/files'),
-      request = require('request');
+      files = require('../routes/github/files');
 
   /**
   * Constructor
