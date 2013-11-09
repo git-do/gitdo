@@ -13,11 +13,21 @@ var
   passport = require('passport'),
   GithubStrat = require('passport-github').Strategy;
 
+var isProduction = (process.env.NODE_ENV === 'production');
+
 /* --------------------
 // GITHUB SETUP
 -----------------------*/
-var GITHUB_CLIENT_ID = "546f4d5ead70fc95aa41";
-var GITHUB_CLIENT_SECRET = "1ddaecee7d8acdb427bb775ec9f8acf312609700"; // "Ignore Security"
+var GITHUB_CLIENT_ID;
+var GITHUB_CLIENT_SECRET; // "Ignore Security"
+
+if (!isProduction) {
+  GITHUB_CLIENT_ID = "546f4d5ead70fc95aa41";
+  GITHUB_CLIENT_SECRET = "1ddaecee7d8acdb427bb775ec9f8acf312609700"; // "Ignore Security"
+} else {
+  GITHUB_CLIENT_ID = "edf9b749ff3da8d37514";
+  GITHUB_CLIENT_SECRET = "3ec13feb29ff46146a7d820c8686fb7be2102f5d";
+}
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -39,8 +49,10 @@ passport.use(new GithubStrat({
 
 var app = express();
 
+var port = (isProduction ? 80 : 3000);
+
 // development only
-if ('development' === app.get('env')) {
+if (!isProduction) {
   app.use(express.errorHandler());
   app.use(
     sass.middleware({
@@ -51,8 +63,6 @@ if ('development' === app.get('env')) {
   );
 }
 
-var isProduction = (process.env.NODE_ENV === 'production');
-var port = (isProduction ? 80 : 3000);
 
 
 /* --------------------
