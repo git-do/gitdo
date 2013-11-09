@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app class="no-js">
+<html class="no-js">
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +7,6 @@
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/app.css">
-      <script src="/lib/angular.min.js"></script>
-      <script src="/js/utils.js"></script>
-      <script src="/js/controllers/dashController.js"></script>
-      <script src="/js/app.js"></script>
   </head>
   <body>
       
@@ -57,12 +53,14 @@
           </header>
           
           <ul class="repo-list list">
-            <li ng-repeat="repo in repositories">
-              <a href="/dashboard/{{repo.name}}" class="list-item-header">
-                <h3 class="list-heading">{{repo.name}}</h3>
-                <span class="repo-issue-total">{{repo.id}}</span>
-              </a>
-            </li>
+            <% for (var i = 0; i < repos.length; i++) {%>
+              <li>
+              <a href="/dashboard/<%- repos[i].name %>" class="list-item-header">
+                  <h3 class="list-heading"><%- repos[i].name %></h3>
+                  <span class="repo-issue-total"><%- repos[i].issueTotal %></span>
+                </a>
+              </li>
+            <% } %>
           </ul>
         </div>
 <!-- 

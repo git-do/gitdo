@@ -90,21 +90,6 @@ var github = require('./routes/github/github'),
     issues = require('./routes/github/issues'),
     hooks = require('./routes/github/hooks');
 
-// Views
-app.get('/', function (req, res) {
-  res.render('index', { title: 'The index page!' });
-});
-app.get('/auth/user', users.get);
-app.post('/auth/user', users.set);
-
-app.get('/dashboard', function (req, res) {
-  res.render('dashboard', { title: 'The index page!' });
-});
-
-app.get('/dashboard/:repo', function (req, res) {
-  res.render('issues', { title: 'The index page!' });
-});
-
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
 app.get('/auth/github/callback', passport.authenticate('github', {
@@ -127,6 +112,23 @@ app.post('/api/commit', hooks.webHook);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+// Views
+app.get('/', function (req, res) {
+  res.render('index', { title: 'The index page!' });
+});
+app.get('/auth/user', users.get);
+app.post('/auth/user', users.set);
+
+app.get('/dashboard', function (req, res) {
+  res.render('dashboard', {
+    repos: JSON.parse('/api/getRepos')
+  });
+});
+
+app.get('/dashboard/:repo', function (req, res) {
+  res.render('issues', { title: 'The index page!' });
 });
 
 // if run as root, downgrade to the owner of this file
