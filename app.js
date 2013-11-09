@@ -140,6 +140,16 @@ http.createServer(app).listen(app.get('port'), function () {
 app.get('/', function (req, res) {
   res.render('index', { title: 'The index page!' });
 });
+
+app.get('/repos', function (req, res) {
+  // Get list of repos from GitHub
+  repos.getrepos(req.user.accessToken, function (err, repos) {
+    res.render('repos', {
+      repos: repos
+    });
+  })
+}
+
 app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
     //repos: JSON.parse('/api/getRepos')
