@@ -143,16 +143,15 @@ app.get('/', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // Get list of repos from GitHub
-  //repos.getrepos(req.user.accessToken, function (err, repos) {
+  repos.getRepos(req.user.accessToken, function (err, repos) {
     res.render('repos', {
       repos: repos
     });
-  //});
+  })
 });
 
 app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
-    //repos: JSON.parse('/api/getRepos')
     repos: [
       {
         name: '[string]',
