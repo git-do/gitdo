@@ -28,9 +28,7 @@ module.exports = (function () {
     var self = this;
     this.originalObj = obj;
     this.dbGet(obj, function (err, vals) {
-      self.response(err, vals, function (v) {
-        self.onGet(v);
-      }, true);
+      self.response(err, vals, self.onGet.bind(self), true);
     });
   };
 
@@ -58,18 +56,28 @@ module.exports = (function () {
   // Create
   Repos.prototype.create = function (obj) {
     var self = this;
+    this.originalObj = obj;
     this.dbGet({
       username: obj.username,
       name: obj.name
     }, function (e, v) {
       if (!e && v && !v.length) {
-        self.dbCreate(obj, function (err, vals) {
-          self.response(err, vals);
-        });
+        self.ghGet(self.onGHGetForCreate.bind(self), obj.name);
       } else {
-          self.send(409, "Conflict: Username exists");
+        self.send(409, "Conflict: Repo exists");
       }
     });
+  };
+
+  // On gh get for create
+  Repos.prototype.onGHGetForCreate = function (e, v) {
+    var
+      self = this,
+      obj = this.originalObj;
+    this.response(e, v, function (vals) {
+      obj.ghid = vals.id;
+      self.dbCreate(obj, self.response.bind(self));
+    }, true);
   };
 
   // Send
@@ -94,8 +102,12 @@ module.exports = (function () {
   };
 
   // Get github repos
-  Repos.prototype.ghGet = function (fn) {
-    githubRepos.getRepos(this.ghUser.accessToken, fn);
+  Repos.prototype.ghGet = function (fn, repo) {
+    if (repo) {
+      githubRepos.getRepo(this.ghUser.accessToken, repo, this.originalObj.username, fn);
+    } else {
+      githubRepos.getRepos(this.ghUser.accessToken, fn);
+    }
   };
 
   // Merge data

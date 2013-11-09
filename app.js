@@ -132,6 +132,7 @@ app.post('/api/user', gitdoUsers.create);
 // Repos
 app.get('/api/repos', gitdoRepos.getAll);
 app.get('/api/repo', gitdoRepos.get);
+app.post('/api/repo', gitdoRepos.create);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
