@@ -126,7 +126,17 @@ app.post('/auth/user', users.set);
 app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
     //repos: JSON.parse('/api/getRepos')
-    repos: []
+    repos: [
+      {
+        name: '[string]',
+        dateCreated: '[string]',
+        github: {
+          id: '[integer]',
+          fullname: '[string]',
+          active: '[boolean]'
+        }
+      }
+    ]
   });
 });
 
