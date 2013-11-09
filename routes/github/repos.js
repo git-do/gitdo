@@ -4,9 +4,12 @@ var github = require('./github'),
 /* --------------------
 // GITHUB API
 -----------------------*/
+var
+  getRepos,
+  getRepo;
 
 // Get all repos
-var getRepos = function (accessToken, callback) {
+exports.getRepos = function (accessToken, callback) {
   var
     repos = [],
     gh;
@@ -38,7 +41,7 @@ var getRepos = function (accessToken, callback) {
 };
 
 // Get specific repo
-var getRepo = function (accessToken, repo, user, callback) {
+exports.getRepo = function (accessToken, repo, user, callback) {
   var gh;
 
   gh = github.getClient(accessToken);

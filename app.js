@@ -94,13 +94,15 @@ var github = require('./routes/github/github'),
 app.get('/', function (req, res) {
   res.render('index', { title: 'The index page!' });
 });
-app.get('/auth/user', users.get);
-app.post('/auth/user', users.set);
 
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), github.authCallback);
 app.get('/auth/logout', github.logout);
+
+// Users
+app.get('/api/user', users.get);
+app.post('/api/user', users.create);
 
 // Github api
 app.get('/api/getRepos', repos.getReposRoute);
