@@ -1,9 +1,15 @@
+/*===============================
+  Common
+---------------------------------*/
 body {
   background: #fafafa;
   font: 16px/1.5 Helvetica, arial, sans-serif;
   padding-left: 140px;
 }
 
+/*===============================
+  Features
+---------------------------------*/
 #admin-bar {
   background: #333;
   height: 100%;
@@ -28,16 +34,16 @@ body {
 #admin-bar a {
   color: #f0f0f0;
   display: block;
-  font-size: .8rem;
+  font-size: .7rem;
   text-align: center;
   text-decoration: none;
 }
 
-.admin-icon {
+.admin-bar-icon {
   background: #6a6a6a;
-  border-radius: 30px;
+  border-radius: 40px;
   display: block;
-  height: 30px;
+  height: 40px;
   margin: 10px auto;
-  width: 30px;
+  width: 40px;
 }
