@@ -28,7 +28,10 @@
 
 .user-avatar {
   @include border-radius(4px);
-  background: url(../img/tbd-avatar.jpg) no-repeat;
+  background: {
+    repeat: no-repeat;
+    size: 50px;
+  }
   display: block;
   float: left;
   height: 50px;

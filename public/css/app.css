@@ -581,7 +581,8 @@ body {
   -moz-background-clip: padding-box;
   -ms-background-clip: padding-box;
   background-clip: padding-box;
-  background: url(../img/tbd-avatar.jpg) no-repeat;
+  background-repeat: no-repeat;
+  background-size: 50px;
   display: block;
   float: left;
   height: 50px;
