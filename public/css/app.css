@@ -89,7 +89,7 @@ code, pre {
   box-sizing: border-box; }
 
 body {
-  background: #fafafa; }
+  background: white; }
 
 #content-wrap {
   margin-left: 100px; }
@@ -109,7 +109,8 @@ body {
   -ms-background-clip: padding-box;
   background-clip: padding-box;
   color: #666666;
-  padding: 8px 25px;
+  line-height: 1;
+  padding: 10px 25px;
   text-decoration: none; }
 
 /*===============================
@@ -119,6 +120,7 @@ body {
   Page Header
 ------------------------------*/
 #page-header {
+  background: #eaeaea;
   border-bottom: 1px solid #d0d0d0;
   padding: 15px 30px;
   position: relative; }
