@@ -70,7 +70,7 @@ app.use(app.router);
 
 var github = require('./routes/github');
 
-//app.get('/', routes.index);
+// Views
 app.get('/', function(req, res) {
   res.render('index', { title: 'The index page!' })
 });
