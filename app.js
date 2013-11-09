@@ -93,6 +93,14 @@ app.get('/', function (req, res) {
   res.render('index', { title: 'The index page!' });
 });
 
+app.get('/dashboard', function (req, res) {
+  res.render('dashboard', { title: 'The index page!' });
+});
+
+app.get('/dashboard/:repo', function (req, res) {
+  res.render('detail-view', { title: 'The index page!' });
+});
+
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), github.authCallback);
