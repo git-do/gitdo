@@ -88,9 +88,16 @@ app.use(app.router);
 
 var github = require('./routes/github/github'),
     repos = require('./routes/github/repos'),
-    users = require('./routes/users'),
     issues = require('./routes/github/issues'),
-    hooks = require('./routes/github/hooks');
+    hooks = require('./routes/github/hooks'),
+
+    // Gitdo imports
+    gitdoUsers = require('./routes/users'),
+    gitdoRepos = require('./routes/repos');
+
+/**
+* Github Routes
+*/
 
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
@@ -112,17 +119,27 @@ app.post('/api/addHook', hooks.addHookRoute);
 app.post('/api/removeHook', hooks.removeHookRoute);
 app.post('/api/commit', hooks.webHook);
 
+/**
+* Gitdo Routes
+*/
+
+// User
+app.get('/api/user', gitdoUsers.get);
+app.post('/api/user', gitdoUsers.create);
+
+// Repos
+app.get('/api/repos', gitdoRepos.get);
+
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-// Views
+/**
+* Views
+*/
 app.get('/', function (req, res) {
   res.render('index', { title: 'The index page!' });
 });
-app.get('/auth/user', users.get);
-app.post('/auth/user', users.set);
-
 app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
     //repos: JSON.parse('/api/getRepos')

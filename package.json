@@ -21,6 +21,7 @@
     "github": "~0.1.12",
     "nodemon": "~0.7.10",
     "async": "~0.2.9",
+    "moment": "~2.4.0",
     "express-ejs-layouts": "~0.3.1"
   }
 }

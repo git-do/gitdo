@@ -10,6 +10,7 @@ module.exports = (function () {
   */
   function Users(req, resp) {
     this.db = db;
+    this.gh = req.user;
     this.req = req;
     this.resp = resp;
   }
@@ -22,20 +23,34 @@ module.exports = (function () {
   Users.prototype.get = function (obj) {
     var self = this;
     this.dbGet(obj, function (err, vals) {
-      self.response(err, vals);
+      self.response(err, vals, function (userObj) {
+        if (userObj.length) {
+          userObj[0].github = self.gh;
+          return userObj[0];
+        } else {
+          return userObj;
+        }
+      });
     });
   };
 
-  // Set
-  Users.prototype.set = function (obj) {
+  // Create
+  Users.prototype.create = function (obj) {
     var self = this;
-    this.dbGet(obj, function (e, v) {
+    this.dbGet({
+      username: obj.username
+    }, function (e, v) {
       if (!e && v && !v.length) {
         self.dbCreate(obj, function (err, vals) {
-          self.response(err, vals);
+          self.response(err, vals, function (userObj) {
+            if (userObj) {
+              userObj.github = self.gh;
+            }
+            return userObj;
+          });
         });
       } else {
-          self.response(409, "Conflict: Username exists");
+          self.send(409, "Conflict: Username exists");
       }
     });
   };
@@ -62,11 +77,11 @@ module.exports = (function () {
   };
 
   // Response
-  Users.prototype.response = function (err, vals) {
+  Users.prototype.response = function (err, vals, fn) {
     if (err || !vals) {
       this.send(500, "Internal Error: " + err);
     } else {
-      this.send(200, vals);
+      this.send(200, fn ? fn(vals) : vals);
     }
   };
   /**
