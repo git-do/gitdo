@@ -3,8 +3,16 @@
 ---------------------------------*/
 body {
   background: #fafafa;
-  font: 16px/1.5 Helvetica, arial, sans-serif;
-  padding-left: 140px; }
+  font: 16px/1.5 Helvetica, arial, sans-serif; }
+
+#content-wrap {
+  margin-left: 140px; }
+
+/*===============================
+  Partials
+---------------------------------*/
+#page-header {
+  border-bottom: 1px solid #d0d0d0; }
 
 /*===============================
   Features
