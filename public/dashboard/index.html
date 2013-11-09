@@ -10,74 +10,107 @@
   </head>
   <body>
       
-    <div id="admin-bar">
+    <div class="admin-bar">
       <ul>
         <li><a href="#"><span class="admin-bar-icon"></span>Profile</a></li>
         <li><a href="#"><span class="admin-bar-icon"></span>Dashboard</a></li>
         <li><a href="#"><span class="admin-bar-icon"></span>Repos</a></li>
         <li><a href="#"><span class="admin-bar-icon"></span>Settings</a></li>
-        <li><a href="#"><span class="admin-bar-icon"></span>Logout</a></li>
+        <li id="admin-bar-logout"><a href="#"><span class="admin-bar-icon"></span>Logout</a></li>
       </ul>
     </div>
 
-    <div id="content-wrap">
+    <div id="global-container">
+
       <header id="page-header">
         <h1>Dashboard</h1>
         <a id="page-header-logout" class="btn btn-secondary" href="#">Logout</a>
       </header>
+      
       <div class="section-tabs">
         <ul>
-          <li><a class="tab" href="#">Open Issues</a></li>
-          <li><a class="tab" href="#">Activity</a></li>
+          <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Open Issues<span class="blip"></span></a></li>
+          <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Contributors<span class="blip"></span></a></a></li>
         </ul>
       </div>
-  
-      <div id="repo-list" class="main">
-        <header class="section-header">
-          <h2>Repositories</h2>
-        </header>
-        <ul class="repo-list">
-          <li class="repo-item">
-            <a href="#">
-              <h3>Repo Name Goes Here</h3>
-              <span class="issue-total">2</span>
-            </a>
-          </li>
-          <li class="repo-item">
-            <a href="#">
-              <h3>Repo Name Goes Here</h3>
-              <span class="issue-total">2</span>
-            </a>
-          </li>
-          <li class="repo-item">
-            <a href="#">
-              <h3>Repo Name Goes Here</h3>
-              <span class="issue-total">2</span>
-            </a>
-          </li>
-          <li class="repo-item">
-            <a href="#">
-              <h3>Repo Name Goes Here</h3>
-              <span class="issue-total">2</span>
-            </a>
-          </li>
-          <li class="repo-item">
-            <a href="#">
-              <h3>Repo Name Goes Here</h3>
-              <span class="issue-total">2</span>
-            </a>
-          </li>
-        </ul>
+      
+      <div id="content-wrap">
+        <div id="main" class="boxed">
+          <header class="section-header">
+            <h2 class="section-title">Repositories <!-- <a href="#">Settings</a> --></h2>
+
+            <div class="filter-wrap">
+              <a class="filter-btn btn" href="#">Filter<span class="filter-arrow"></span></a>
+              <ul class="filter-dropdown dropdown-list">
+                <li><a href="#">Sort by Issue Total</a></li>
+                <li><a href="#">Sort by repo name</a></li>
+                <li><a href="#">Sort by recent activity</a></li>
+              </ul>
+            </div>
+          </header>
+          
+          <ul class="repo-list list">
+            <li class="repo-item">
+              <a href="#">
+                <h3 class="list-heading">Repo Name Goes Here</h3>
+                <span class="repo-issue-total">2</span>
+              </a>
+            </li>
+            <li class="repo-item">
+              <a href="#">
+                <h3 class="list-heading">Repo Name Goes Here</h3>
+                <span class="repo-issue-total">2</span>
+              </a>
+            </li>
+            <li class="repo-item">
+              <a href="#">
+                <h3 class="list-heading">Repo Name Goes Here</h3>
+                <span class="repo-issue-total">2</span>
+              </a>
+            </li>
+            <li class="repo-item">
+              <a href="#">
+                <h3 class="list-heading">Repo Name Goes Here</h3>
+                <span class="repo-issue-total">2</span>
+              </a>
+            </li>
+            <li class="repo-item">
+              <a href="#">
+                <h3 class="list-heading">Repo Name Goes Here</h3>
+                <span class="repo-issue-total">2</span>
+              </a>
+            </li>
+            <li class="repo-item">
+              <a href="#">
+                <h3 class="list-heading">Repo Name Goes Here</h3>
+                <span class="repo-issue-total">2</span>
+              </a>
+            </li>
+            <li class="repo-item">
+              <a href="#">
+                <h3 class="list-heading">Repo Name Goes Here</h3>
+                <span class="repo-issue-total">2</span>
+              </a>
+            </li>
+          </ul>
+          
+          <footer class="main-footer">
+            <a class="view-more-btn" href="#">View more</a>
+          </footer>
+        </div>
+
+        <div id="sidebar" class="boxed">
+          <header class="section-header">
+            <h2 class="section-title">Activity Feed</h2>
+          </header>
+          <ul class="list">
+            <li><strong>Jimmy K.</strong> completed a gitdo</li>
+          </ul>
+        </div>
+
+        <div class="clear"></div>
       </div>
 
-      <div id="activity-feed">
-        <header class="section-header">
-          <h2>Activity Feed</h2>
-        </header>
-        <ul>
-          <li><strong>Jimmy K.</strong> completed a gitdo</li>
-        </ul>
-      </div>
     </div>
 
   </body>

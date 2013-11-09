@@ -27,7 +27,7 @@
   Typography
 --------------------------------*/
 body {
-  font: 14px/1.5 Helvetica, arial, sans-serif; }
+  font: 14px Helvetica, arial, sans-serif; }
 
 /* --- [ Headings ] --- */
 h1 {
@@ -91,19 +91,43 @@ code, pre {
 body {
   background: white; }
 
-#content-wrap {
+#global-container {
   margin-left: 100px; }
+
+#content-wrap {
+  margin: 30px; }
+
+#main {
+  float: left;
+  width: 70%; }
+
+#sidebar {
+  float: right;
+  width: 28%; }
 
 /*============================
   Modules
 ------------------------------*/
+.boxed {
+  -webkit-background-clip: padding-box;
+  border: 1px solid #d0d0d0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box; }
+
 /* --- [ Buttons ] --- */
 .btn {
+  -webkit-background-clip: padding-box;
   border: 1px solid #d0d0d0;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  border-radius: 20px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
   -ms-background-clip: padding-box;
@@ -112,6 +136,145 @@ body {
   line-height: 1;
   padding: 10px 25px;
   text-decoration: none; }
+
+/* --- [ Global List Styles ] --- */
+.list {
+  margin: 0;
+  padding: 0; }
+  .list li {
+    border-top: 1px solid #d0d0d0;
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+  .list a {
+    color: #4a4a4a;
+    display: block;
+    padding: 10px 20px;
+    position: relative;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease; }
+    .list a:hover {
+      background: #f0f0f0; }
+
+.list-heading {
+  font-weight: normal; }
+
+/* --- [ Global Dropdown List ] --- */
+.dropdown-list {
+  -webkit-background-clip: padding-box;
+  background: white;
+  border: solid #d0d0d0;
+  border-width: 1px 1px 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  display: none;
+  margin: 0;
+  padding: 0;
+  position: relative; }
+  .dropdown-list li {
+    border-bottom: 1px solid #d0d0d0;
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+  .dropdown-list a {
+    color: #aaaaaa;
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease; }
+    .dropdown-list a:hover {
+      background: #f0f0f0;
+      color: #333333; }
+
+/* --- [ Section Header ] --- */
+.section-header {
+  padding: 25px 20px;
+  position: relative; }
+
+.section-title {
+  color: #bababa;
+  font-weight: 200;
+  margin: 0; }
+
+/* --- [ Filter List ] --- */
+.filter-wrap {
+  position: absolute;
+  right: 30px;
+  top: 20px; }
+  .filter-wrap:hover .filter-dropdown {
+    display: block; }
+
+.filter-btn {
+  padding-right: 40px;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.filter-dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 200px;
+  z-index: 1000; }
+
+/* --- [ Repo List ] --- */
+.repo-item a:hover .list-heading {
+  color: tomato; }
+
+.repo-issue-total {
+  background: tomato;
+  color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  margin-top: -14px;
+  position: absolute;
+  right: 30px;
+  text-align: center;
+  top: 50%;
+  width: 24px; }
+
+/* --- [ Main Content Footer ] --- */
+.main-footer {
+  background: #d0d0d0;
+  clear: both;
+  width: 100%; }
+
+.view-more-btn {
+  -webkit-background-clip: padding-box;
+  color: white;
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 11px 0 10px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+  .view-more-btn:hover {
+    background: tomato; }
 
 /*===============================
   Partials
@@ -122,7 +285,7 @@ body {
 #page-header {
   background: #eaeaea;
   border-bottom: 1px solid #d0d0d0;
-  padding: 15px 30px;
+  padding: 10px 30px;
   position: relative; }
 
 #page-header-logout {
@@ -137,24 +300,24 @@ body {
 /*============================
   Admin Bar
 ------------------------------*/
-#admin-bar {
+.admin-bar {
   background: #333333;
   height: 100%;
   left: 0;
   position: fixed;
   top: 0;
   width: 100px; }
-  #admin-bar ul {
+  .admin-bar ul {
     margin: 0 auto;
     padding: 0;
     width: 80%; }
-  #admin-bar li {
+  .admin-bar li {
     border-top: 1px solid #404040;
     list-style: none;
     margin: 20px 0; }
-    #admin-bar li:first-child {
+    .admin-bar li:first-child {
       border-top: none; }
-  #admin-bar a {
+  .admin-bar a {
     color: #f0f0f0;
     display: block;
     font-size: 0.75rem;
@@ -168,3 +331,57 @@ body {
   height: 40px;
   margin: 10px auto;
   width: 40px; }
+
+#admin-bar-logout {
+  border: none;
+  bottom: 30px;
+  left: 50%;
+  margin: 0 0 0 -40px;
+  position: absolute;
+  width: 80px; }
+
+.section-tabs {
+  background: #eaeaea;
+  border-bottom: 1px solid #d0d0d0;
+  height: 70px;
+  width: 100%; }
+  .section-tabs ul {
+    margin: 0;
+    padding: 0; }
+  .section-tabs li {
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+
+.section-tab {
+  background: #f0f0f0;
+  border: solid #d0d0d0;
+  border-width: 0 1px 1px 0;
+  color: #4a4a4a;
+  display: block;
+  font-size: 1.2em;
+  height: 70px;
+  line-height: 70px;
+  padding: 0 30px 0 65px;
+  position: relative;
+  text-decoration: none;
+  width: 225px; }
+
+.section-tab-icon {
+  background: #dadada;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  display: block;
+  height: 24px;
+  left: 30px;
+  margin-top: -12px;
+  position: absolute;
+  top: 50%;
+  width: 24px; }

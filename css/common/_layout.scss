@@ -13,6 +13,20 @@ body {
   background: #fff;
 }
 
-#content-wrap {
+#global-container {
   margin-left: 100px;
+}
+
+#content-wrap {
+  margin: 30px;
+}
+
+#main {
+  float: left;
+  width: 70%;
+}
+
+#sidebar {
+  float: right;
+  width: 28%;
 }

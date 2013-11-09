@@ -3,7 +3,7 @@
   Admin Bar
 ------------------------------*/
 
-#admin-bar {
+.admin-bar {
   background: #333;
   height: 100%;
   left: 0;
@@ -42,4 +42,13 @@
   height: 40px;
   margin: 10px auto;
   width: 40px;
+}
+
+#admin-bar-logout {
+  border: none;
+  bottom: 30px;
+  left: 50%;
+  margin: 0 0 0 -40px;
+  position: absolute;
+  width: 80px;
 }

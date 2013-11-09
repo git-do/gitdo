@@ -3,13 +3,174 @@
   Modules
 ------------------------------*/
 
+.boxed {
+  -webkit-background-clip: padding-box;
+  border: 1px solid #d0d0d0;
+  @include border-radius(5px);
+}
+
 /* --- [ Buttons ] --- */
 
 .btn {
+  -webkit-background-clip: padding-box;
   border: 1px solid #d0d0d0;
-  @include border-radius(20px);
+  @include border-radius(4px);
   color: #666;
   line-height: 1;
   padding: 10px 25px;
   text-decoration: none;
+}
+
+/* --- [ Global List Styles ] --- */
+
+.list {
+  margin: 0;
+  padding: 0;
+  
+  li {
+    border-top: 1px solid #d0d0d0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: #4a4a4a;
+    display: block;
+    padding: 10px 20px;
+    position: relative;
+    text-decoration: none;
+    @include transition(all .3s ease);
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+}
+
+.list-heading {
+  font-weight: normal;
+}
+
+/* --- [ Global Dropdown List ] --- */
+
+.dropdown-list {
+  -webkit-background-clip: padding-box;
+  background: #fff;
+  border: solid #d0d0d0;
+  border-width: 1px 1px 0;
+  @include border-radius(4px);
+  display: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  
+  li {
+    border-bottom: 1px solid #d0d0d0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: #aaa;
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    @include transition(all .3s ease);
+    &:hover {
+      background: #f0f0f0;
+      color: #333;
+    }
+  }
+}
+
+/* --- [ Section Header ] --- */
+
+.section-header {
+  padding: 25px 20px;
+  position: relative;
+}
+
+.section-title {
+  color: #bababa;
+  font-weight: 200;
+  margin: 0;
+}
+
+/* --- [ Filter List ] --- */
+
+.filter-wrap {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  &:hover {
+    .filter-dropdown {
+      display: block;
+    }
+  }
+}
+
+.filter-btn {
+  padding-right: 40px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.filter-dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 200px;
+  z-index: 1000;
+}
+
+
+/* --- [ Repo List ] --- */
+
+.repo-item {
+  a:hover {
+    .list-heading {
+      color: tomato;
+    }
+  }
+}
+
+.repo-issue-total {
+  background: tomato;
+  color: #fff;
+  @include border-radius(4px);
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  margin-top: -14px;
+  position: absolute;
+  right: 30px;
+  text-align: center;
+  top: 50%;
+  width: 24px;
+}
+
+
+/* --- [ Main Content Footer ] --- */
+
+.main-footer {
+  background: #d0d0d0;
+  clear: both;
+  width: 100%;
+}
+
+.view-more-btn {
+  -webkit-background-clip: padding-box;
+  color: #FFF;
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 11px 0 10px;
+  text-align: center;
+  text-decoration: none;
+  @include transition(all .3s ease);
+  &:hover {
+    background: tomato;
+  }
 }
