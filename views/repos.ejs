@@ -1,7 +1,13 @@
 
 <header id="page-header">
   <h1>Manage Repositories</h1>
-  <a id="page-header-logout" class="btn btn-secondary" href="/auth/logout">Logout</a>
+  <div id="user-info">
+    <span class="user-avatar"></span>
+    <a class="user-name" href="#">Michael Wolf <span class="icon-arrow-down"></span></a>
+    <div class="user-logout">
+      <a class="btn" href="/auth/logout">Logout</a>
+    </div>
+  </div>
 </header>
 
 <div id="content-wrap">
@@ -15,8 +21,8 @@
         <li>
           <h3 class="list-heading"><%- repos[i].fullname.split('/')[1] %></h3>
           <div class="switch">
-            <input type="checkbox" name="switch" class="switch-checkbox" id="myswitch">
-            <label class="switch-label" for="myswitch">
+            <input type="checkbox" name="switch" class="switch-checkbox" id="myswitch<%- i %>">
+            <label class="switch-label" for="myswitch<%- i %>">
                 <div class="switch-inner"></div>
                 <div class="switch-handle"></div>
             </label>

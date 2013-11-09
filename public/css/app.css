@@ -486,11 +486,63 @@ body {
   padding: 10px 30px;
   position: relative; }
 
-#page-header-logout {
-  margin-top: -20px;
+#page-header-utilities {
   position: absolute;
   right: 30px;
-  top: 50%; }
+  top: 0; }
+
+#notifications-wrap {
+  float: left; }
+
+#user-info {
+  position: absolute;
+  right: 30px;
+  top: 25px; }
+
+.user-avatar {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  background: url(../img/tbd-avatar.jpg) no-repeat;
+  display: block;
+  float: left;
+  height: 50px;
+  margin-right: 15px;
+  width: 50px; }
+
+.user-name {
+  color: #8a8a8a;
+  float: left;
+  line-height: 50px;
+  padding-right: 20px;
+  position: relative;
+  text-decoration: none; }
+  .user-name:hover .icon-arrow-down {
+    background-position: -175px -25px; }
+  .user-name .icon-arrow-down {
+    margin-top: -3px;
+    position: absolute;
+    right: 0;
+    top: 50%; }
+
+.user-logout {
+  float: left;
+  border-left: 1px solid #d0d0d0;
+  height: 50px;
+  line-height: 50px;
+  margin-left: 20px;
+  padding-left: 25px; }
+
+.icon-arrow-down {
+  background: url(../img/sprite.png) no-repeat -175px 0;
+  display: block;
+  height: 6px;
+  width: 10px; }
 
 #footer {
   border-top: 1px solid #d0d0d0;
@@ -523,6 +575,7 @@ body {
   top: 0;
   width: 210px; }
   .admin-bar ul {
+    border-top: 1px solid #3a3a3a;
     margin: 0;
     padding: 0; }
   .admin-bar li {
@@ -534,7 +587,8 @@ body {
     color: #f0f0f0;
     display: block;
     font-size: 0.9rem;
-    padding: 14px 20px;
+    padding: 14px 20px 13px 45px;
+    position: relative;
     text-decoration: none;
     -webkit-transition: background 0.3s ease;
     -moz-transition: background 0.3s ease;
@@ -542,16 +596,47 @@ body {
     transition: background 0.3s ease; }
     .admin-bar a:hover {
       background: #2a2a2a; }
+      .admin-bar a:hover .icon-dashboard {
+        background-position: -100px -25px; }
+      .admin-bar a:hover .icon-repos {
+        background-position: -125px -25px; }
+      .admin-bar a:hover .icon-logout {
+        background-position: -150px -25px; }
     .admin-bar a.active {
       border-right: 5px solid tomato; }
+      .admin-bar a.active .icon-dashboard {
+        background-position: -100px -25px; }
+      .admin-bar a.active .icon-repos {
+        background-position: -125px -25px; }
+      .admin-bar a.active .icon-logout {
+        background-position: -150px -25px; }
+
+#admin-bar-logo {
+  background: url(../img/sprite.png) no-repeat 0 0;
+  display: block;
+  height: 39px;
+  margin: 30px auto;
+  position: relative;
+  text-indent: -9999px;
+  width: 84px; }
 
 .admin-bar-icon {
-  background: #6a6a6a;
-  border-radius: 40px;
-  display: none;
-  height: 40px;
+  background: url(../img/sprite.png) no-repeat;
+  border-radius: 4px;
+  display: block;
+  height: 20px;
   margin: 10px auto;
-  width: 40px; }
+  width: 20px;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  margin-top: -10px; }
+  .admin-bar-icon.icon-dashboard {
+    background-position: -100px 0; }
+  .admin-bar-icon.icon-repos {
+    background-position: -125px 0; }
+  .admin-bar-icon.icon-logout {
+    background-position: -150px 0; }
 
 #admin-bar-profile .admin-bar-icon {
   display: block;
