@@ -78,7 +78,7 @@ exports.webHook = function (req, res) {
   var payload = req.body.payload,
       payloadInfo = {};
 
-  console.log(payload['repository']);
+  console.log(payload);
   // payloadInfo.repo = payload.repository.name;
   // payloadInfo.user = payload.repository.owner.name;
   payloadInfo.ref = payload.ref;
