@@ -1,0 +1,45 @@
+$(function () {
+
+  var username = null;
+
+  $.ajax({
+    url: '/api/user',
+    type: 'GET',
+    success: function (data) {
+      username = data.username;
+    }
+  });
+
+  $('[type="checkbox"]').click(function (event) {
+    event.preventDefault();
+
+    var $this = $(this);
+    
+    if ($this.attr("checked") === "checked") {
+      $.ajax({
+        url: '/api/repo',
+        type: 'DELETE',
+        data: {
+          username: username,
+          repo: $this.attr('name')
+        },
+        success: function () {
+          $this.prop("checked", "false");
+        }
+      });
+    } else {
+      $.ajax({
+        url: '/api/repo',
+        type: 'POST',
+        data: {
+          username: username,
+          repo: $this.attr('name')
+        },
+        success: function () {
+          $this.prop("checked", "checked");
+        }
+      });
+    }
+  });
+
+});
