@@ -7,6 +7,7 @@
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/app.css">
+      <!--<script src="lib/angular.min.js"></script>-->
   </head>
   <body>
       
@@ -42,32 +43,20 @@
           </header>
           
           <ul class="issue-list list">
-            <li>
+            <li class="open" ng-repeat="issue in issues">
               <a href="#" class="list-item-header">
-                <h3 class="list-heading">Title of an interesting gitdo goes here</h3>
-                <span class="issue-date timestamp">created today, 6:49 pm</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="list-item-header">
-                <h3 class="list-heading">Title of an interesting gitdo goes here</h3>
-                <span class="issue-date timestamp">created today, 11:13 am</span>
-              </a>
-            </li>
-            <li class="open">
-              <a href="#" class="list-item-header">
-                <h3 class="list-heading">Title of an interesting gitdo goes here</h3>
+                <h3 class="list-heading">{{issue.title}}</h3>
                 <span class="issue-date timestamp">created yesterday, 2:33 pm</span>
               </a>
               <div class="issue-details">
                 <ul class="issue-meta">
-                  <li><span class="issue-meta-label">Branch Name</span> develop-phase2</li>
-                  <li><span class="issue-meta-label">File Name</span> glossary.html</li>
-                  <li><span class="issue-meta-label">Line Number</span> #508</li>
+                  <li><span class="issue-meta-label">Branch Name</span> {{issue.branch}}</li>
+                  <li><span class="issue-meta-label">File Name</span> {{issue.file}}</li>
+                  <li><span class="issue-meta-label">Line Number</span> #{{issue.line}}</li>
                 </ul>
                 <div class="issue-desc">
                   <span class="issue-meta-label">Issue description</span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, necessitatibus ea eaque saepe nemo? Dolorum, ab aspernatur iusto voluptates molestiae numquam quos asperiores molestias? Ipsum doloremque libero nulla recusandae voluptas.</p>
+                  <p>{{issue.description}}</p>
                 </div>
                 <div class="clear"></div>
               </div>
@@ -75,30 +64,6 @@
                 <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
                 <a href="#" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
               </div>
-            </li>
-            <li>
-              <a href="#" class="list-item-header">
-                <h3 class="list-heading">Title of an interesting gitdo goes here</h3>
-                <span class="issue-date timestamp">3 days ago</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="list-item-header">
-                <h3 class="list-heading">Title of an interesting gitdo goes here</h3>
-                <span class="issue-date timestamp">6 days ago</span>
-              </a>              
-            </li>
-            <li>
-              <a href="#" class="list-item-header">
-                <h3 class="list-heading">Title of an interesting gitdo goes here</h3>
-                <span class="issue-date timestamp">2 weeks ago</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="list-item-header">
-                <h3 class="list-heading">Title of an interesting gitdo goes here</h3>
-                <span class="issue-date timestamp">6 weeks ago</span>
-              </a>
             </li>
           </ul>
         </div>

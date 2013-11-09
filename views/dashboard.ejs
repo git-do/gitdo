@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html ng-app class="no-js">
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,7 @@
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/app.css">
+      <!--<script src="lib/angular.min.js"></script>-->
   </head>
   <body>
       
@@ -53,46 +54,10 @@
           </header>
           
           <ul class="repo-list list">
-            <li>
-              <a href="/detail-view/index.html" class="list-item-header">
-                <h3 class="list-heading">Repo Name Goes Here</h3>
-                <span class="repo-issue-total">2</span>
-              </a>
-            </li>
-            <li>
-              <a href="/detail-view/index.html" class="list-item-header">
-                <h3 class="list-heading">Repo Name Goes Here</h3>
-                <span class="repo-issue-total">2</span>
-              </a>
-            </li>
-            <li>
-              <a href="/detail-view/index.html" class="list-item-header">
-                <h3 class="list-heading">Repo Name Goes Here</h3>
-                <span class="repo-issue-total">2</span>
-              </a>
-            </li>
-            <li>
-              <a href="/detail-view/index.html" class="list-item-header">
-                <h3 class="list-heading">Repo Name Goes Here</h3>
-                <span class="repo-issue-total">2</span>
-              </a>
-            </li>
-            <li>
-              <a href="/detail-view/index.html" class="list-item-header">
-                <h3 class="list-heading">Repo Name Goes Here</h3>
-                <span class="repo-issue-total">2</span>
-              </a>
-            </li>
-            <li>
-              <a href="/detail-view/index.html" class="list-item-header">
-                <h3 class="list-heading">Repo Name Goes Here</h3>
-                <span class="repo-issue-total">2</span>
-              </a>
-            </li>
-            <li>
-              <a href="/detail-view/index.html" class="list-item-header">
-                <h3 class="list-heading">Repo Name Goes Here</h3>
-                <span class="repo-issue-total">2</span>
+            <li ng-repeat="repo in repositories">
+              <a href="/dashboard/{{repo.name}}" class="list-item-header">
+                <h3 class="list-heading">{{repo.name}}</h3>
+                <span class="repo-issue-total">{{repo.issueTotal}}</span>
               </a>
             </li>
           </ul>
