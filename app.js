@@ -142,7 +142,17 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/dashboard/:repo', function (req, res) {
   res.render('issues', {
-    issues: []
+    issues: [{
+      "name": "[string]",
+      "filename": "[string]",
+      "line": "[number]",
+      "branch": "[string]",
+      "srcLink": "[string]",
+      "github": {
+        "body": "[string]",
+        "created_at": "[string]"
+      }
+    }]
   });
 });
 

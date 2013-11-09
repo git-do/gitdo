@@ -22,24 +22,24 @@
       <% for (var i = 0; i < issues.length; i++) {%>
         <li class="open">
           <a href="#" class="list-item-header">
-            <h3 class="list-heading"><%- issues[i].title %></h3>
-            <span data-date="<%- issues[i].timestamp %>" class="issue-date timestamp">created </span>
+            <h3 class="list-heading"><%- issues[i].name %></h3>
+            <span data-date="<%- issues[i].github.created_at %>" class="issue-date timestamp">created </span>
           </a>
           <div class="issue-details">
             <ul class="issue-meta">
               <li><span class="issue-meta-label">Branch Name</span> <%- issues[i].branch %></li>
-              <li><span class="issue-meta-label">File Name</span> <%- issues[i].file %></li>
+              <li><span class="issue-meta-label">File Name</span> <%- issues[i].filename %></li>
               <li><span class="issue-meta-label">Line Number</span> #<%- issues[i].line %></li>
             </ul>
             <div class="issue-desc">
               <span class="issue-meta-label">Issue description</span>
-              <p><%- issues[i].description %></p>
+              <p><%- issues[i].github.body %></p>
             </div>
             <div class="clear"></div>
           </div>
           <div class="issue-footer">
             <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
-            <a href="<%- issues[i].sourceLink %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
+            <a href="<%- issues[i].srcLink %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
           </div>
         </li>
       <% } %>
