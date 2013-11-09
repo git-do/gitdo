@@ -1,112 +1,48 @@
-<!DOCTYPE html>
-<html class="no-js">
-  <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>Repo Name Here | gitdo</title>
-      <meta name="description" content="">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="/css/app.css">
-  </head>
-  <body>
-      
-    <div class="admin-bar">
-      <ul>
-        <li id="admin-bar-profile"><a href="#"><span class="admin-bar-icon"></span></a></li>
-        <li><a href="/dashboard"><span class="admin-bar-icon"></span>Dashboard</a></li>
-        <li><a href="#"><span class="admin-bar-icon"></span>Manage Repositories</a></li>
-        <li><a href="#"><span class="admin-bar-icon"></span>Logout</a></li>
-      </ul>
-    </div>
+<header id="page-header">
+  <h1>Repo Name Here</h1>
+  <a id="page-header-logout" class="btn btn-secondary" href="#">Logout</a>
+</header>
 
-    <div id="global-container">
+<!-- 
+<div class="section-tabs">
+  <ul>
+    <li><a class="section-tab active" href="#"><span class="section-tab-icon"></span>Open Issues<span class="blip"></span></a></li>
+    <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Contributors<span class="blip"></span></a></a></li>
+  </ul>
+</div> 
+-->
 
-      <header id="page-header">
-        <h1>Repo Name Here</h1>
-        <a id="page-header-logout" class="btn btn-secondary" href="#">Logout</a>
-      </header>
-      
-      <!-- 
-      <div class="section-tabs">
-        <ul>
-          <li><a class="section-tab active" href="#"><span class="section-tab-icon"></span>Open Issues<span class="blip"></span></a></li>
-          <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Contributors<span class="blip"></span></a></a></li>
-        </ul>
-      </div> 
-      -->
-      
-      <div id="content-wrap">
-        <div id="main">
-          <header class="section-header">
-            <h2 class="section-title">Open Issues</h2>
-          </header>
-          
-          <ul class="issue-list list">
-            <% for (var i = 0; i < issues.length; i++) {%>
-              <li class="open">
-                <a href="#" class="list-item-header">
-                  <h3 class="list-heading"><%- issues[i].title</h3>
-                  <span data-date="<%- issues[i].timestamp %>" class="issue-date timestamp">created </span>
-                </a>
-                <div class="issue-details">
-                  <ul class="issue-meta">
-                    <li><span class="issue-meta-label">Branch Name</span> <%- issues[i].branch %></li>
-                    <li><span class="issue-meta-label">File Name</span> <%- issues[i].file %></li>
-                    <li><span class="issue-meta-label">Line Number</span> #<%- issues[i].line %></li>
-                  </ul>
-                  <div class="issue-desc">
-                    <span class="issue-meta-label">Issue description</span>
-                    <p><%- issues[i].description %></p>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-                <div class="issue-footer">
-                  <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
-                  <a href="<%- issues[i].sourceLink %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
-                </div>
-              </li>
-            <% } %>
-          </ul>
-        </div>
-      
-      <!-- 
-        <div id="sidebar">
-          <header class="section-header">
-            <h2 class="section-title">Repo Activity Feed</h2>
-          </header>
-          <ul class="activity-list list">
-            <li>
-              <p><strong>Jimmy K.</strong> created a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-            <li>
-              <p><strong>Roman P.</strong> created a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-            <li>
-              <p><strong>Roman P.</strong> created a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-            <li>
-              <p><strong>Jimmy K.</strong> created a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-            <li>
-              <p><strong>Alex M.</strong> completed a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-          </ul>
-        </div> 
-      -->
-
-        <footer id="footer">
-          <p>Designed and developed by</p>
-          <p>Alex Mesorash, Jimmy King, Roman Pacheco, and Michael Wolf</p>
-        </footer>
-
-        <div class="clear"></div>
-      </div>
+<div id="content-wrap">
+  <div id="main">
+    <header class="section-header">
+      <h2 class="section-title">Open Issues</h2>
+    </header>
     
-    </div>
-  </body>
-</html>
+    <ul class="issue-list list">
+      <% for (var i = 0; i < issues.length; i++) {%>
+        <li class="open">
+          <a href="#" class="list-item-header">
+            <h3 class="list-heading"><%- issues[i].title %></h3>
+            <span data-date="<%- issues[i].timestamp %>" class="issue-date timestamp">created </span>
+          </a>
+          <div class="issue-details">
+            <ul class="issue-meta">
+              <li><span class="issue-meta-label">Branch Name</span> <%- issues[i].branch %></li>
+              <li><span class="issue-meta-label">File Name</span> <%- issues[i].file %></li>
+              <li><span class="issue-meta-label">Line Number</span> #<%- issues[i].line %></li>
+            </ul>
+            <div class="issue-desc">
+              <span class="issue-meta-label">Issue description</span>
+              <p><%- issues[i].description %></p>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="issue-footer">
+            <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
+            <a href="<%- issues[i].sourceLink %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
+          </div>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</div>

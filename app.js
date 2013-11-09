@@ -10,6 +10,7 @@ var
   path = require('path'),
   sass = require('node-sass'),
   ejs = require('ejs'),
+  ejsLayouts = require('express-ejs-layouts'),
   passport = require('passport'),
   GithubStrat = require('passport-github').Strategy;
 
@@ -71,6 +72,7 @@ if (!isProduction) {
 app.set('port', process.env.PORT || port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(ejsLayouts);
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -123,12 +125,15 @@ app.post('/auth/user', users.set);
 
 app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
-    repos: JSON.parse('/api/getRepos')
+    //repos: JSON.parse('/api/getRepos')
+    repos: []
   });
 });
 
 app.get('/dashboard/:repo', function (req, res) {
-  res.render('issues', { title: 'The index page!' });
+  res.render('issues', {
+    issues: []
+  });
 });
 
 // if run as root, downgrade to the owner of this file
