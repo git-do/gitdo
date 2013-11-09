@@ -51,10 +51,14 @@ if ('development' === app.get('env')) {
   );
 }
 
+var isProduction = (process.env.NODE_ENV === 'production');
+var port = (isProduction ? 80 : 8000);
+
+
 /* --------------------
 // EXPRESS SETUP
 -----------------------*/
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -89,3 +93,11 @@ app.post('/api/commit', github.hook);
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+// if run as root, downgrade to the owner of this file
+if (process.getuid() === 0) {
+  require('fs').stat(__filename, function(err, stats) {
+    if (err) { return console.error(err); }
+    process.setuid(stats.uid);
+  });
+}
