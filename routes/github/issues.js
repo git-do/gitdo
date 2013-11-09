@@ -12,7 +12,7 @@ var createIssue = function (accessToken, repo, user, desc, title, callback) {
     'repo': repo,
     'body': desc,
     'title': title,
-    'labels': ['bug']
+    'labels': ['enhancement']
   }, function (err, data) {
     if (err) {
       callback(err);

@@ -77,9 +77,22 @@ exports.webHook = function (req, res) {
       payloadInfo = {};
 
   payloadInfo.repo = payload.repository.owner.name + '/' + payload.repository.name;
+  payloadInfo.ref = payload.ref;
   payloadInfo.changedFiles = [];
 
-  // TODO: Get list of relevant files and send them to the parser
+  async.each(payload.commits, function (commit, callback) {
+    payloadInfo.changedFiles = payloadInfo.changedFiles.concat(commit.added);
+    payloadInfo.changedFiles = payloadInfo.changedFiles.concat(commit.modified);
+    payloadInfo.changedFiles = payloadInfo.changedFiles.concat(commit.removed);
+    callback();
+  }, function () {
+    // Remove duplicates
+    payloadInfo.changedFiles = payloadInfo.changedFiles.filter(function (elem, pos) {
+      return payloadInfo.changedFiles.indexOf(elem) === pos;
+    });
+
+    // todo: give these files to the parser
+  });
 
   res.end();
 };

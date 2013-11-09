@@ -90,6 +90,7 @@ var github = require('./routes/github/github'),
     repos = require('./routes/github/repos'),
     issues = require('./routes/github/issues'),
     hooks = require('./routes/github/hooks'),
+    files = require('./routes/github/files'),
 
     // Gitdo imports
     gitdoUsers = require('./routes/users'),
@@ -103,7 +104,7 @@ var github = require('./routes/github/github'),
 app.get('/auth/github', passport.authenticate('github'), github.auth);
 app.get('/auth/github/callback', passport.authenticate('github', {
   successRedirect: '/dashboard',
-  failureRedirect: '/login' 
+  failureRedirect: '/login'
 }), github.authCallback);
 app.get('/auth/logout', github.logout);
 
