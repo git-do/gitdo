@@ -1,19 +1,24 @@
 
+/*===============================
+  Lib
+---------------------------------*/
+@import "lib/normalize.css";
+
 
 /*===============================
   Common
 ---------------------------------*/
-@import "common/layout.scss";
+@import "common/_layout.scss";
 
 
 /*===============================
   Partials
 ---------------------------------*/
-@import "partials/header.scss";
+@import "partials/_header.scss";
 
 
 /*===============================
   Features
 ---------------------------------*/
-@import "features/admin-bar.scss";
+@import "features/_admin-bar.scss";
   

@@ -1,12 +1,21 @@
 /*===============================
+  Lib
+---------------------------------*/
+@import url("lib/normalize.css");
+/*===============================
   Common
 ---------------------------------*/
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
 body {
   background: #fafafa;
   font: 16px/1.5 Helvetica, arial, sans-serif; }
 
 #content-wrap {
-  margin-left: 140px; }
+  margin-left: 100px; }
 
 /*===============================
   Partials
