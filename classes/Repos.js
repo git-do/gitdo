@@ -28,7 +28,6 @@ module.exports = (function () {
     var self = this;
     this.originalObj = obj;
     this.dbGet(obj, function (err, vals) {
-      console.log("dbGet", vals);
       self.response(err, vals, function (v) {
         self.onGet(v);
       }, true);
@@ -48,9 +47,9 @@ module.exports = (function () {
 
         // If name is included in request/original object,
         // it's looking for a single repo, not all repos
-        //if (self.originalObj.name) {
-        //  data = data[0];
-        //}
+        if (self.originalObj.name) {
+          data = data[0];
+        }
         self.send(200, data);
       }
     });
@@ -101,16 +100,13 @@ module.exports = (function () {
 
   // Merge data
   Repos.prototype.mergeData = function (repos, ghRepos) {
-    console.log(repos);
     var
       i = repos.length,
       repo,
       ghReposObj = this.utils.arrayToObj(ghRepos, "id");
-    console.log(ghReposObj);
     for (i; i; i -= 1) {
       repo = repos[i - 1];
       repo.github = ghReposObj[repo.ghid.toString()];
-      console.log(repos);
     }
     return repos;
   };
