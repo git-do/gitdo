@@ -1,20 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js">
   <head>
-    <meta charset="utf-8">
-    <title>git.do</title>
-    <meta name="description" content="">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- styles -->
-    <link href="/css/style.css" rel="stylesheet">
-
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Dashbaord</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/css/app.css">
   </head>
   <body>
+      
+    <div class="admin-bar">
+      <ul>
+        <li id="admin-bar-profile"><a href="#"><span class="admin-bar-icon"></span></a></li>
+        <li><a class="active" href="/dashboard"><span class="admin-bar-icon"></span>Dashboard</a></li>
+        <li><a href="#"><span class="admin-bar-icon"></span>Manage Repositories</a></li>
+        <li><a href="#"><span class="admin-bar-icon"></span>Logout</a></li>
+      </ul>
+    </div>
+
+    <div id="global-container">
     <%- body %>
+<!-- 
+        <div id="sidebar">
+          <header class="section-header">
+            <h2 class="section-title">Activity Feed</h2>
+          </header>
+          <ul class="activity-list list">
+            <li>
+              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
+              <p class="timestamp">Today, 3:24 pm</p>
+            </li>
+            <li>
+              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
+              <p class="timestamp">Today, 3:24 pm</p>
+            </li>
+            <li>
+              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
+              <p class="timestamp">Today, 3:24 pm</p>
+            </li>
+            <li>
+              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
+              <p class="timestamp">Today, 3:24 pm</p>
+            </li>
+            <li>
+              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
+              <p class="timestamp">Today, 3:24 pm</p>
+            </li>
+          </ul>
+        </div> -->
+
+        <footer id="footer">
+          <p>Designed and developed by</p>
+          <p>Alex Mesorash, Jimmy King, Roman Pacheco, and Michael Wolf</p>
+        </footer>
+
+        <div class="clear"></div>
+      </div>
+      
+    </div>
   </body>
 </html>

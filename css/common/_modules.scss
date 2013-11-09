@@ -1,0 +1,283 @@
+
+/*============================
+  Modules
+------------------------------*/
+
+.timestamp {
+  color: #b0b0b0;
+  font-size: .7rem;
+  font-weight: 200;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+/* --- [ Buttons ] --- */
+
+.btn {
+  -webkit-background-clip: padding-box;
+  border: 1px solid #d0d0d0;
+  @include border-radius(4px);
+  color: #666;
+  line-height: 1;
+  padding: 10px 25px;
+  text-decoration: none;
+  @include transition(all .3s ease);
+  &:hover {
+    background: tomato;
+    border-color: tomato;
+    color: #fff;
+  }
+}
+
+.btn-primary {
+  background: #333;
+  border-color: #333;
+  color: #FFF;
+}
+
+.btn-close {
+  color: #ccc;
+  display: block;
+  height: 15px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  text-decoration: none;
+  width: 15px;
+}
+
+.btn-view-more {
+  -webkit-background-clip: padding-box;
+  background: #d0d0d0;
+  color: #FFF;
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 11px 0 10px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  @include transition(all .3s ease);
+  &:hover {
+    background: tomato;
+  }
+}
+
+/* --- [ Global List Styles ] --- */
+
+.list {
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0;
+  padding: 0;
+  
+  li {
+    border-top: 1px solid #e0e0e0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    &:first-child {
+      border-top: none;
+    }
+  }
+}
+
+.list-item-header {
+  -webkit-background-clip: padding-box;
+  color: #4a4a4a;
+  display: block;
+  padding: 17px 0 16px;
+  position: relative;
+  text-decoration: none;
+  @include transition(all .3s ease);
+  &:hover {
+    background: #f8f8f8;
+    color: tomato;
+    padding-left: 20px;
+  }
+}
+
+.list-heading {
+  margin: 0;
+}
+
+/* --- [ Global Dropdown List ] --- */
+
+.dropdown-list {
+  background: #fff;
+  border: solid #d0d0d0;
+  border-width: 1px 1px 0;
+  @include border-radius(4px);
+  border-top-right-radius: 0;
+  display: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  
+  li {
+    border-bottom: 1px solid #d0d0d0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    -webkit-background-clip: padding-box;
+    color: #aaa;
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    @include transition(all .3s ease);
+    &:hover {
+      background: #f0f0f0;
+      color: #333;
+    }
+  }
+}
+
+/* --- [ Section Header ] --- */
+
+.section-header {
+  position: relative;
+}
+
+.section-title {
+  color: #333;
+  font-weight: 200;
+  margin: 0;
+  border-bottom: 2px solid #666;
+  padding-bottom: 13px;
+}
+
+/* --- [ Filter List ] --- */
+
+.filter-wrap {
+  position: absolute;
+  right: 30px;
+  top: 15px;
+  &:hover {
+    .filter-btn {
+      background: tomato;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-color: tomato;
+      color: #fff;
+    }
+    .filter-dropdown {
+      display: block;
+    }
+  }
+}
+
+.filter-btn {
+  padding-right: 40px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.filter-dropdown {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 200px;
+  z-index: 1000;
+}
+
+
+/* --- [ Repo List ] --- */
+
+.repo-issue-total {
+  background: tomato;
+  color: #fff;
+  @include border-radius(4px);
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  margin-top: -12px;
+  position: absolute;
+  right: 30px;
+  text-align: center;
+  top: 50%;
+  width: 24px;
+}
+
+
+/* --- [ Issue List ] --- */
+
+.issue-list {
+  li.open {
+    border-color: tomato;
+    
+    .list-item-header {
+      background: #FF6347;
+      padding-left: 20px;
+      color: #FFF;
+    }
+
+    .timestamp {
+      color: #fff;
+    }
+  }
+}
+
+.issue-date {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
+
+.issue-details {
+  border-top: 1px solid #f6f6f6;
+  padding: 25px 0;
+}
+
+.issue-meta {
+  background: #f6f6f6;
+  float: left;
+  margin: 0 5% 0 20px;
+  padding: 25px 20px 0;
+  width: 25%;
+  
+  li {
+    border:none;
+    margin-bottom: 15px;
+    padding: 7px 0 10px;
+    position: relative;
+  }
+}
+
+.issue-meta-label {
+  color: #b0b0b0;
+  display: block;
+  font-size: .7rem;
+  left: 0;
+  margin-top: -7px;
+  position: absolute;
+  top: 0;
+  text-transform: uppercase;
+}
+
+.issue-desc {
+  float: left;
+  padding-top: 20px;
+  position: relative;
+  width: 65%;
+  .issue-meta-label {
+    top: 7px;
+  }
+}
+
+.issue-footer {
+  background: #efefef;
+  clear: both;
+  padding: 10px;
+  text-align: right;
+  width: 100%;
+}
+
+.issue-footer-btn {
+  display: inline-block;
+  &:first-child {
+    margin-right: 5px;
+  }
+}
