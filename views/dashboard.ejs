@@ -27,6 +27,10 @@
       -->
     </header>
     
+    <% if (repos.length === 0) {%>
+      <h3 class="warn">You are not tracking any repositories in gitdo. Go to <a href="/repos">Manage Repositories</a> to add some.</h3>
+    <% } %>
+
     <ul class="list">
       <% for (var i = 0; i < repos.length; i++) {%>
         <li>

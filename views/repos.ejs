@@ -21,7 +21,11 @@
         <li>
           <h3 class="list-heading"><%- repos[i].fullname.split('/')[1] %></h3>
           <div class="switch">
-            <input type="checkbox" name="switch" class="switch-checkbox" id="myswitch<%- i %>">
+            <% if (repos[i].gitdo) {%>
+              <input type="checkbox" checked="checked" name="switch" class="switch-checkbox" id="myswitch<%- i %>" />
+            <%}else {%>
+              <input type="checkbox" name="switch" class="switch-checkbox" id="myswitch<%- i %>" />
+            <% } %>
             <label class="switch-label" for="myswitch<%- i %>">
                 <div class="switch-inner"></div>
                 <div class="switch-handle"></div>

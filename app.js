@@ -11,6 +11,8 @@ var
   sass = require('node-sass'),
   ejs = require('ejs'),
   ejsLayouts = require('express-ejs-layouts'),
+  Utils = require('./classes/Utils.js'),
+  utils = new Utils(),
   passport = require('passport'),
   GithubStrat = require('passport-github').Strategy;
 
@@ -130,9 +132,9 @@ app.get('/api/user', gitdoUsers.get);
 app.post('/api/user', gitdoUsers.create);
 
 // Repos
-app.get('/api/repos', gitdoRepos.getAll);
-app.get('/api/repo', gitdoRepos.get);
-app.post('/api/repo', gitdoRepos.create);
+app.get('/api/repos', gitdoRepos.getAllRoute);
+app.get('/api/repo', gitdoRepos.getRoute);
+app.post('/api/repo', gitdoRepos.createRoute);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
@@ -152,51 +154,38 @@ app.get('/', function (req, res) {
 app.get('/repos', function (req, res) {
   // Get list of repos from GitHub
   repos.getRepos(req.user.accessToken, function (err, repos) {
-    res.render('repos', {
+    gitdoRepos.getAll(req, res, function (gdRepos) {
+      //this is the worst
+      var gdReposObj = utils.arrayToObj(gdRepos, "ghid");
+
+      for (var i = 0; i < repos.length; i++) {
+        var id = repos[i].id;
+
+        if (gdReposObj[id]) {
+          repos[i].gitdo = true;
+        }
+      }
+
+      res.render('repos', {
+        user: {
+          avatar: req.user._json.avatar_url, 
+          name: req.user.displayName || req.user.username
+        },
+        repos: repos
+      });
+    }); 
+  })
+});
+
+app.get('/dashboard', function (req, res) {
+  gitdoRepos.getAll(req, res, function (repos) {
+    res.render('dashboard', {
       user: {
         avatar: req.user._json.avatar_url, 
         name: req.user.displayName || req.user.username
       },
       repos: repos
     });
-  })
-});
-
-app.get('/dashboard', function (req, res) {
-  res.render('dashboard', {
-    user: {
-      avatar: req.user._json.avatar_url, 
-      name: req.user.displayName || req.user.username
-    },
-    repos: [
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
-      },
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
-      },
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
-      }
-    ]
   });
 });
 
