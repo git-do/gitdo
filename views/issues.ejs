@@ -22,7 +22,7 @@
     <ul class="issue-list list">
       <% for (var i = 0; i < issues.length; i++) {%>
         
-        <li class="open">
+        <li class="<%- issues[i].isOpen %>">
           <header>
             <a href="#" class="list-item-header">
               <h3 class="list-heading"><%- issues[i].name %></h3>
@@ -41,11 +41,10 @@
               <p><%- issues[i].github.body %></p>
             </div>
             <div class="clear"></div>
-          </div>
-
-          <div class="issue-footer">
-            <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
-            <a href="<%- issues[i].srcLink %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
+            <div class="issue-footer">
+              <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
+              <a href="<%- issues[i].srcLink %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
+            </div>
           </div>
 
         </li>

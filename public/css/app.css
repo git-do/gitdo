@@ -323,6 +323,8 @@ body {
     color: white; }
   .issue-list li.open .timestamp {
     color: white; }
+  .issue-list li.open .issue-details {
+    display: block; }
 
 .issue-date {
   position: absolute;
@@ -331,7 +333,8 @@ body {
 
 .issue-details {
   border-top: 1px solid #f6f6f6;
-  padding: 25px 0; }
+  display: none;
+  padding: 25px 0 0; }
 
 .issue-meta {
   background: #f6f6f6;
@@ -366,6 +369,7 @@ body {
 .issue-footer {
   background: #efefef;
   clear: both;
+  margin-top: 30px;
   padding: 10px;
   text-align: right;
   width: 100%; }
@@ -374,6 +378,101 @@ body {
   display: inline-block; }
   .issue-footer-btn:first-child {
     margin-right: 5px; }
+
+/* --- [ Manage Repos ] --- */
+#repo-manager li {
+  padding: 17px 0 16px;
+  position: relative; }
+
+/* --- [ Switch ] --- */
+.switch {
+  position: absolute;
+  right: 20px;
+  top: 13px;
+  width: 80px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; }
+
+.switch-checkbox {
+  display: none; }
+
+.switch-label {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 2px solid white;
+  cursor: pointer;
+  display: block;
+  overflow: hidden; }
+
+.switch-inner {
+  -webkit-transition: margin 0.3s ease-in 0s;
+  -moz-transition: margin 0.3s ease-in 0s;
+  -ms-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s;
+  margin-left: -100%;
+  width: 200%; }
+
+.switch-inner:before, .switch-inner:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: white;
+  float: left;
+  font-size: 15px;
+  font-weight: bold;
+  height: 24px;
+  line-height: 26px;
+  padding: 0;
+  width: 50%; }
+
+.switch-inner:before {
+  background-color: #eeeeee;
+  color: tomato;
+  content: "ON";
+  padding-left: 10px; }
+
+.switch-inner:after {
+  background: #eeeeee;
+  color: #999999;
+  content: "OFF";
+  padding-right: 10px;
+  text-align: right; }
+
+.switch-handle {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-transition: all 0.3s ease-in 0s;
+  -moz-transition: all 0.3s ease-in 0s;
+  -ms-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s;
+  background: #a1a1a1;
+  border: 2px solid white;
+  bottom: 0;
+  margin: -1px;
+  position: absolute;
+  right: 51px;
+  top: 0;
+  width: 33px; }
+
+.switch-checkbox:checked + .switch-label .switch-inner {
+  margin-left: 0; }
+
+.switch-checkbox:checked + .switch-label .switch-handle {
+  background: tomato;
+  right: 0px; }
 
 /*===============================
   Partials

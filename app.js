@@ -143,17 +143,35 @@ app.get('/', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // Get list of repos from GitHub
-  repos.getrepos(req.user.accessToken, function (err, repos) {
+  //repos.getrepos(req.user.accessToken, function (err, repos) {
     res.render('repos', {
       repos: repos
     });
-  })
-}
+  //});
+});
 
 app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
     //repos: JSON.parse('/api/getRepos')
     repos: [
+      {
+        name: '[string]',
+        dateCreated: '[string]',
+        github: {
+          id: '[integer]',
+          fullname: '[string]',
+          active: '[boolean]'
+        }
+      },
+      {
+        name: '[string]',
+        dateCreated: '[string]',
+        github: {
+          id: '[integer]',
+          fullname: '[string]',
+          active: '[boolean]'
+        }
+      },
       {
         name: '[string]',
         dateCreated: '[string]',
@@ -169,7 +187,57 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/dashboard/:repo', function (req, res) {
   res.render('issues', {
-    issues: [{
+    issues: [
+    {
+      "isOpen": "false",
+      "name": "[string]",
+      "filename": "[string]",
+      "line": "[number]",
+      "branch": "[string]",
+      "srcLink": "[string]",
+      "github": {
+        "body": "[string]",
+        "created_at": "[string]"
+      }
+    },
+    {
+      "isOpen": "false",
+      "name": "[string]",
+      "filename": "[string]",
+      "line": "[number]",
+      "branch": "[string]",
+      "srcLink": "[string]",
+      "github": {
+        "body": "[string]",
+        "created_at": "[string]"
+      }
+    },
+    {
+      "isOpen": "open",
+      "name": "[string]",
+      "filename": "[string]",
+      "line": "[number]",
+      "branch": "[string]",
+      "srcLink": "[string]",
+      "github": {
+        "body": "[string]",
+        "created_at": "[string]"
+      }
+    },
+    {
+      "isOpen": "false",
+      "name": "[string]",
+      "filename": "[string]",
+      "line": "[number]",
+      "branch": "[string]",
+      "srcLink": "[string]",
+      "github": {
+        "body": "[string]",
+        "created_at": "[string]"
+      }
+    },
+    {
+      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -183,11 +251,6 @@ app.get('/dashboard/:repo', function (req, res) {
   });
 });
 
-app.get('/repos', function (req, res) {
-  res.render('repos', {
-    issues: []
-  });
-});
 
 // if run as root, downgrade to the owner of this file
 if (process.getuid() === 0) {
