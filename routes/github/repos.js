@@ -16,8 +16,8 @@ var getRepos = function (accessToken, callback) {
   gh.repos.getAll({
     'type': 'public'
   }, function (err, data) {
-    if (err) { 
-      callback(err); 
+    if (err) {
+      callback(err);
     } else {
       async.each(data, function (repo, cb) {
         // TODO: check to see if the repo is activated
@@ -47,10 +47,10 @@ var getRepo = function (accessToken, repo, user, callback) {
     'user': user,
     'repo': repo
   }, function (err, data) {
-    if (err) { 
-      callback(err); 
+    if (err) {
+      callback(err);
     } else {
-      callback(null, data);  
+      callback(null, data);
     }
   });
 
@@ -69,6 +69,10 @@ exports.getReposRoute = function (req, res) {
 };
 
 exports.getRepoRoute = function (req, res) {
+  var
+    repo = req.body.repo.split('/')[1],
+    user = req.body.repo.split('/')[0];
+
   if (req.user) {
     getRepo(req.user.accessToken, repo, user, function (err, data) {
       if (err) { res.send(err); }
