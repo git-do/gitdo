@@ -72,15 +72,19 @@ app.use(app.router);
 var github = require('./routes/github');
 
 // Views
-app.get('/', function(req, res) {
-  res.render('index', { title: 'The index page!' })
+app.get('/', function (req, res) {
+  res.render('index', { title: 'The index page!' });
 });
 
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), github.authCallback);
 app.get('/auth/logout', github.logout);
-app.get('/test', github.test);
+
+// Github api
+app.get('/api/getRepos', github.getRepos);
+app.post('/api/getRepo', github.getRepo);
+app.post('/api/commit', github.hook);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
