@@ -1,4 +1,8 @@
 
+/*============================
+  Admin Bar
+------------------------------*/
+
 #admin-bar {
   background: #333;
   height: 100%;
@@ -14,7 +18,7 @@
   }
 
   li {
-    border-top: 1px solid #4a4a4a;
+    border-top: 1px solid #404040;
     list-style: none;
     margin: 20px 0;
     &:first-child {

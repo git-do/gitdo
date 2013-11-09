@@ -1,0 +1,14 @@
+
+/*============================
+  Modules
+------------------------------*/
+
+/* --- [ Buttons ] --- */
+
+.btn {
+  border: 1px solid #d0d0d0;
+  @include border-radius(20px);
+  color: #666;
+  padding: 8px 25px;
+  text-decoration: none;
+}

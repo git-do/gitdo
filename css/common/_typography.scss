@@ -1,0 +1,61 @@
+
+/*==============================
+  Typography
+--------------------------------*/
+
+body {
+  font: 14px/1.5 Helvetica, arial, sans-serif;
+}
+
+/* --- [ Headings ] --- */
+
+h1 { font-size: 2em;    }
+h2 { font-size: 1.5em;  }
+h3 { font-size: 1.17em; }
+h4 { font-size: 1em;    }
+h5 { font-size: 0.83em; }
+h6 { font-size: 0.75em; }
+
+/* --- [ Paragraphs ] --- */
+
+p {
+  line-height: 1.5;
+  margin: 0 0 1.5em;
+  
+  /* cross-browser hyphenation - http://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/ */
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+/* --- [ Links ] --- */
+
+a,
+a:visited { 
+  text-decoration: underline;
+}
+
+a:hover { 
+  text-decoration: none;
+}
+
+/* states for accessibility http://meyerweb.com/eric/css/tests/css2/sec05-11-03.htm */
+a:active { color: tomato; 
+}
+
+a:focus { 
+  border: 1px dotted tomato; 
+}
+
+/* --- [ Code Snippets ] --- */
+
+code,
+pre {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+

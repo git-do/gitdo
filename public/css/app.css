@@ -5,27 +5,136 @@
 /*===============================
   Common
 ---------------------------------*/
+/*=============================
+  GLOBAL SPRITE IMAGE
+-------------------------------*/
+/*=============================
+  BRAND COLORS
+-------------------------------*/
+/*=============================
+  FONTS
+-------------------------------*/
+/*=============================
+  MIXINS
+-------------------------------*/
+/*============================
+  Helpers
+------------------------------*/
+.clear {
+  clear: both; }
+
+/*==============================
+  Typography
+--------------------------------*/
+body {
+  font: 14px/1.5 Helvetica, arial, sans-serif; }
+
+/* --- [ Headings ] --- */
+h1 {
+  font-size: 2em; }
+
+h2 {
+  font-size: 1.5em; }
+
+h3 {
+  font-size: 1.17em; }
+
+h4 {
+  font-size: 1em; }
+
+h5 {
+  font-size: 0.83em; }
+
+h6 {
+  font-size: 0.75em; }
+
+/* --- [ Paragraphs ] --- */
+p {
+  line-height: 1.5;
+  margin: 0 0 1.5em;
+  /* cross-browser hyphenation - http://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/ */
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto; }
+
+/* --- [ Links ] --- */
+a, a:visited {
+  text-decoration: underline; }
+
+a:hover {
+  text-decoration: none; }
+
+/* states for accessibility http://meyerweb.com/eric/css/tests/css2/sec05-11-03.htm */
+a:active {
+  color: tomato; }
+
+a:focus {
+  border: 1px dotted tomato; }
+
+/* --- [ Code Snippets ] --- */
+code, pre {
+  font-family: monospace, serif;
+  font-size: 1em; }
+
+/*============================
+  Layout
+------------------------------*/
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
 body {
-  background: #fafafa;
-  font: 16px/1.5 Helvetica, arial, sans-serif; }
+  background: #fafafa; }
 
 #content-wrap {
   margin-left: 100px; }
 
+/*============================
+  Modules
+------------------------------*/
+/* --- [ Buttons ] --- */
+.btn {
+  border: 1px solid #d0d0d0;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  color: #666666;
+  padding: 8px 25px;
+  text-decoration: none; }
+
 /*===============================
   Partials
 ---------------------------------*/
+/*============================
+  Page Header
+------------------------------*/
 #page-header {
-  border-bottom: 1px solid #d0d0d0; }
+  border-bottom: 1px solid #d0d0d0;
+  padding: 15px 30px;
+  position: relative; }
+
+#page-header-logout {
+  margin-top: -20px;
+  position: absolute;
+  right: 30px;
+  top: 50%; }
 
 /*===============================
   Features
 ---------------------------------*/
+/*============================
+  Admin Bar
+------------------------------*/
 #admin-bar {
   background: #333333;
   height: 100%;
@@ -38,7 +147,7 @@ body {
     padding: 0;
     width: 80%; }
   #admin-bar li {
-    border-top: 1px solid #4a4a4a;
+    border-top: 1px solid #404040;
     list-style: none;
     margin: 20px 0; }
     #admin-bar li:first-child {
