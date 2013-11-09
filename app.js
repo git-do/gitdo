@@ -8,6 +8,7 @@ var
   routes = require('./routes'),
   http = require('http'),
   path = require('path'),
+  sass = require('node-sass'),
   passport = require('passport'),
   GithubStrat = require('passport-github').Strategy;
 
@@ -36,8 +37,20 @@ passport.use(new GithubStrat({
 
 var app = express();
 
+// development only
+if ('development' === app.get('env')) {
+  app.use(express.errorHandler());
+  app.use(
+    sass.middleware({
+      src: __dirname,
+      dest: __dirname + '/public',
+      debug: true
+    })
+  );
+}
+
 /* --------------------
-// GITHUB SETUP
+// EXPRESS SETUP
 -----------------------*/
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -52,12 +65,6 @@ app.use(express.session({ secret: 'asdf' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
-
-
-// development only
-if ('development' === app.get('env')) {
-  app.use(express.errorHandler());
-}
 
 var github = require('./routes/github');
 
