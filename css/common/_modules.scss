@@ -78,11 +78,6 @@
     &:first-child {
       border-top: none;
     }
-    &:hover {
-      .list-item-header {
-        padding-left: 20px;
-      }
-    }
   }
 }
 
@@ -95,7 +90,9 @@
   text-decoration: none;
   @include transition(all .3s ease);
   &:hover {
+    background: #f8f8f8;
     color: tomato;
+    padding-left: 20px;
   }
 }
 

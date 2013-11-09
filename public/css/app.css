@@ -197,8 +197,6 @@ body {
     padding: 0; }
     .list li:first-child {
       border-top: none; }
-    .list li:hover .list-item-header {
-      padding-left: 20px; }
 
 .list-item-header {
   -webkit-background-clip: padding-box;
@@ -212,7 +210,9 @@ body {
   -ms-transition: all 0.3s ease;
   transition: all 0.3s ease; }
   .list-item-header:hover {
-    color: tomato; }
+    background: #f8f8f8;
+    color: tomato;
+    padding-left: 20px; }
 
 .list-heading {
   margin: 0; }
