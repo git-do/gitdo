@@ -1,0 +1,42 @@
+/*===============================
+  Common
+---------------------------------*/
+body {
+  background: #fafafa;
+  font: 16px/1.5 Helvetica, arial, sans-serif;
+  padding-left: 140px; }
+
+/*===============================
+  Features
+---------------------------------*/
+#admin-bar {
+  background: #333333;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100px; }
+  #admin-bar ul {
+    margin: 0 auto;
+    padding: 0;
+    width: 80%; }
+  #admin-bar li {
+    border-top: 1px solid #4a4a4a;
+    list-style: none;
+    margin: 20px 0; }
+    #admin-bar li:first-child {
+      border-top: none; }
+  #admin-bar a {
+    color: #f0f0f0;
+    display: block;
+    font-size: 0.75rem;
+    text-align: center;
+    text-decoration: none; }
+
+.admin-bar-icon {
+  background: #6a6a6a;
+  border-radius: 40px;
+  display: block;
+  height: 40px;
+  margin: 10px auto;
+  width: 40px; }
