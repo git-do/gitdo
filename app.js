@@ -102,7 +102,7 @@ app.get('/dashboard', function (req, res) {
 });
 
 app.get('/dashboard/:repo', function (req, res) {
-  res.render('detail-view', { title: 'The index page!' });
+  res.render('issues', { title: 'The index page!' });
 });
 
 // Gihub auth

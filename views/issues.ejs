@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html ng-app class="no-js">
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
     <div class="admin-bar">
       <ul>
         <li id="admin-bar-profile"><a href="#"><span class="admin-bar-icon"></span></a></li>
-        <li><a href="/dashboard/index.html"><span class="admin-bar-icon"></span>Dashboard</a></li>
+        <li><a href="/dashboard"><span class="admin-bar-icon"></span>Dashboard</a></li>
         <li><a href="#"><span class="admin-bar-icon"></span>Manage Repositories</a></li>
         <li><a href="#"><span class="admin-bar-icon"></span>Logout</a></li>
       </ul>
@@ -62,7 +62,7 @@
               </div>
               <div class="issue-footer">
                 <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
-                <a href="#" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
+                <a href="{{issue.sourceLink}}" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
               </div>
             </li>
           </ul>
