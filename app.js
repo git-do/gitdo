@@ -67,9 +67,10 @@ app.use(passport.session());
 app.use(app.router);
 
 var github = require('./routes/github');
+var getUser = require('./routes/getUser');
 
 app.get('/', routes.index);
-app.get('/auth/user', routes.getUser);
+app.get('/auth/user', getUser.getUser);
 
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
