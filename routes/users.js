@@ -13,13 +13,9 @@ var
 exports.get = function(req, res) {
   if (req.user) {
     var users = new Users(req, res);
-    if (req.query.username === req.user.username) {
-      users.get({
-        username: req.user.username.toLowerCase()
-      });
-    } else {
-      users.send(400, "Bad Request: Invalid parameters");
-    }
+    users.get({
+      username: req.user.username.toLowerCase()
+    });
   } else {
     res.redirect("/");
   }
