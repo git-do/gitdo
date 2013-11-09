@@ -12,11 +12,10 @@
       
     <div class="admin-bar">
       <ul>
-        <li><a href="#"><span class="admin-bar-icon"></span>Profile</a></li>
-        <li><a href="#"><span class="admin-bar-icon"></span>Dashboard</a></li>
-        <li><a href="#"><span class="admin-bar-icon"></span>Repos</a></li>
-        <li><a href="#"><span class="admin-bar-icon"></span>Settings</a></li>
-        <li id="admin-bar-logout"><a href="#"><span class="admin-bar-icon"></span>Logout</a></li>
+        <li id="admin-bar-profile"><a href="#"><span class="admin-bar-icon"></span></a></li>
+        <li><a class="active" href="/dashboard/index.html"><span class="admin-bar-icon"></span>Dashboard</a></li>
+        <li><a href="#"><span class="admin-bar-icon"></span>Manage Repositories</a></li>
+        <li><a href="#"><span class="admin-bar-icon"></span>Logout</a></li>
       </ul>
     </div>
 
@@ -27,18 +26,21 @@
         <a id="page-header-logout" class="btn btn-secondary" href="#">Logout</a>
       </header>
       
+      <!-- 
       <div class="section-tabs">
         <ul>
           <li><a class="section-tab active" href="#"><span class="section-tab-icon"></span>Open Issues<span class="blip"></span></a></li>
           <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Contributors<span class="blip"></span></a></a></li>
         </ul>
-      </div>
+      </div> 
+      -->
       
       <div id="content-wrap">
-        <div id="main" class="boxed">
+        <div id="main">
           <header class="section-header">
             <h2 class="section-title">Repositories <!-- <a href="#">Settings</a> --></h2>
 
+            <!-- 
             <div class="filter-wrap">
               <a class="filter-btn btn" href="#">Filter<span class="filter-arrow"></span></a>
               <ul class="filter-dropdown dropdown-list">
@@ -46,56 +48,57 @@
                 <li><a href="#">Sort by repo name</a></li>
                 <li><a href="#">Sort by recent activity</a></li>
               </ul>
-            </div>
+            </div> 
+            -->
           </header>
           
           <ul class="repo-list list">
-            <li class="repo-item">
-              <a href="#">
+            <li>
+              <a href="/detail-view/index.html" class="list-item-header">
                 <h3 class="list-heading">Repo Name Goes Here</h3>
                 <span class="repo-issue-total">2</span>
               </a>
             </li>
-            <li class="repo-item">
-              <a href="#">
+            <li>
+              <a href="/detail-view/index.html" class="list-item-header">
                 <h3 class="list-heading">Repo Name Goes Here</h3>
                 <span class="repo-issue-total">2</span>
               </a>
             </li>
-            <li class="repo-item">
-              <a href="#">
+            <li>
+              <a href="/detail-view/index.html" class="list-item-header">
                 <h3 class="list-heading">Repo Name Goes Here</h3>
                 <span class="repo-issue-total">2</span>
               </a>
             </li>
-            <li class="repo-item">
-              <a href="#">
+            <li>
+              <a href="/detail-view/index.html" class="list-item-header">
                 <h3 class="list-heading">Repo Name Goes Here</h3>
                 <span class="repo-issue-total">2</span>
               </a>
             </li>
-            <li class="repo-item">
-              <a href="#">
+            <li>
+              <a href="/detail-view/index.html" class="list-item-header">
                 <h3 class="list-heading">Repo Name Goes Here</h3>
                 <span class="repo-issue-total">2</span>
               </a>
             </li>
-            <li class="repo-item">
-              <a href="#">
+            <li>
+              <a href="/detail-view/index.html" class="list-item-header">
                 <h3 class="list-heading">Repo Name Goes Here</h3>
                 <span class="repo-issue-total">2</span>
               </a>
             </li>
-            <li class="repo-item">
-              <a href="#">
+            <li>
+              <a href="/detail-view/index.html" class="list-item-header">
                 <h3 class="list-heading">Repo Name Goes Here</h3>
                 <span class="repo-issue-total">2</span>
               </a>
             </li>
           </ul>
         </div>
-
-        <div id="sidebar" class="boxed">
+<!-- 
+        <div id="sidebar">
           <header class="section-header">
             <h2 class="section-title">Activity Feed</h2>
           </header>
@@ -121,7 +124,7 @@
               <p class="timestamp">Today, 3:24 pm</p>
             </li>
           </ul>
-        </div>
+        </div> -->
 
         <footer id="footer">
           <p>Designed and developed by</p>
@@ -132,6 +135,5 @@
       </div>
       
     </div>
-
   </body>
 </html>

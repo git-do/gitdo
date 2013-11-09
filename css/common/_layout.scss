@@ -14,7 +14,7 @@ body {
 }
 
 #global-container {
-  margin-left: 100px;
+  margin-left: 210px;
 }
 
 #content-wrap {
@@ -23,7 +23,7 @@ body {
 
 #main {
   float: left;
-  width: 65%;
+  width: 100%;
   @include apply-to(max-width, 960px){
     float: none;
     width: 100%;

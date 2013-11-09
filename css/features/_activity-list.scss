@@ -1,13 +1,12 @@
 
 .activity-list {
+  li {
+    padding: 15px 0;
+  }
   p {
     margin: 0;
   }
   .timestamp {
-    color: #b0b0b0;
-    font-size: .75rem;
-    font-weight: bold;
     margin-top: 5px;
-    text-transform: uppercase;
   }
 }
