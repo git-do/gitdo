@@ -9,7 +9,7 @@ var
   getRepo;
 
 // Get all repos
-exports.getRepos = function (accessToken, callback) {
+exports.getRepos = getRepos = function (accessToken, callback) {
   var
     repos = [],
     gh;
@@ -41,7 +41,7 @@ exports.getRepos = function (accessToken, callback) {
 };
 
 // Get specific repo
-exports.getRepo = function (accessToken, repo, user, callback) {
+exports.getRepo = getRepo = function (accessToken, repo, user, callback) {
   var gh;
 
   gh = github.getClient(accessToken);

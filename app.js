@@ -86,23 +86,26 @@ app.use(app.router);
 
 var github = require('./routes/github/github'),
     repos = require('./routes/github/repos'),
-    users = require('./routes/users'),
     issues = require('./routes/github/issues'),
-    hooks = require('./routes/github/hooks');
+    hooks = require('./routes/github/hooks'),
+
+    // Gitdo imports
+    gitdoUsers = require('./routes/users'),
+    gitdoRepos = require('./routes/repos');
 
 // Views
 app.get('/', function (req, res) {
   res.render('index', { title: 'The index page!' });
 });
 
+/**
+* Github Routes
+*/
+
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), github.authCallback);
 app.get('/auth/logout', github.logout);
-
-// Users
-app.get('/api/user', users.get);
-app.post('/api/user', users.create);
 
 // Github api
 app.get('/api/getRepos', repos.getReposRoute);
@@ -115,6 +118,17 @@ app.post('/api/closeIssue', issues.closeIssueRoute);
 app.post('/api/addHook', hooks.addHookRoute);
 app.post('/api/removeHook', hooks.removeHookRoute);
 app.post('/api/commit', hooks.webHook);
+
+/**
+* Gitdo Routes
+*/
+
+// User
+app.get('/api/user', gitdoUsers.get);
+app.post('/api/user', gitdoUsers.create);
+
+// Repos
+app.get('/api/repos', gitdoRepos.get);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));

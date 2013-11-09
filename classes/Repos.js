@@ -5,14 +5,14 @@ module.exports = (function () {
   */
   var
     db = require("../db.js"),
-    githubRepos = require("github/repos.js");
+    githubRepos = require("../routes/github/repos.js");
 
   /**
   * Constructor
   */
   function Repos(req, resp) {
     this.db = db;
-    this.gh = req.user;
+    this.ghUser = req.user;
     this.req = req;
     this.resp = resp;
   }
@@ -25,7 +25,24 @@ module.exports = (function () {
   Repos.prototype.get = function (obj) {
     var self = this;
     this.dbGet(obj, function (err, vals) {
-      self.response(err, vals);
+      self.response(err, vals, function (v) {
+        self.onGet(v);
+      }, true);
+    });
+  };
+
+  // On get
+  Repos.prototype.onGet = function (vals) {
+    var
+      self = this,
+      data;
+    this.getGH(function (err, ghData) {
+      if (err || !ghData) {
+        self.send(500, "Internal Error: " + err);
+      } else {
+        data = self.mergeData(vals, ghData);
+        self.send(200, data);
+      }
     });
   };
 
@@ -65,6 +82,17 @@ module.exports = (function () {
   // Create repos
   Repos.prototype.dbCreate = function (obj, fn) {
     this.db.repos.save(obj, fn);
+  };
+
+  // Get github repos
+  Repos.prototype.getGH = function (fn) {
+    githubRepos.getRepos();
+  };
+
+  // Merge data
+  Repos.prototype.mergeData = function (vals, ghData) {
+    //console.log(vals, ghData);
+    return vals;
   };
 
   // Response
