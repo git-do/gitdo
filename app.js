@@ -83,8 +83,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
 
+
 var github = require('./routes/github/github'),
     repos = require('./routes/github/repos'),
+    users = require('./routes/users'),
     issues = require('./routes/github/issues'),
     hooks = require('./routes/github/hooks');
 
@@ -92,6 +94,8 @@ var github = require('./routes/github/github'),
 app.get('/', function (req, res) {
   res.render('index', { title: 'The index page!' });
 });
+app.get('/auth/user', users.get);
+app.post('/auth/user', users.set);
 
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
