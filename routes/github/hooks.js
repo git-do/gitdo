@@ -16,7 +16,7 @@ var newHook = {
 };
 
 // Add web hook to a repo
-exports.addHook = function (req, res) {
+exports.addHookRoute = function (req, res) {
   var
     repo = req.body.repo.split('/')[1],
     user = req.body.repo.split('/')[0],
@@ -38,7 +38,7 @@ exports.addHook = function (req, res) {
 };
 
 // Remove web hook from repo
-exports.removeHook = function (req, res) {
+exports.removeHookRoute = function (req, res) {
   var
     repo = req.body.repo.split('/')[1],
     user = req.body.repo.split('/')[0],

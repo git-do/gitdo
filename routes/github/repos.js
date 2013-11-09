@@ -6,20 +6,20 @@ var github = require('./github'),
 -----------------------*/
 
 // Get all repos
-exports.getRepos = function (req, res) {
+var getRepos = function (accessToken, callback) {
   var
     repos = [],
     gh;
 
-  if (req.user) {
-    gh = github.getClient(req.user.accessToken);
+  gh = github.getClient(accessToken);
 
-    gh.repos.getAll({
-      'type': 'public'
-    }, function (err, data) {
-      if (err) { res.send(err); }
-
-      async.each(data, function (repo, callback) {
+  gh.repos.getAll({
+    'type': 'public'
+  }, function (err, data) {
+    if (err) { 
+      callback(err); 
+    } else {
+      async.each(data, function (repo, cb) {
         // TODO: check to see if the repo is activated
         var newRepo = {
           'id': repo['id'],
@@ -28,38 +28,57 @@ exports.getRepos = function (req, res) {
         };
         repos.push(newRepo);
         // Save these to database
-        callback();
+        cb();
       }, function () {
-        res.send(repos);
+        callback(null, repos);
       });
-
-    });
-
-  } else {
-    res.redirect('/');
-  }
+    }
+  });
 
 };
 
 // Get specific repo
-exports.getRepo = function (req, res) {
-  var
-    repo = req.body.repo.split('/')[1],
-    user = req.body.repo.split('/')[0],
-    gh;
+var getRepo = function (accessToken, repo, user, callback) {
+  var gh;
 
+  gh = github.getClient(accessToken);
+
+  gh.repo.get({
+    'user': user,
+    'repo': repo
+  }, function (err, data) {
+    if (err) { 
+      callback(err); 
+    } else {
+      callback(null, data);  
+    }
+  });
+
+};
+
+// Routes
+exports.getReposRoute = function (req, res) {
   if (req.user) {
-    gh = github.getClient(req.user.accessToken);
-
-    gh.repo.get({
-      'user': user,
-      'repo': repo
-    }, function (err, data) {
-      if (err) { console.log(err); res.send(err); }
-
+    getRepos(req.user.accessToken, function (err, data) {
+      if (err) { res.send(err); }
       res.send(data);
     });
   } else {
     res.redirect('/');
   }
 };
+
+exports.getRepoRoute = function (req, res) {
+  if (req.user) {
+    getRepo(req.user.accessToken, repo, user, function (err, data) {
+      if (err) { res.send(err); }
+      res.send(data);
+    });
+  } else {
+    res.redirect('/');
+  }
+};
+
+// Exports
+exports.getRepos = getRepos;
+exports.getRepo = getRepo;

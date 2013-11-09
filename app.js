@@ -99,14 +99,15 @@ app.get('/auth/github/callback', passport.authenticate('github', { failureRedire
 app.get('/auth/logout', github.logout);
 
 // Github api
-app.get('/api/getRepos', repos.getRepos);
-app.post('/api/getRepo', repos.getRepo);
+app.get('/api/getRepos', repos.getReposRoute);
+app.post('/api/getRepo', repos.getRepoRoute);
 
-app.post('/api/createIssue', issues.createIssue);
-app.post('/api/getIssue', issues.getIssue);
+app.post('/api/createIssue', issues.createIssueRoute);
+app.post('/api/getIssue', issues.getIssueRoute);
+app.post('/api/closeIssue', issues.closeIssueRoute);
 
-app.post('/api/addHook', hooks.addHook);
-app.post('/api/removeHook', hooks.removeHook);
+app.post('/api/addHook', hooks.addHookRoute);
+app.post('/api/removeHook', hooks.removeHookRoute);
 app.post('/api/commit', hooks.webHook);
 
 http.createServer(app).listen(app.get('port'), function () {
