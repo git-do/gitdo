@@ -178,40 +178,14 @@ app.get('/repos', function (req, res) {
 });
 
 app.get('/dashboard', function (req, res) {
-  res.render('dashboard', {
-    user: {
-      avatar: req.user._json.avatar_url, 
-      name: req.user.displayName || req.user.username
-    },
-    repos: [
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
+  gitdoRepos.getAll(req, res, function (repos) {
+    res.render('dashboard', {
+      user: {
+        avatar: req.user._json.avatar_url, 
+        name: req.user.displayName || req.user.username
       },
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
-      },
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
-      }
-    ]
+      repos: repos
+    });
   });
 });
 
