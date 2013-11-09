@@ -196,7 +196,6 @@ app.get('/dashboard/:repo', function (req, res) {
   res.render('issues', {
     issues: [
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -208,7 +207,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -220,7 +218,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "open",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -232,7 +229,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -244,7 +240,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
