@@ -24,7 +24,7 @@ var
     }
   }]
 */
-exports.getAll = function(req, res) {
+exports.getAll = function(req, res, fn) {
   if (req.user) {
     var
       repos = new Repos(req, res),
@@ -32,7 +32,7 @@ exports.getAll = function(req, res) {
     if (q.username === req.user.username) {
       repos.get({
         username: req.user.username.toLowerCase()
-      });
+      }, fn);
     } else {
       repos.send(400, "Bad Request: Invalid parameters");
     }

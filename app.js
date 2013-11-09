@@ -11,6 +11,8 @@ var
   sass = require('node-sass'),
   ejs = require('ejs'),
   ejsLayouts = require('express-ejs-layouts'),
+  Utils = require('./classes/Utils.js'),
+  utils = new Utils(),
   passport = require('passport'),
   GithubStrat = require('passport-github').Strategy;
 
@@ -152,13 +154,26 @@ app.get('/', function (req, res) {
 app.get('/repos', function (req, res) {
   // Get list of repos from GitHub
   repos.getRepos(req.user.accessToken, function (err, repos) {
-    res.render('repos', {
-      user: {
-        avatar: req.user._json.avatar_url, 
-        name: req.user.displayName || req.user.username
-      },
-      repos: repos
-    });
+    gitdoRepos.getAll(req, res, function (gdRepos) {
+      //this is the worst
+      var gdReposObj = utils.arrayToObj(gdRepos, "ghid");
+
+      for (var i = 0; i < repos.length; i++) {
+        var id = repos[i].id;
+
+        if (gdReposObj[id]) {
+          repos[i].gitdo = true;
+        }
+      }
+
+      res.render('repos', {
+        user: {
+          avatar: req.user._json.avatar_url, 
+          name: req.user.displayName || req.user.username
+        },
+        repos: repos
+      });
+    }); 
   })
 });
 
