@@ -201,6 +201,10 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/dashboard/:repo', function (req, res) {
   res.render('issues', {
+    user: {
+      avatar: req.user._json.avatar_url, 
+      name: req.user.displayName || req.user.username
+    },
     issues: [
     {
       "name": "[string]",
