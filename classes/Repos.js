@@ -24,9 +24,12 @@ module.exports = (function () {
   */
 
   // Get
-  Repos.prototype.get = function (obj) {
+  Repos.prototype.get = function (obj, callback, silent) {
     var self = this;
     this.originalObj = obj;
+    this.callback = callback;
+    this.silent = silent;
+
     this.dbGet(obj, function (err, vals) {
       self.response(err, vals, function (v) {
         self.onGet(v);
@@ -51,13 +54,19 @@ module.exports = (function () {
           data = data[0];
         }
         self.send(200, data);
+        if (typeof self.callback === "function") {
+          self.callback(data);
+        }
       }
     });
   };
 
   // Create
-  Repos.prototype.create = function (obj) {
+  Repos.prototype.create = function (obj, callback, silent) {
     var self = this;
+    this.originalObj = obj;
+    this.silent = silent;
+
     this.dbGet({
       username: obj.username,
       name: obj.name
@@ -74,8 +83,10 @@ module.exports = (function () {
 
   // Send
   Repos.prototype.send = function (code, msg) {
-    this.resp.statusCode = code;
-    this.resp.send(msg);
+    if (!this.silent) {
+      this.resp.statusCode = code;
+      this.resp.send(msg);
+    }
   };
 
   // Get repos
