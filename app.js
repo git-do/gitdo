@@ -107,7 +107,10 @@ app.get('/dashboard/:repo', function (req, res) {
 
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), github.authCallback);
+app.get('/auth/github/callback', passport.authenticate('github', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/login' 
+}), github.authCallback);
 app.get('/auth/logout', github.logout);
 
 // Github api
