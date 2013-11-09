@@ -52,7 +52,7 @@ if ('development' === app.get('env')) {
 }
 
 var isProduction = (process.env.NODE_ENV === 'production');
-var port = (isProduction ? 80 : 8000);
+var port = (isProduction ? 80 : 3000);
 
 
 /* --------------------
@@ -73,7 +73,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
 
-var github = require('./routes/github');
+var github = require('./routes/github/github'),
+    repos = require('./routes/github/repos'),
+    issues = require('./routes/github/issues'),
+    hooks = require('./routes/github/hooks');
 
 // Views
 app.get('/', function (req, res) {
@@ -86,9 +89,15 @@ app.get('/auth/github/callback', passport.authenticate('github', { failureRedire
 app.get('/auth/logout', github.logout);
 
 // Github api
-app.get('/api/getRepos', github.getRepos);
-app.post('/api/getRepo', github.getRepo);
-app.post('/api/commit', github.hook);
+app.get('/api/getRepos', repos.getRepos);
+app.post('/api/getRepo', repos.getRepo);
+
+app.post('/api/createIssue', issues.createIssue);
+app.post('/api/getIssue', issues.getIssue);
+
+app.post('/api/addHook', hooks.addHook);
+app.post('/api/removeHook', hooks.removeHook);
+app.post('/api/commit', hooks.webHook);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
@@ -96,7 +105,7 @@ http.createServer(app).listen(app.get('port'), function () {
 
 // if run as root, downgrade to the owner of this file
 if (process.getuid() === 0) {
-  require('fs').stat(__filename, function(err, stats) {
+  require('fs').stat(__filename, function (err, stats) {
     if (err) { return console.error(err); }
     process.setuid(stats.uid);
   });

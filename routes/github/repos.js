@@ -1,33 +1,5 @@
-var GithubApi = require('github'),
+var github = require('./github'),
     async = require('async');
-
-var getClient = function (accessToken) {
-  var gh = new GithubApi({
-    version: '3.0.0'
-  });
-  gh.authenticate({
-    type: 'oauth',
-    token: accessToken
-  });
-  return gh;
-};
-
-/* --------------------
-// AUTH
------------------------*/
-// This will just redirect
-exports.auth = function (req, res) {};
-
-// Callback from github
-exports.authCallback = function (req, res) {
-  res.redirect('/');
-};
-
-exports.logout = function (req, res) {
-  req.logout();
-  res.redirect('/');
-};
-
 
 /* --------------------
 // GITHUB API
@@ -40,7 +12,7 @@ exports.getRepos = function (req, res) {
     gh;
 
   if (req.user) {
-    gh = getClient(req.user.accessToken);
+    gh = github.getClient(req.user.accessToken);
 
     gh.repos.getAll({
       'type': 'public'
@@ -73,11 +45,11 @@ exports.getRepos = function (req, res) {
 exports.getRepo = function (req, res) {
   var
     repo = req.body.repo.split('/')[1],
-    user = repo.split('/')[0],
+    user = req.body.repo.split('/')[0],
     gh;
 
   if (req.user) {
-    gh = getClient(req.user.accessToken);
+    gh = github.getClient(req.user.accessToken);
 
     gh.repo.get({
       'user': user,
@@ -90,9 +62,4 @@ exports.getRepo = function (req, res) {
   } else {
     res.redirect('/');
   }
-};
-
-exports.hook = function (req, res) {
-  console.log(req.body);
-  res.end();
 };
