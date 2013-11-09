@@ -135,6 +135,7 @@ app.post('/api/user', gitdoUsers.create);
 app.get('/api/repos', gitdoRepos.getAllRoute);
 app.get('/api/repo', gitdoRepos.getRoute);
 app.post('/api/repo', gitdoRepos.createRoute);
+app.delete('/api/repo/:name', gitdoRepos.deleteRoute);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
@@ -174,7 +175,7 @@ app.get('/repos', function (req, res) {
         repos: repos
       });
     }); 
-  })
+  });
 });
 
 app.get('/dashboard', function (req, res) {

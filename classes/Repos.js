@@ -52,9 +52,6 @@ module.exports = (function () {
           data = data[0];
         }
         self.send(200, data);
-        if (typeof self.callback === "function") {
-          self.callback(data);
-        }
       }
     });
   };
@@ -63,6 +60,7 @@ module.exports = (function () {
   Repos.prototype.create = function (obj, callback, silent) {
     var self = this;
     this.originalObj = obj;
+    this.callback = callback;
     this.silent = silent;
 
     this.dbGet({
@@ -88,17 +86,36 @@ module.exports = (function () {
     }, true);
   };
 
+  // Delete
+  Repos.prototype.delete = function (obj, callback, silent) {
+    var self = this;
+    this.originalObj = obj;
+    this.callback = callback;
+    this.silent = silent;
+
+    this.dbDelete(obj, this.response.bind(this));
+  };
+
   // Send
   Repos.prototype.send = function (code, msg) {
     if (!this.silent) {
       this.resp.statusCode = code;
       this.resp.send(msg);
+    } else {
+    }
+    if (typeof this.callback === "function") {
+      this.callback(msg);
     }
   };
 
   // Get repos
   Repos.prototype.dbGet = function (obj, fn) {
     this.db.repos.find(obj, fn);
+  };
+
+  // Delete repos
+  Repos.prototype.dbDelete = function (obj, fn) {
+    this.db.repos.remove(obj, fn);
   };
 
   // Update repos
