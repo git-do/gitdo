@@ -17,12 +17,8 @@ $(function () {
     
     if ($this.attr("checked") === "checked") {
       $.ajax({
-        url: '/api/repo',
+        url: '/api/repo/' + $this.attr('name'),
         type: 'DELETE',
-        data: {
-          username: username,
-          repo: $this.attr('name')
-        },
         success: function () {
           $this.prop("checked", "false");
         }
