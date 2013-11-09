@@ -72,6 +72,7 @@ if (!isProduction) {
 app.set('port', process.env.PORT || port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('layout', 'default');
 app.use(ejsLayouts);
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -131,6 +132,7 @@ app.post('/api/user', gitdoUsers.create);
 // Repos
 app.get('/api/repos', gitdoRepos.getAll);
 app.get('/api/repo', gitdoRepos.get);
+app.post('/api/repo', gitdoRepos.create);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
@@ -140,13 +142,21 @@ http.createServer(app).listen(app.get('port'), function () {
 * Views
 */
 app.get('/', function (req, res) {
-  res.render('index', { title: 'The index page!' });
+  res.render('index', 
+    { 
+      layout: 'landing-page'
+    }
+  );
 });
 
 app.get('/repos', function (req, res) {
   // Get list of repos from GitHub
   repos.getRepos(req.user.accessToken, function (err, repos) {
     res.render('repos', {
+      user: {
+        avatar: req.user._json.avatar_url, 
+        name: req.user.displayName || req.user.username
+      },
       repos: repos
     });
   })
@@ -154,6 +164,10 @@ app.get('/repos', function (req, res) {
 
 app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
+    user: {
+      avatar: req.user._json.avatar_url, 
+      name: req.user.displayName || req.user.username
+    },
     repos: [
       {
         name: '[string]',
@@ -188,9 +202,12 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/dashboard/:repo', function (req, res) {
   res.render('issues', {
+    user: {
+      avatar: req.user._json.avatar_url, 
+      name: req.user.displayName || req.user.username
+    },
     issues: [
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -202,7 +219,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -214,7 +230,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "open",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -226,7 +241,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -238,7 +252,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",

@@ -1,7 +1,32 @@
-<h1>Git.Do</h1>
-<a href="/auth/github">Log in</a>
-<h2>Manage your tasks using comments in git</h2>
 
-<code class="javascript"><pre>var foo = function(bar) {
-  // todo: make this function actually do something
+<header id="topbar">
+  <ul>
+    <li><a href="#">How it works?</a></li>
+    <li><a href="#">Features</a></li>
+    <li><a href="/auth/github">Login</a></li>
+  </ul>
+  <div class="clear"></div>
+</header>
+
+<div id="herospace">
+  <h1 class="herospace-logo">GitDo</h1>
+  <h2 class="herospace-subhead">Maintaining code is hard. Make it easier by creating tasks<br/>inline with your code using gitDo</h2>
+  
+  <code class="herospace-code-block javascript"><pre>
+// todo: need to add in callback, post launch
+exports.getReposRoute = function (req, res) {
+  if (req.user) {
+    getRepos(req.user, function (err, data) {
+      if (err) { res.send(err); }
+      res.send(data);
+    });
+  } else {
+    res.redirect('/');
+  }
 };</pre></code>
+
+  <div class="herospace-screenshot">
+    <img src="/img/tbd-screenshot.png" alt="" />
+  <div>
+</div>
+

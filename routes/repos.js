@@ -86,24 +86,27 @@ exports.get = function(req, res) {
 * Create
 *
   POST
+  Accepts
   {
     username: [string],
     name: [string]
   }
 */
-/*exports.create = function(req, res) {
+exports.create = function(req, res) {
   if (req.user) {
     var
       repos = new Repos(req, res),
-      q = req.query;
-    if (q.username === req.user.username && q.name) {
+      b = req.body;
+    if (b.username === req.user.username && b.name) {
       repos.create({
         username: req.user.username.toLowerCase(),
-        name: q.name
+        name: b.name,
+        dateCreated: moment().format()
       });
+    } else {
       repos.send(400, "Bad Request: Invalid parameters");
     }
   } else {
     res.redirect("/");
   }
-};*/
+};
