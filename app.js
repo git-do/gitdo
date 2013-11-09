@@ -31,6 +31,7 @@ passport.use(new GithubStrat({
     clientSecret: GITHUB_CLIENT_SECRET,
     scope: 'public_repo'
   }, function (accessToken, refreshToken, profile, done) {
+    profile.accessToken = accessToken;
     done(null, profile);
   }
 ));
@@ -61,7 +62,7 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'asdf' }));
+app.use(express.session({ secret: 'IgnoreSecurity!' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
