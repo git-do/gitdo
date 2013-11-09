@@ -146,6 +146,12 @@ app.get('/dashboard/:repo', function (req, res) {
   });
 });
 
+app.get('/repos', function (req, res) {
+  res.render('repos', {
+    issues: []
+  });
+});
+
 // if run as root, downgrade to the owner of this file
 if (process.getuid() === 0) {
   require('fs').stat(__filename, function (err, stats) {
