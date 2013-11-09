@@ -3,12 +3,25 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var routes = require('./routes');
-var http = require('http');
-var path = require('path');
+var express = require('express'),
+    routes = require('./routes'),
+    http = require('http'),
+    path = require('path'),
+    sass = require('node-sass');
 
 var app = express();
+
+// development only
+if ('development' === app.get('env')) {
+  app.use(express.errorHandler());
+  app.use(
+    sass.middleware({
+      src: __dirname,
+      dest: __dirname + '/public',
+      debug: true
+    })
+  );
+}
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -20,11 +33,6 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
-// development only
-if ('development' === app.get('env')) {
-  app.use(express.errorHandler());
-}
 
 app.get('/', routes.index);
 app.get('/auth/user', routes.getUser);

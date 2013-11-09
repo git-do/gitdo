@@ -1,11 +1,18 @@
 {
-  "name": "application-name",
+  "name": "gitdo",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
+  "engines": {
+    "node": "0.10.x"
+  },
   "dependencies": {
-    "express": "3.4.4"
+    "express": "3.4.4",
+    "node-sass": "~0.7.0",
+    "grunt": "~0.4.1",
+    "grunt-exec": "~0.4.2",
+    "grunt-node-version": "~1.0.0"
   }
 }
