@@ -72,6 +72,7 @@ if (!isProduction) {
 app.set('port', process.env.PORT || port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('layout', 'default');
 app.use(ejsLayouts);
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -140,7 +141,12 @@ http.createServer(app).listen(app.get('port'), function () {
 * Views
 */
 app.get('/', function (req, res) {
-  res.render('index', { title: 'The index page!' });
+  res.render('index', 
+    { 
+      title: 'The index page!',
+      layout: 'landing-page'
+    }
+  );
 });
 
 app.get('/repos', function (req, res) {
