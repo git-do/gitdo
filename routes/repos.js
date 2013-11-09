@@ -3,6 +3,45 @@ var
   moment = require("moment");
 
 /**
+* Get all
+*
+  GET
+  Accepts:
+  {
+    username: [string]
+  }
+
+  Returns:
+  [{
+    "_id": [string],
+    "ghid": [integer],
+    "name": [string],
+    "username": [string],
+    "github": {
+      "id": [integer],
+      "fullname": [string],
+      "active": [boolean]
+    }
+  }]
+*/
+exports.getAll = function(req, res) {
+  if (req.user) {
+    var
+      repos = new Repos(req, res),
+      q = req.query;
+    if (q.username === req.user.username) {
+      repos.get({
+        username: req.user.username.toLowerCase()
+      });
+    } else {
+      repos.send(400, "Bad Request: Invalid parameters");
+    }
+  } else {
+    res.redirect("/");
+  }
+};
+
+/**
 * Get
 *
   GET
@@ -13,19 +52,20 @@ var
   }
 
   Returns:
-  [{
-    name: [string],
-    dateCreated: [string],
-    github: {
-      id: [integer],
-      fullname: [string],
-      active: [boolean]
+  {
+    "_id": [string],
+    "ghid": [integer],
+    "name": [string],
+    "username": [string],
+    "github": {
+      "id": [integer],
+      "fullname": [string],
+      "active": [boolean]
     }
-  }]
+  }
 */
 exports.get = function(req, res) {
   if (req.user) {
-    console.log(req.user);
     var
       repos = new Repos(req, res),
       q = req.query;
@@ -51,7 +91,7 @@ exports.get = function(req, res) {
     name: [string]
   }
 */
-exports.create = function(req, res) {
+/*exports.create = function(req, res) {
   if (req.user) {
     var
       repos = new Repos(req, res),
@@ -66,4 +106,4 @@ exports.create = function(req, res) {
   } else {
     res.redirect("/");
   }
-};
+};*/
