@@ -9,6 +9,7 @@ var
   http = require('http'),
   path = require('path'),
   sass = require('node-sass'),
+  ejs = require('ejs'),
   passport = require('passport'),
   GithubStrat = require('passport-github').Strategy;
 
@@ -54,6 +55,7 @@ if ('development' === app.get('env')) {
 -----------------------*/
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -68,7 +70,10 @@ app.use(app.router);
 
 var github = require('./routes/github');
 
-app.get('/', routes.index);
+// Views
+app.get('/', function(req, res) {
+  res.render('index', { title: 'The index page!' })
+});
 
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
