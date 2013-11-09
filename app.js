@@ -153,6 +153,10 @@ app.get('/repos', function (req, res) {
   // Get list of repos from GitHub
   repos.getRepos(req.user.accessToken, function (err, repos) {
     res.render('repos', {
+      user: {
+        avatar: req.user._json.avatar_url, 
+        name: req.user.displayName
+      },
       repos: repos
     });
   })
@@ -160,6 +164,10 @@ app.get('/repos', function (req, res) {
 
 app.get('/dashboard', function (req, res) {
   res.render('dashboard', {
+    user: {
+      avatar: req.user._json.avatar_url, 
+      name: req.user.displayName
+    },
     repos: [
       {
         name: '[string]',
