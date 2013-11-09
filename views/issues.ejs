@@ -1,3 +1,4 @@
+
 <header id="page-header">
   <h1>Repo Name Here</h1>
   <a id="page-header-logout" class="btn btn-secondary" href="#">Logout</a>
@@ -20,11 +21,15 @@
     
     <ul class="issue-list list">
       <% for (var i = 0; i < issues.length; i++) {%>
-        <li class="open">
-          <a href="#" class="list-item-header">
-            <h3 class="list-heading"><%- issues[i].name %></h3>
-            <span data-date="<%- issues[i].github.created_at %>" class="issue-date timestamp">created </span>
-          </a>
+        
+        <li class="<%- issues[i].isOpen %>">
+          <header>
+            <a href="#" class="list-item-header">
+              <h3 class="list-heading"><%- issues[i].name %></h3>
+              <span data-date="<%- issues[i].github.created_at %>" class="issue-date timestamp">created </span>
+            </a>
+          </header>
+
           <div class="issue-details">
             <ul class="issue-meta">
               <li><span class="issue-meta-label">Branch Name</span> <%- issues[i].branch %></li>
@@ -36,12 +41,14 @@
               <p><%- issues[i].github.body %></p>
             </div>
             <div class="clear"></div>
+            <div class="issue-footer">
+              <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
+              <a href="<%- issues[i].srcLink %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
+            </div>
           </div>
-          <div class="issue-footer">
-            <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
-            <a href="<%- issues[i].srcLink %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
-          </div>
+
         </li>
+        
       <% } %>
     </ul>
   </div>
