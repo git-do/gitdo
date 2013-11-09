@@ -30,6 +30,9 @@ body {
   font: 14px Helvetica, arial, sans-serif; }
 
 /* --- [ Headings ] --- */
+h1, h2, h3, h4, h5 {
+  font-weight: 200; }
+
 h1 {
   font-size: 2em; }
 
@@ -50,7 +53,7 @@ h6 {
 
 /* --- [ Paragraphs ] --- */
 p {
-  line-height: 1.5;
+  line-height: 1.3;
   margin: 0 0 1.5em;
   /* cross-browser hyphenation - http://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/ */
   -ms-word-break: break-all;
@@ -99,11 +102,20 @@ body {
 
 #main {
   float: left;
-  width: 70%; }
+  width: 65%; }
+  @media only screen and (max-width: 960px) {
+    #main {
+      float: none;
+      width: 100%; } }
 
 #sidebar {
   float: right;
-  width: 28%; }
+  width: 33%; }
+  @media only screen and (max-width: 960px) {
+    #sidebar {
+      float: none;
+      margin-top: 30px;
+      width: 100%; } }
 
 /*============================
   Modules
@@ -135,36 +147,57 @@ body {
   color: #666666;
   line-height: 1;
   padding: 10px 25px;
-  text-decoration: none; }
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+
+.btn-close {
+  color: #cccccc;
+  display: block;
+  height: 15px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  text-decoration: none;
+  width: 15px; }
+
+.btn-view-more {
+  -webkit-background-clip: padding-box;
+  background: #d0d0d0;
+  color: white;
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 11px 0 10px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+  .btn-view-more:hover {
+    background: tomato; }
 
 /* --- [ Global List Styles ] --- */
 .list {
   margin: 0;
   padding: 0; }
   .list li {
-    border-top: 1px solid #d0d0d0;
+    border-bottom: 1px solid #e0e0e0;
     list-style: none;
     margin: 0;
-    padding: 0; }
-  .list a {
-    color: #4a4a4a;
-    display: block;
-    padding: 10px 20px;
-    position: relative;
-    text-decoration: none;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    transition: all 0.3s ease; }
-    .list a:hover {
-      background: #f0f0f0; }
+    padding: 15px 20px; }
+    .list li:last-child {
+      border: none; }
 
 .list-heading {
   font-weight: normal; }
 
 /* --- [ Global Dropdown List ] --- */
 .dropdown-list {
-  -webkit-background-clip: padding-box;
   background: white;
   border: solid #d0d0d0;
   border-width: 1px 1px 0;
@@ -176,6 +209,7 @@ body {
   -moz-background-clip: padding-box;
   -ms-background-clip: padding-box;
   background-clip: padding-box;
+  border-top-right-radius: 0;
   display: none;
   margin: 0;
   padding: 0;
@@ -186,6 +220,7 @@ body {
     margin: 0;
     padding: 0; }
   .dropdown-list a {
+    -webkit-background-clip: padding-box;
     color: #aaaaaa;
     display: block;
     padding: 8px 15px;
@@ -200,7 +235,8 @@ body {
 
 /* --- [ Section Header ] --- */
 .section-header {
-  padding: 25px 20px;
+  border-bottom: 1px solid #d0d0d0;
+  padding: 25px 20px 20px;
   position: relative; }
 
 .section-title {
@@ -212,7 +248,13 @@ body {
 .filter-wrap {
   position: absolute;
   right: 30px;
-  top: 20px; }
+  top: 15px; }
+  .filter-wrap:hover .filter-btn {
+    background: tomato;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: tomato;
+    color: white; }
   .filter-wrap:hover .filter-dropdown {
     display: block; }
 
@@ -225,11 +267,27 @@ body {
 .filter-dropdown {
   position: absolute;
   right: 0;
-  top: 40px;
+  top: 35px;
   width: 200px;
   z-index: 1000; }
 
 /* --- [ Repo List ] --- */
+.repo-list li {
+  padding: 0; }
+.repo-list a {
+  -webkit-background-clip: padding-box;
+  color: #4a4a4a;
+  display: block;
+  padding: 10px 20px;
+  position: relative;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+  .repo-list a:hover {
+    background: #f0f0f0; }
+
 .repo-item a:hover .list-heading {
   color: tomato; }
 
@@ -254,28 +312,6 @@ body {
   top: 50%;
   width: 24px; }
 
-/* --- [ Main Content Footer ] --- */
-.main-footer {
-  background: #d0d0d0;
-  clear: both;
-  width: 100%; }
-
-.view-more-btn {
-  -webkit-background-clip: padding-box;
-  color: white;
-  display: block;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 11px 0 10px;
-  text-align: center;
-  text-decoration: none;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  transition: all 0.3s ease; }
-  .view-more-btn:hover {
-    background: tomato; }
-
 /*===============================
   Partials
 ---------------------------------*/
@@ -294,6 +330,22 @@ body {
   right: 30px;
   top: 50%; }
 
+#footer {
+  border-top: 1px solid #d0d0d0;
+  clear: both;
+  color: #cccccc;
+  float: left;
+  font-size: 0.7rem;
+  font-weight: 200;
+  margin-top: 50px;
+  padding-top: 30px;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%; }
+  #footer p {
+    margin: 0 0 5px; }
+
 /*===============================
   Features
 ---------------------------------*/
@@ -304,6 +356,7 @@ body {
   background: #333333;
   height: 100%;
   left: 0;
+  min-height: 530px;
   position: fixed;
   top: 0;
   width: 100px; }
@@ -322,7 +375,13 @@ body {
     display: block;
     font-size: 0.75rem;
     text-align: center;
-    text-decoration: none; }
+    text-decoration: none;
+    -webkit-transition: color 0.3s ease;
+    -moz-transition: color 0.3s ease;
+    -ms-transition: color 0.3s ease;
+    transition: color 0.3s ease; }
+    .admin-bar a:hover {
+      color: tomato; }
 
 .admin-bar-icon {
   background: #6a6a6a;
@@ -352,10 +411,11 @@ body {
     float: left;
     list-style: none;
     margin: 0;
-    padding: 0; }
+    min-width: 200px;
+    padding: 0;
+    width: 25%; }
 
 .section-tab {
-  background: #f0f0f0;
   border: solid #d0d0d0;
   border-width: 0 1px 1px 0;
   color: #4a4a4a;
@@ -366,7 +426,16 @@ body {
   padding: 0 30px 0 65px;
   position: relative;
   text-decoration: none;
-  width: 225px; }
+  -webkit-transition: background 0.3s ease;
+  -moz-transition: background 0.3s ease;
+  -ms-transition: background 0.3s ease;
+  transition: background 0.3s ease; }
+  .section-tab.active, .section-tab.active:hover {
+    background: white;
+    border-bottom-color: white;
+    height: 71px; }
+  .section-tab:hover {
+    background: #f0f0f0; }
 
 .section-tab-icon {
   background: #dadada;
@@ -385,3 +454,12 @@ body {
   position: absolute;
   top: 50%;
   width: 24px; }
+
+.activity-list p {
+  margin: 0; }
+.activity-list .timestamp {
+  color: #b0b0b0;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-top: 5px;
+  text-transform: uppercase; }

@@ -23,10 +23,19 @@ body {
 
 #main {
   float: left;
-  width: 70%;
+  width: 65%;
+  @include apply-to(max-width, 960px){
+    float: none;
+    width: 100%;
+  }
 }
 
 #sidebar {
   float: right;
-  width: 28%;
+  width: 33%;
+  @include apply-to(max-width, 960px){
+    float: none;
+    margin-top: 30px;
+    width: 100%;
+  }
 }
