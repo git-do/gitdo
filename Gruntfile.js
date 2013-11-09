@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
     exec: {
       run: {
-        cmd: 'node app.js'
+        cmd: './node_modules/nodemon/nodemon.js app.js'
       },
 
       deploy: {
