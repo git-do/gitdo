@@ -5,12 +5,14 @@ module.exports = (function () {
   */
   var
     db = require("../db.js"),
+    Utils = require("./Utils.js"),
     githubRepos = require("../routes/github/repos.js");
 
   /**
   * Constructor
   */
   function Repos(req, resp) {
+    this.utils = new Utils();
     this.db = db;
     this.ghUser = req.user;
     this.req = req;
@@ -24,6 +26,7 @@ module.exports = (function () {
   // Get
   Repos.prototype.get = function (obj) {
     var self = this;
+    this.originalObj = obj;
     this.dbGet(obj, function (err, vals) {
       self.response(err, vals, function (v) {
         self.onGet(v);
@@ -36,11 +39,17 @@ module.exports = (function () {
     var
       self = this,
       data;
-    this.getGH(function (err, ghData) {
+    this.ghGet(function (err, ghData) {
       if (err || !ghData) {
         self.send(500, "Internal Error: " + err);
       } else {
         data = self.mergeData(vals, ghData);
+
+        // If name is included in request/original object,
+        // it's looking for a single repo, not all repos
+        if (self.originalObj.name) {
+          data = data[0];
+        }
         self.send(200, data);
       }
     });
@@ -85,14 +94,21 @@ module.exports = (function () {
   };
 
   // Get github repos
-  Repos.prototype.getGH = function (fn) {
-    githubRepos.getRepos();
+  Repos.prototype.ghGet = function (fn) {
+    githubRepos.getRepos(this.ghUser.accessToken, fn);
   };
 
   // Merge data
-  Repos.prototype.mergeData = function (vals, ghData) {
-    //console.log(vals, ghData);
-    return vals;
+  Repos.prototype.mergeData = function (repos, ghRepos) {
+    var
+      i = repos.length,
+      repo,
+      ghReposObj = this.utils.arrayToObj(ghRepos, "id");
+    for (i; i; i -= 1) {
+      repo = repos[i - 1];
+      repo.github = ghReposObj[repo.ghid.toString()];
+    }
+    return repos;
   };
 
   // Response
