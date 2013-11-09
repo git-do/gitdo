@@ -17,6 +17,8 @@
     "grunt": "~0.4.1",
     "grunt-exec": "~0.4.2",
     "grunt-node-version": "~1.0.0",
-    "nodemon": "~0.7.10"
+    "github": "~0.1.12",
+    "nodemon": "~0.7.10",
+    "async": "~0.2.9"
   }
 }
