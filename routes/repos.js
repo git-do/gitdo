@@ -27,7 +27,7 @@ var
     }
   }]
 */
-exports.getAllRoute = getAllRoute = function(req, res, fn, silent) {
+exports.getAllRoute = getAllRoute = function(req, res, config) {
   if (req.user) {
     var
       repos = new Repos(req, res),
@@ -35,7 +35,7 @@ exports.getAllRoute = getAllRoute = function(req, res, fn, silent) {
     if (q.username === req.user.username) {
       repos.get({
         username: req.user.username.toLowerCase()
-      }, fn, silent);
+      }, config.fn, config.silent);
     } else {
       repos.send(400, "Bad Request: Invalid parameters");
     }
@@ -67,7 +67,7 @@ exports.getAllRoute = getAllRoute = function(req, res, fn, silent) {
     }
   }
 */
-exports.getRoute = function(req, res, fn, silent) {
+exports.getRoute = function(req, res, config) {
   if (req.user) {
     var
       repos = new Repos(req, res),
@@ -76,7 +76,7 @@ exports.getRoute = function(req, res, fn, silent) {
       repos.get({
         username: req.user.username.toLowerCase(),
         name: q.name
-      }, fn, silent);
+      }, config.fn, config.silent);
     } else {
       repos.send(400, "Bad Request: Invalid parameters");
     }
@@ -95,7 +95,7 @@ exports.getRoute = function(req, res, fn, silent) {
     name: [string]
   }
 */
-exports.createRoute = function(req, res, fn, silent) {
+exports.createRoute = function(req, res, config) {
   if (req.user) {
     var
       repos = new Repos(req, res),
@@ -105,7 +105,35 @@ exports.createRoute = function(req, res, fn, silent) {
         username: req.user.username.toLowerCase(),
         name: b.name,
         dateCreated: moment().format()
-      }, fn, silent);
+      }, config.fn, config.silent);
+    } else {
+      repos.send(400, "Bad Request: Invalid parameters");
+    }
+  } else {
+    res.redirect("/");
+  }
+};
+
+/**
+* Delete
+*
+  DELETE
+  Accepts
+  {
+    username: [string],
+    name: [string]
+  }
+*/
+exports.deleteRoute = function(req, res, config) {
+  if (req.user) {
+    var
+      repos = new Repos(req, res),
+      p = req.params;
+    if (p.name) {
+      repos.delete({
+        username: req.user.username.toLowerCase(),
+        name: p.name
+      }, config.fn, config.silent);
     } else {
       repos.send(400, "Bad Request: Invalid parameters");
     }
@@ -120,5 +148,8 @@ exports.createRoute = function(req, res, fn, silent) {
 exports.getAll = function (req, res, fn) {
   req.query = req.query || {};
   req.query.username = req.user.username;
-  getAllRoute(req, res, fn, true);
+  getAllRoute(req, res, {
+    fn: fn,
+    silent: true
+  });
 };
