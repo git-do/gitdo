@@ -75,12 +75,11 @@ exports.removeHookRoute = function (req, res) {
 
 // Web hook listener
 exports.webHook = function (req, res) {
-  var payload = req.body.payload,
+  var payload = JSON.parse(req.body.payload),
       payloadInfo = {};
 
-  console.log(payload);
-  // payloadInfo.repo = payload.repository.name;
-  // payloadInfo.user = payload.repository.owner.name;
+  payloadInfo.repo = payload.repository.name;
+  payloadInfo.user = payload.repository.owner.name;
   payloadInfo.ref = payload.ref;
   payloadInfo.changedFiles = [];
 
@@ -97,7 +96,7 @@ exports.webHook = function (req, res) {
 
     // todo: give these files to the parser
     var parser = new Parser();
-    files.getFile('eca89c2aa0c1e8fd867efb6da061792400c6efdd', 'Todo', 'gitdo', payloadInfo.changedFiles[0], payloadInfo.ref, function (err, data) {
+    files.getFile('eca89c2aa0c1e8fd867efb6da061792400c6efdd', payloadInfo.repo, payloadInfo.user, payloadInfo.changedFiles[0], payloadInfo.ref, function (err, data) {
       parser.parseCode(data);
     });
   });
