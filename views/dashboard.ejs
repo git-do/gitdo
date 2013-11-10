@@ -11,42 +11,30 @@
 </header>
 
 <div id="content-wrap">
-  <div id="main">
-    <header class="section-header">
-      <h2 class="section-title">Repositories</h2>
 
-      <!-- 
-      <div class="filter-wrap">
-        <a class="filter-btn btn" href="#">Filter<span class="filter-arrow"></span></a>
-        <ul class="filter-dropdown dropdown-list">
-          <li><a href="#">Sort by Issue Total</a></li>
-          <li><a href="#">Sort by repo name</a></li>
-          <li><a href="#">Sort by recent activity</a></li>
-        </ul>
-      </div> 
-      -->
-    </header>
-    
-    <% if (repos.length === 0) {%>
-      <div id="no-repos-notice">
-        <a href="/repos">
-          <span class="add-btn">Add</span>
-          <h3>Click to add repositories</h3>
-          <p>You are not tracking any repositories in gitdo</p>
-        </a>
-      </div>
-    <% }  else { %>
-      <ul class="list">
-        <% for (var i = 0; i < repos.length; i++) {%>
-          <li>
-            <a href="/dashboard/<%- repos[i].name %>" class="list-item-header">
-              <h3 class="list-heading"><%- repos[i].name %></h3>
-              <span class="repo-issue-total"><%- repos[i].issueTotal %></span>
-            </a>
-          </li>
-        <% } %>
-      </ul>
-    <% } %>
+  <header class="section-header">
+    <h2 class="section-header-label">Repositories</h2>
+  </header>
+  
+  <% if (repos.length === 0) {%>
+    <div id="no-repos-notice">
+      <a href="/repos">
+        <span class="add-btn">Add</span>
+        <h3>Click to add repositories</h3>
+        <p>You are not tracking any repositories in gitdo</p>
+      </a>
+    </div>
+  <% }  else { %>
+    <ul class="list">
+      <% for (var i = 0; i < repos.length; i++) {%>
+        <li>
+          <a href="/dashboard/<%- repos[i].name %>" class="list-item-header">
+            <h3 class="list-heading"><%- repos[i].name %></h3>
+            <span class="repo-issue-total"><%- repos[i].issueTotal %></span>
+          </a>
+        </li>
+      <% } %>
+    </ul>
+  <% } %>
 
-  </div>
 </div>

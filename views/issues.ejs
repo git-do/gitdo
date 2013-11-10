@@ -1,6 +1,6 @@
 
 <header id="page-header">
-  <h1><%- repo %><a class="external-link" href="#" target="_blank">View Repo in github</a></h1>
+  <h1><%- repo %></h1>
   <div id="user-info">
     <span class="user-avatar" style="background-image: url(<%- user.avatar %>);"></span>
     <span class="user-name"><%- user.name %></span>
@@ -12,56 +12,56 @@
 
 <div class="section-tabs">
   <ul>
-    <li><a class="section-tab active" href="#"><span class="section-tab-icon"></span>Open Issues<span class="blip"></span></a></li>
-    <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Pending<span class="blip"></span></a></li>
-    <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Closed Issues<span class="blip"></span></a></a></li>
+    <% for (var state in issues) { %>
+      <li><a class="tab-<%- state.charAt(0).toLowerCase() + state.slice(1) %> section-tab" href="#" data-tab-content="<%- state.charAt(0).toLowerCase() + state.slice(1) %>-issues"><span class="section-tab-notification"><%- issues[state].length %></span><%- state.charAt(0).toUpperCase() + state.slice(1) %> Issues</a></li>
+    <% } %>
   </ul>
 </div>
 
 <div id="content-wrap">
-  <div id="main">
+  
   <% for (var state in issues) { %>
     <% if (issues[state].length) { %>
-    
-    <header class="section-header">
-      <h2 class="section-title"><%- state.charAt(0).toUpperCase() + state.slice(1) %> Issues</h2>
-    </header>
-    
-    <ul class="issue-list list state-<%- state %>">
-      <% for (var i = 0; i < issues[state].length; i++) {%>
-        <% var issue = issues[state][i] %>
-        <li>
-          <header>
-            <a href="#" class="list-item-header">
-              <h3 class="list-heading"><%- issue.github.title %></h3>
-              <span data-date="<%- issue.github.created_at %>" class="issue-date timestamp">created </span>
-            </a>
-          </header>
+    <div class="tab-content" data-tab-content="<%- state.charAt(0).toLowerCase() + state.slice(1) %>-issues">
+      <header class="section-header">
+        <h2 class="label-title section-header-label">Issue Title</h2>
+        <h2 class="label-date section-header-label">Last Updated</h2>
+      </header>
+      
+      <ul class="issue-list list state-<%- state %>">
+        <% for (var i = 0; i < issues[state].length; i++) {%>
+          <% var issue = issues[state][i] %>
+          <li>
+            <header>
+              <a href="#" class="list-item-header">
+                <h3 class="list-heading"><%- issue.github.title %></h3>
+                <span data-date="<%- issue.github.created_at %>" class="issue-date timestamp">Updated</span>
+              </a>
+            </header>
 
-          <div class="issue-details">
-            <ul class="issue-meta">
-              <li><span class="issue-meta-label">Branch Name</span> <%- issue.branch %></li>
-              <li><span class="issue-meta-label">File Name</span> <%- issue.filename %></li>
-              <li><span class="issue-meta-label">Line Number</span> #<%- issue.line %></li>
-            </ul>
-            <div class="issue-desc">
-              <span class="issue-meta-label">Issue description</span>
-              <p><%- issue.github.body %></p>
-            </div>
-            <div class="clear"></div>
-            <div class="issue-footer">
+            <div class="issue-details">
+              <ul class="issue-meta">
+                <li><span class="issue-meta-label">Branch Name</span> <% if (issue.branch) { %><%- issue.branch %><% } else { %> master <% } %></li>
+                <li><span class="issue-meta-label">File Name</span> <%- issue.filename %></li>
+                <li><span class="issue-meta-label">Line Number</span> #<%- issue.line %></li>
+              </ul>
+              <div class="issue-desc">
+                <span class="issue-meta-label">Issue description</span>
+                <p><%- issue.github.body %></p>
+              </div>
+              <div class="clear"></div>
               <% if (issue.github.html_url) { %>
-                <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
-                <a href="<%- issue.github.html_url %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
+                <div class="issue-footer">
+                  <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
+                  <a href="<%- issue.github.html_url %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
+                </div>
               <% } %>
             </div>
-          </div>
-
-        </li>
-        
-      <% } %>
-    </ul>
+          </li>
+        <% } %>
+      </ul>
+    </div>
     <% } %>
   <% } %>
-  </div>
+
 </div>

@@ -27,22 +27,3 @@ body {
 #content-wrap {
   margin: 30px;
 }
-
-#main {
-  float: left;
-  width: 100%;
-  @include apply-to(max-width, 960px){
-    float: none;
-    width: 100%;
-  }
-}
-
-#sidebar {
-  float: right;
-  width: 33%;
-  @include apply-to(max-width, 960px){
-    float: none;
-    margin-top: 30px;
-    width: 100%;
-  }
-}
