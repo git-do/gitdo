@@ -3,15 +3,21 @@
   Landing Page
 ------------------------------*/
 
-#topbar {
-  background: #202020;
-  width: 100%;
-  
-  ul {
-    margin: 0;
-    padding: 0;
-  }
+/* --- [ Herospace ] --- */
 
+#herospace {
+  background: #333;
+  border-top: 7px solid tomato;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.herospace-nav {
+  float: right;
+  margin: 30px 0 0;
+  padding: 0;
+  
   li {
     float: left;
     list-style: none;
@@ -22,58 +28,114 @@
   a {
     color: #fff;
     display: block;
+    font-size: .7rem;
     font-weight: bold;
+    letter-spacing: .05em;
     padding: 10px 15px;
     text-decoration: none;
+    text-transform: uppercase;
   }
+
 }
 
-#herospace {
-  background: #333;
-  height: 660px;
-  overflow: hidden;
-  padding: 50px 0;
-  position: relative;
-  width: 100%;
+.herospace-content {
+  margin: 0 auto;
+  padding: 100px 0 60px 30px;
+  width: 735px;
 }
 
 .herospace-logo {
   background: $sprite 0 -50px;
-  height: 71px;
-  margin: 0 auto;
-  text-indent: -9999px;
-  width: 160px;
-}
-
-.herospace-subhead {
-  color: #9a9a9a;
-  font-size: 1.1rem;
-  font-weight: 200;
-  margin: 25px 0 50px;
-  text-align: center;
-}
-
-.herospace-code-block {
-  display: none;
   float: left;
-  width: 42%;
-  pre {
-    @include border-radius(4px);
-    background: #202020;
+  height: 86px;
+  margin: 0;
+  text-indent: -9999px;
+  width: 194px;
+}
+
+.herospace-headline {
+  float: left;
+  margin-left: 35px;
+  
+  h2 {
     color: #fff;
-    font-size: 14px;
-    line-height: 1.8;
-    margin: 100px 2%;
-    padding: 20px 30px;
-    
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+  }
+
+  h3 {
+    color: #9a9a9a;
+    font-size: 1rem;
+    font-weight: 200;
+    margin: 10px 0 0;
   }
 }
 
 .herospace-screenshot {
   margin: 0 auto;
-  width: 823px;
+  width: 100%;
   img {
     display: block;
     width: 100%;
+  }
+}
+
+/* --- [ Herospace Callout ] --- */
+
+#herospace-callout {
+  background: #f3f3f3;
+  padding: 60px 0;
+  text-align: center;
+  
+  h3 {
+    color: #4a4a4a;
+    display: inline-block;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+}
+
+.callout-btn {
+  @include transition(all .3s ease);
+  background: tomato;
+  border-color: tomato;
+  color: #fff;
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 30px;
+  padding: 15px 30px;
+  text-transform: uppercase;
+  &:hover {
+    background: #333;
+    border-color: #333;
+  }
+}
+
+/* --- [ Features Section ] --- */
+
+#features {
+  max-width: 1050px;
+}
+
+.feature {
+  clear: both;
+  min-height: 400px;
+  padding: 50px 0;
+}
+
+.feature-heading {
+  color: #4a4a4a;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.feature-content {
+  color: #8a8a8a;
+  font-weight: 200;
+  width: 40%;
+  
+  p {
+    line-height: 1.5;
   }
 }

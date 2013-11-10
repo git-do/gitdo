@@ -23,6 +23,9 @@
 .clear {
   clear: both; }
 
+.float-right {
+  float: right; }
+
 /*==============================
   Typography
 --------------------------------*/
@@ -31,7 +34,8 @@ body {
 
 /* --- [ Headings ] --- */
 h1, h2, h3, h4, h5 {
-  font-weight: 200; }
+  font-weight: 200;
+  -webkit-font-smoothing: antialiased; }
 
 h1 {
   font-size: 2rem; }
@@ -54,15 +58,7 @@ h6 {
 /* --- [ Paragraphs ] --- */
 p {
   line-height: 1.3;
-  margin: 0 0 1.5em;
-  /* cross-browser hyphenation - http://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/ */
-  -ms-word-break: break-all;
-  word-break: break-all;
-  word-break: break-word;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto; }
+  margin: 0 0 1.5em; }
 
 /* --- [ Links ] --- */
 a, a:visited {
@@ -93,6 +89,11 @@ code, pre {
 
 body {
   background: white; }
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 95%; }
 
 #global-container {
   margin-left: 210px; }
@@ -140,6 +141,7 @@ body {
   -ms-background-clip: padding-box;
   background-clip: padding-box;
   color: #666666;
+  -webkit-font-smoothing: antialiased;
   line-height: 1;
   padding: 10px 25px;
   text-decoration: none;
@@ -480,72 +482,115 @@ body {
 /*============================
   Landing Page
 ------------------------------*/
-#topbar {
-  background: #202020;
+/* --- [ Herospace ] --- */
+#herospace {
+  background: #333333;
+  border-top: 7px solid tomato;
+  overflow: hidden;
+  position: relative;
   width: 100%; }
-  #topbar ul {
-    margin: 0;
-    padding: 0; }
-  #topbar li {
+
+.herospace-nav {
+  float: right;
+  margin: 30px 0 0;
+  padding: 0; }
+  .herospace-nav li {
     float: left;
     list-style: none;
     margin: 0;
     padding: 0; }
-  #topbar a {
+  .herospace-nav a {
     color: white;
     display: block;
+    font-size: 0.7rem;
     font-weight: bold;
+    letter-spacing: 0.05em;
     padding: 10px 15px;
-    text-decoration: none; }
+    text-decoration: none;
+    text-transform: uppercase; }
 
-#herospace {
-  background: #333333;
-  height: 660px;
-  overflow: hidden;
-  padding: 50px 0;
-  position: relative;
-  width: 100%; }
+.herospace-content {
+  margin: 0 auto;
+  padding: 100px 0 60px 30px;
+  width: 735px; }
 
 .herospace-logo {
   background: url(../img/sprite.png) no-repeat 0 -50px;
-  height: 71px;
-  margin: 0 auto;
-  text-indent: -9999px;
-  width: 160px; }
-
-.herospace-subhead {
-  color: #9a9a9a;
-  font-size: 1.1rem;
-  font-weight: 200;
-  margin: 25px 0 50px;
-  text-align: center; }
-
-.herospace-code-block {
-  display: none;
   float: left;
-  width: 42%; }
-  .herospace-code-block pre {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    border-radius: 4px;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-    -ms-background-clip: padding-box;
-    background-clip: padding-box;
-    background: #202020;
+  height: 86px;
+  margin: 0;
+  text-indent: -9999px;
+  width: 194px; }
+
+.herospace-headline {
+  float: left;
+  margin-left: 35px; }
+  .herospace-headline h2 {
     color: white;
-    font-size: 14px;
-    line-height: 1.8;
-    margin: 100px 2%;
-    padding: 20px 30px; }
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px 0 0 0; }
+  .herospace-headline h3 {
+    color: #9a9a9a;
+    font-size: 1rem;
+    font-weight: 200;
+    margin: 10px 0 0; }
 
 .herospace-screenshot {
   margin: 0 auto;
-  width: 823px; }
+  width: 100%; }
   .herospace-screenshot img {
     display: block;
     width: 100%; }
+
+/* --- [ Herospace Callout ] --- */
+#herospace-callout {
+  background: #f3f3f3;
+  padding: 60px 0;
+  text-align: center; }
+  #herospace-callout h3 {
+    color: #4a4a4a;
+    display: inline-block;
+    font-size: 1.2rem;
+    margin: 0; }
+
+.callout-btn {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: tomato;
+  border-color: tomato;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 30px;
+  padding: 15px 30px;
+  text-transform: uppercase; }
+  .callout-btn:hover {
+    background: #333333;
+    border-color: #333333; }
+
+/* --- [ Features Section ] --- */
+#features {
+  max-width: 1050px; }
+
+.feature {
+  clear: both;
+  min-height: 400px;
+  padding: 50px 0; }
+
+.feature-heading {
+  color: #4a4a4a;
+  font-weight: bold;
+  margin-bottom: 10px; }
+
+.feature-content {
+  color: #8a8a8a;
+  font-weight: 200;
+  width: 40%; }
+  .feature-content p {
+    line-height: 1.5; }
 
 /*===============================
   Partials
@@ -691,7 +736,7 @@ body {
   margin: 30px auto;
   position: relative;
   text-indent: -9999px;
-  width: 84px; }
+  width: 81px; }
 
 .admin-bar-icon {
   background: url(../img/sprite.png) no-repeat;
