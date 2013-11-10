@@ -322,16 +322,18 @@ body {
   width: 24px; }
 
 /* --- [ Issue List ] --- */
-.issue-list li.open {
-  border-color: tomato; }
-  .issue-list li.open .list-item-header {
-    background: tomato;
-    padding-left: 20px;
-    color: white; }
-  .issue-list li.open .timestamp {
-    color: white; }
-  .issue-list li.open .issue-details {
-    display: block; }
+.issue-list {
+  margin-bottom: 30px; }
+  .issue-list li.open {
+    border-color: tomato; }
+    .issue-list li.open .list-item-header {
+      background: tomato;
+      padding-left: 20px;
+      color: white; }
+    .issue-list li.open .timestamp {
+      color: white; }
+    .issue-list li.open .issue-details {
+      display: block; }
 
 .issue-date {
   position: absolute;
