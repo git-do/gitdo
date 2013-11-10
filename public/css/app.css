@@ -531,7 +531,7 @@ body {
   @media only screen and (max-width: 800px) {
     .herospace-logo {
       float: none;
-      margin: 0 auto 40px; } }
+      margin: 20px auto 40px; } }
 
 .herospace-headline {
   float: left;
@@ -561,6 +561,9 @@ body {
 .herospace-screenshot {
   margin: 0 auto;
   width: 100%; }
+  @media only screen and (max-width: 580px) {
+    .herospace-screenshot {
+      display: none; } }
   .herospace-screenshot img {
     display: block;
     width: 100%; }
@@ -607,6 +610,8 @@ body {
   border-bottom: 1px solid #eaeaea;
   clear: both;
   padding: 85px 0; }
+  .feature:last-child {
+    border-bottom: none; }
   @media only screen and (max-width: 800px) {
     .feature {
       padding: 85px 10%; } }
@@ -646,6 +651,75 @@ body {
       width: 100%; } }
   .feature-content p {
     line-height: 1.5; }
+
+/* --- [ Team Section ] --- */
+#team {
+  background: #333333;
+  padding: 100px 0; }
+  @media only screen and (max-width: 800px) {
+    #team {
+      padding: 75px 0; } }
+  @media only screen and (max-width: 580px) {
+    #team {
+      padding: 50px 0; } }
+
+.team-member {
+  color: white;
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 25%; }
+  @media only screen and (max-width: 800px) {
+    .team-member {
+      margin-bottom: 40px;
+      width: 50%; }
+      .team-member:last-child {
+        margin-bottom: 0; } }
+  @media only screen and (max-width: 580px) {
+    .team-member {
+      width: 100%; } }
+  .team-member p {
+    font-size: 0.8rem;
+    font-weight: 300;
+    padding: 0 30px; }
+
+.team-member-headshot {
+  background: #cccccc;
+  border-radius: 170px;
+  display: block;
+  height: 170px;
+  margin: 0 auto 20px;
+  width: 170px; }
+
+.team-member-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 15px 0; }
+
+.team-member-contact {
+  margin: 0;
+  padding: 0;
+  text-align: center; }
+  .team-member-contact li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 5px 0 0;
+    padding: 0; }
+
+.contact-icon {
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  background: #cccccc;
+  display: block;
+  height: 30px;
+  text-indent: -9999px;
+  width: 30px; }
 
 /*===============================
   Partials

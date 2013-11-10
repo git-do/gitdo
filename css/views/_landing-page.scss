@@ -57,7 +57,7 @@
   width: 194px;
   @include apply-to(max-width, 800px){
     float: none;
-    margin: 0 auto 40px;
+    margin: 20px auto 40px;
   }
 }
 
@@ -94,6 +94,9 @@
 .herospace-screenshot {
   margin: 0 auto;
   width: 100%;
+  @include apply-to(max-width, 580px){
+    display: none;
+  }
   img {
     display: block;
     width: 100%;
@@ -148,6 +151,9 @@
   border-bottom: 1px solid #eaeaea;
   clear: both;
   padding: 85px 0;
+  &:last-child {
+    border-bottom: none;
+  }
   @include apply-to(max-width, 800px){
     padding: 85px 10%;
   }
@@ -192,4 +198,78 @@
   p {
     line-height: 1.5;
   }
+}
+
+/* --- [ Team Section ] --- */
+
+#team {
+  background: #333;
+  padding: 100px 0;
+  @include apply-to(max-width, 800px){
+    padding: 75px 0;
+  }
+  @include apply-to(max-width, 580px){
+    padding: 50px 0;
+  }
+}
+
+.team-member {
+  color: #fff;
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 25%;
+  @include apply-to(max-width, 800px){
+    margin-bottom: 40px;
+    width: 50%;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  @include apply-to(max-width, 580px){
+    width: 100%;
+  }
+  
+  p {
+    font-size: .8rem;
+    font-weight: 300;
+    padding: 0 30px;
+  }
+}
+
+.team-member-headshot {
+  background: #ccc;
+  border-radius: 170px;
+  display: block;
+  height: 170px;
+  margin: 0 auto 20px;
+  width: 170px;
+}
+
+.team-member-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.team-member-contact {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+  li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 5px 0 0;
+    padding: 0;
+  }
+}
+
+.contact-icon {
+  @include border-radius(30px);
+  background: #ccc;
+  display: block;
+  height: 30px;
+  text-indent: -9999px;
+  width: 30px;
 }
