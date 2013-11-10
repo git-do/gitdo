@@ -48,7 +48,7 @@
         data: {
           number: $this.attr("data-number"),
           repo: $this.attr("data-repo"),
-          state: "closed"
+          state: "pending"
         },
         success: function () {
           var $li = $this.closest("li");

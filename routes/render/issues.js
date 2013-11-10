@@ -72,7 +72,7 @@ Issues.sortByState = function (issues) {
     
     // If there is github data but it's marked closed, it's been
     // manually marked (the code should still be in the repo)
-    } else if (issue.state === "closed") {
+    } else if (issue.state === "pending") {
       state = "marked";
     }
     sortedObj[state].push(issue);
