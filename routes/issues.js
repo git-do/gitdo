@@ -3,7 +3,8 @@ var
   moment = require("moment"),
   getAllRoute,
   getRoute,
-  createRoute;
+  createRoute,
+  updateRoute;
 
 /**
 * Get all
@@ -19,7 +20,6 @@ var
     "_id": [string],
     "ghid": [integer],
     "name": [string],
-    "username": [string],
     "github": {
       "id": [integer],
       "fullname": [string],
@@ -59,7 +59,6 @@ exports.getAllRoute = getAllRoute = function(req, res, config) {
     "_id": [string],
     "ghid": [integer],
     "name": [string],
-    "username": [string],
     "github": {
       "id": [integer],
       "fullname": [string],
@@ -91,7 +90,6 @@ exports.getRoute = function(req, res, config) {
   POST
   Accepts:
   {
-    username: [string],
     repo: [string],
     title: [string],
     description: [string],
@@ -115,9 +113,16 @@ exports.createRoute = createRoute = function(req, res, config) {
     var
       issues = new Issues(req, res),
       b = req.body;
-    if (b.username === req.user.username && b.repo && b.title && b.filename && b.line) {
+
+    // If number exists, run as update
+    if (b.number) {
+      updateRoute(req, res, config);
+      return;
+    }
+
+    // Create
+    if (b.repo && b.title && b.filename && b.line) {
       issues.create({
-        username: req.user.username.toLowerCase(),
         repo: b.repo,
         title: b.title,
         description: b.description || "No description",
@@ -125,6 +130,60 @@ exports.createRoute = createRoute = function(req, res, config) {
         line: b.line,
         dateCreated: moment().format()
       }, config.fn, config.silent);
+    } else {
+      issues.send(400, "Bad Request: Invalid parameters");
+    }
+  } else {
+    res.redirect("/");
+  }
+};
+
+/**
+* Update
+*
+  POST
+  Accepts:
+  {
+    repo: [string],
+    line: [integer],
+    filename: [string],
+    line: [integer]
+  }
+
+  Returns:
+  {
+    "repo": [string],
+    "filename": [string],
+    "line": [integer],
+    "dateCreated": [string],
+    "ghid": [integer],
+    "number": [integer],
+    "_id": [string]
+  }
+*/
+exports.updateRoute = updateRoute = function(req, res, config) {
+  if (req.user) {
+    var
+      issues = new Issues(req, res),
+      b = req.body,
+      updateObj,
+      updateProps = [
+        "filename",
+        "line",
+        "fullLine"
+      ];
+    if (b.repo && b.number) {
+      updateObj = {
+        repo: b.repo,
+        number: b.number,
+        dateUpdated: moment().format()
+      };
+      updateProps.forEach(function (val) {
+        if (b[val]) {
+          updateObj[val] = b[val];
+        }
+      });
+      issues.update(updateObj, config.fn, config.silent);
     } else {
       issues.send(400, "Bad Request: Invalid parameters");
     }
@@ -166,17 +225,19 @@ exports.createRoute = createRoute = function(req, res, config) {
 * Server connectors
 */
 exports.getAll = function (req, res, fn) {
-  req.query = req.query || {};
-  req.query.username = req.user.username;
   getAllRoute(req, res, {
     fn: fn,
     silent: true
   });
 };
 exports.create = function (req, res, fn) {
-  req.query = req.query || {};
-  req.query.username = req.user.username;
   createRoute(req, res, {
+    fn: fn,
+    silent: true
+  });
+};
+exports.update = function (req, res, fn) {
+  updateRoute(req, res, {
     fn: fn,
     silent: true
   });

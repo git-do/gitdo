@@ -28,7 +28,7 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: this.ghUser.user,
+        username: this.ghUser.username,
         name: obj.repo
       };
     this.originalObj = obj;
@@ -46,7 +46,24 @@ module.exports = (function () {
   };
 
   // On get
-  Issues.prototype.onGet = function (data) {
+  Issues.prototype.onGet = function (dbData) {
+    var
+      self = this,
+      obj = this.originalObj,
+      data;
+    this.ghGet(function (err, ghData) {
+      self.response(err, ghData, function () {
+        if (ghData instanceof Array === false) {
+          ghData = [ghData];
+        }
+        data = self.mergeData(dbData, ghData);
+        self.onGHGet(data);
+      }, true);
+    }, obj.repo, obj.number);
+  };
+
+  // On gh get
+  Issues.prototype.onGHGet = function (data) {
 
     // If number is included in request/original object,
     // it's looking for a single issue, not all issues
@@ -58,22 +75,31 @@ module.exports = (function () {
 
   // Create
   Issues.prototype.create = function (obj, callback, silent) {
-    var self = this;
+    var
+      self = this,
+      dbObj = {
+        username: this.ghUser.username,
+        name: obj.repo
+      };
     this.originalObj = obj;
     this.callback = callback;
     this.silent = silent;
 
-    // Github
-    githubIssues.createIssue(
-      this.ghUser.accessToken,
-      obj.repo,
-      obj.username,
-      obj.description,
-      obj.title,
-      function (err, vals) {
-        self.response(err, vals, self.onGHCreate.bind(self), true);
-      }
-    );
+    // Check if they have access to repo
+    this.dbGetRepos(dbObj, function () {
+
+      // Github
+      githubIssues.createIssue(
+        self.ghUser.accessToken,
+        obj.repo,
+        self.ghUser.username,
+        obj.description,
+        obj.title,
+        function (err, vals) {
+          self.response(err, vals, self.onGHCreate.bind(self), true);
+        }
+      );
+    }, true);
   };
 
   // On gh create
@@ -83,7 +109,6 @@ module.exports = (function () {
       obj = this.originalObj,
       gitdoObj = {
         repo: obj.repo,
-        username: obj.username,
         filename: obj.filename,
         line: obj.line,
         fullLine: obj.fullLine,
@@ -91,11 +116,41 @@ module.exports = (function () {
 
         // From GH
         ghid: v.id,
-        number: v.number
+        number: v.number,
+        state: v.state
       };
 
     // Gitdo
-    this.dbCreate(gitdoObj, this.response.bind(this));
+    this.dbCreate(gitdoObj, function (err, vals) {
+      self.response(err, vals, function () {
+        vals.github = v;
+        return vals;
+      });
+    });
+  };
+
+  // Update
+  Issues.prototype.update = function (obj, callback, silent) {
+    var
+      self = this,
+      dbObj = {
+        username: this.ghUser.username,
+        name: obj.repo
+      };
+    this.originalObj = obj;
+    this.callback = callback;
+    this.silent = silent;
+
+    // Check if they have access to repo
+    this.dbGetRepos(dbObj, function () {
+
+      // If so, get issues
+      self.dbUpdate(obj, function (err, val, dbObj) {
+        if (!err && !dbObj.err && dbObj.ok === 1) {
+          self.send(200, "Success");
+        }
+      });
+    }, true);
   };
 
   // Delete
@@ -143,7 +198,14 @@ module.exports = (function () {
 
   // Update issues
   Issues.prototype.dbUpdate = function (obj, fn) {
-    this.db.issues.update(obj, fn);
+    this.db.issues.update({
+      repo: obj.repo,
+      number: obj.number
+    }, {
+      $set: obj
+    }, {
+      upsert: false
+    }, fn);
   };
 
   // Create issues
@@ -152,19 +214,23 @@ module.exports = (function () {
   };
 
   // Get github issues
-  Issues.prototype.ghGet = function (fn, repo) {
-      githubIssues.getIssue(this.ghUser.accessToken, repo, this.originalObj.username, fn);
+  Issues.prototype.ghGet = function (fn, repo, number) {
+    if (number) {
+      githubIssues.getIssue(this.ghUser.accessToken, repo, this.ghUser.username, number, fn);
+    } else {
+      githubIssues.getIssues(this.ghUser.accessToken, repo, this.ghUser.username, fn);
+    }
   };
 
   // Merge data
   Issues.prototype.mergeData = function (issues, ghIssues) {
     var
       i = issues.length,
-      repo,
-      ghIssuesObj = this.utils.arrayToObj(ghIssues, "id");
+      issue,
+      ghIssuesObj = this.utils.arrayToObj(ghIssues, "number");
     for (i; i; i -= 1) {
-      repo = issues[i - 1];
-      repo.github = ghIssuesObj[repo.ghid.toString()];
+      issue = issues[i - 1];
+      issue.github = ghIssuesObj[issue.number.toString()];
     }
     return issues;
   };
