@@ -11,6 +11,10 @@
   overflow: hidden;
   position: relative;
   width: 100%;
+
+  iframe {
+    margin-bottom: -60px;
+  }
 }
 
 .herospace-nav {
