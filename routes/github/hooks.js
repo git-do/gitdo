@@ -1,6 +1,7 @@
 var github = require('./github'),
     async = require('async'),
     files = require('./files'),
+    Issues = require('../../classes/Issues'),
     Parser = require('../../classes/Parser');
 
 var HOOK_URL = 'http://meltmedia.2013.nodeknockout.com/api/commit';
@@ -17,45 +18,33 @@ var newHook = {
   }
 };
 
-// Add web hook to a repo
-exports.addHookRoute = function (req, res) {
-  var
-    repo = req.body.repo.split('/')[1],
-    user = req.body.repo.split('/')[0],
-    gh;
+var addHook = function (accessToken, repo, user, callback) {
+  var data = newHook,
+      gh;
 
-  var data = newHook;
   data.user = user;
   data.repo = repo;
 
-  if (req.user) {
-    gh = github.getClient(req.user.accessToken);
+  gh = github.getClient(accessToken);
 
-    gh.repos.createHook(data, function (err) {
-      res.send(err);
-    });
-  } else {
-    res.redirect('/');
-  }
+  gh.repos.createHook(data, function (err) {
+    callback(err);
+  });
+
 };
 
-// Remove web hook from repo
-exports.removeHookRoute = function (req, res) {
-  var
-    repo = req.body.repo.split('/')[1],
-    user = req.body.repo.split('/')[0],
-    gh;
+var removeHook = function (accessToken, repo, user, callback) {
+  var gh;
+  gh = github.getClient(accessToken);
 
-  if (req.user) {
-    gh = github.getClient(req.user.accessToken);
-
-    gh.repos.getHooks({
-      'user': user,
-      'repo': repo
-    }, function (err, data) {
-      if (err) { res.send(err); }
-
-      async.each(data, function (hook, callback) {
+  gh.repos.getHooks({
+    'user': user,
+    'repo': repo
+  }, function (err, data) {
+    if (err) {
+      callback(err);
+    } else {
+      async.each(data, function (hook, cb) {
         if (hook.config.url === HOOK_URL) {
           gh.repos.deleteHook({
             'user': user,
@@ -63,10 +52,43 @@ exports.removeHookRoute = function (req, res) {
             'id': hook.id
           });
         }
-        callback();
+        cb();
       }, function () {
-        res.send('Removed Hook');
+        callback();
       });
+    }
+  });
+};
+
+
+// Add web hook to a repo
+exports.addHookRoute = function (req, res) {
+  var
+    repo = req.body.repo.split('/')[1],
+    user = req.body.repo.split('/')[0];
+
+  if (req.user) {
+    addHook(req.user.accessToken, repo, user, function (err) {
+      if (err) { res.send(err); }
+      res.send('Hook Created');
+    });
+  } else {
+    res.redirect('/');
+  }
+
+  
+};
+
+// Remove web hook from repo
+exports.removeHookRoute = function (req, res) {
+  var
+    repo = req.body.repo.split('/')[1],
+    user = req.body.repo.split('/')[0];
+
+  if (req.user) {
+    removeHook(req.user.accessToken, repo, user, function (err) {
+      if (err) { res.send(err); }
+      res.send('Hook removed');
     });
   } else {
     res.redirect('/');
@@ -86,7 +108,6 @@ exports.webHook = function (req, res) {
   async.each(payload.commits, function (commit, callback) {
     payloadInfo.changedFiles = payloadInfo.changedFiles.concat(commit.added);
     payloadInfo.changedFiles = payloadInfo.changedFiles.concat(commit.modified);
-    payloadInfo.changedFiles = payloadInfo.changedFiles.concat(commit.removed);
     callback();
   }, function () {
 
@@ -110,3 +131,6 @@ exports.webHook = function (req, res) {
 
   res.end();
 };
+
+exports.addHook = addHook;
+exports.removeHook = removeHook;

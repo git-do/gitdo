@@ -6,7 +6,8 @@ module.exports = (function () {
   var
     db = require("../db.js"),
     Utils = require("./Utils.js"),
-    githubRepos = require("../routes/github/repos.js");
+    githubRepos = require("../routes/github/repos.js"),
+    githubHooks = require("../routes/github/hooks.js");
 
   /**
   * Constructor
@@ -83,6 +84,8 @@ module.exports = (function () {
     this.response(e, v, function (vals) {
       obj.ghid = vals.id;
       self.dbCreate(obj, self.response.bind(self));
+      // Add hook to github
+      githubHooks.addHook(self.ghUser.accessToken, obj.name, obj.username, function (err) {});
     }, true);
   };
 
@@ -94,6 +97,7 @@ module.exports = (function () {
     this.silent = silent;
 
     this.dbDelete(obj, this.response.bind(this));
+    githubHooks.removeHook(self.ghUser.accessToken, obj.name, obj.username, function (err) {});
   };
 
   // Send
