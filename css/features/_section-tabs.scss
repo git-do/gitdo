@@ -72,6 +72,23 @@
   }
 }
 
+.no-issues-msg {
+  @include border-radius(4px);
+  background: #f6f6f6;
+  border: 1px solid #d0d0d0;
+  color: #6a6a6a;
+  font-size: 1.1rem;
+  font-weight: 200;
+  margin: 150px auto;
+  padding: 20px 0;
+  text-align: center;
+  width: 350px;
+  
+  p {
+    margin: 0;
+  }
+}
+
 .tab-open {
   .section-tab-notification {
     background: tomato;
