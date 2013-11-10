@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashbaord</title>
+    <title>Dashboard</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/app.css">
@@ -13,8 +13,13 @@
     <div class="admin-bar">
       <a id="admin-bar-logo" href="/dashboard">gitDo</a>
       <ul>
-        <li><a class="active" href="/dashboard"><span class="admin-bar-icon icon-dashboard"></span>Dashboard</a></li>
-        <li><a href="/repos"><span class="admin-bar-icon icon-repos"></span>Manage Repositories</a></li>
+        <% if (active === "repos") {%>
+          <li><a href="/dashboard"><span class="admin-bar-icon icon-dashboard"></span>Dashboard</a></li>
+          <li><a class="active" href="/repos"><span class="admin-bar-icon icon-repos"></span>Manage Repositories</a></li>
+        <%} else {%>
+          <li><a class="active" href="/dashboard"><span class="admin-bar-icon icon-dashboard"></span>Dashboard</a></li>
+          <li><a href="/repos"><span class="admin-bar-icon icon-repos"></span>Manage Repositories</a></li>
+        <% } %>
         <li><a href="/auth/logout"><span class="admin-bar-icon icon-logout"></span>Logout</a></li>
       </ul>
     </div>
@@ -62,5 +67,8 @@
       </div>
       
     </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="/js/issues.js"></script>
+    <script src="/js/repos.js"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 var
-  Repos = require("../classes/Repos.js"),
+  Issues = require("../classes/Issues.js"),
   moment = require("moment"),
   getAllRoute,
   getRoute,
@@ -11,7 +11,7 @@ var
   GET
   Accepts:
   {
-    username: [string]
+    repo: [string]
   }
 
   Returns:
@@ -30,14 +30,14 @@ var
 exports.getAllRoute = getAllRoute = function(req, res, config) {
   if (req.user) {
     var
-      repos = new Repos(req, res),
+      issues = new Issues(req, res),
       q = req.query;
-    if (q.username === req.user.username) {
-      repos.get({
-        username: req.user.username.toLowerCase()
+    if (q.repo) {
+      issues.get({
+        repo: q.repo
       }, config.fn, config.silent);
     } else {
-      repos.send(400, "Bad Request: Invalid parameters");
+      issues.send(400, "Bad Request: Invalid parameters");
     }
   } else {
     res.redirect("/");
@@ -50,8 +50,8 @@ exports.getAllRoute = getAllRoute = function(req, res, config) {
   GET
   Accepts:
   {
-    username: [string],
-    name: [string]
+    number: [string],
+    repo: [string]
   }
 
   Returns:
@@ -70,15 +70,15 @@ exports.getAllRoute = getAllRoute = function(req, res, config) {
 exports.getRoute = function(req, res, config) {
   if (req.user) {
     var
-      repos = new Repos(req, res),
+      issues = new Issues(req, res),
       q = req.query;
-    if (q.username === req.user.username && q.name) {
-      repos.get({
-        username: req.user.username.toLowerCase(),
-        name: q.name
+    if (q.number && q.repo) {
+      issues.get({
+        number: parseInt(q.number, 10),
+        repo: q.repo
       }, config.fn, config.silent);
     } else {
-      repos.send(400, "Bad Request: Invalid parameters");
+      issues.send(400, "Bad Request: Invalid parameters");
     }
   } else {
     res.redirect("/");
@@ -89,25 +89,44 @@ exports.getRoute = function(req, res, config) {
 * Create
 *
   POST
-  Accepts
+  Accepts:
   {
     username: [string],
-    name: [string]
+    repo: [string],
+    title: [string],
+    description: [string],
+    filename: [string],
+    line: [integer]
+  }
+
+  Returns:
+  {
+    "repo": [string],
+    "filename": [string],
+    "line": [integer],
+    "dateCreated": [string],
+    "ghid": [integer],
+    "number": [integer],
+    "_id": [string]
   }
 */
-exports.createRoute = function(req, res, config) {
+exports.createRoute = createRoute = function(req, res, config) {
   if (req.user) {
     var
-      repos = new Repos(req, res),
+      issues = new Issues(req, res),
       b = req.body;
-    if (b.username === req.user.username && b.name) {
-      repos.create({
+    if (b.username === req.user.username && b.repo && b.title && b.filename && b.line) {
+      issues.create({
         username: req.user.username.toLowerCase(),
-        name: b.name,
+        repo: b.repo,
+        title: b.title,
+        description: b.description || "No description",
+        filename: b.filename,
+        line: b.line,
         dateCreated: moment().format()
       }, config.fn, config.silent);
     } else {
-      repos.send(400, "Bad Request: Invalid parameters");
+      issues.send(400, "Bad Request: Invalid parameters");
     }
   } else {
     res.redirect("/");
@@ -115,32 +134,33 @@ exports.createRoute = function(req, res, config) {
 };
 
 /**
-* Delete
+* Close
 *
   DELETE
   Accepts
   {
     username: [string],
-    name: [string]
+    number: [string],
+    repo: [string]
   }
 */
-exports.deleteRoute = function(req, res, config) {
+/*exports.closeRoute = function(req, res, config) {
   if (req.user) {
     var
-      repos = new Repos(req, res),
+      issues = new Issues(req, res),
       p = req.params;
-    if (p.name) {
-      repos.delete({
+    if (p.name && ) {
+      issues.delete({
         username: req.user.username.toLowerCase(),
         name: p.name
       }, config.fn, config.silent);
     } else {
-      repos.send(400, "Bad Request: Invalid parameters");
+      issues.send(400, "Bad Request: Invalid parameters");
     }
   } else {
     res.redirect("/");
   }
-};
+};*/
 
 /**
 * Server connectors
@@ -149,6 +169,14 @@ exports.getAll = function (req, res, fn) {
   req.query = req.query || {};
   req.query.username = req.user.username;
   getAllRoute(req, res, {
+    fn: fn,
+    silent: true
+  });
+};
+exports.create = function (req, res, fn) {
+  req.query = req.query || {};
+  req.query.username = req.user.username;
+  createRoute(req, res, {
     fn: fn,
     silent: true
   });

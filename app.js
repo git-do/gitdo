@@ -1,4 +1,4 @@
-
+require('nko')('z-wqAWVjbCSKa06J');
 /**
  * Module dependencies.
  */
@@ -11,6 +11,8 @@ var
   sass = require('node-sass'),
   ejs = require('ejs'),
   ejsLayouts = require('express-ejs-layouts'),
+  Utils = require('./classes/Utils.js'),
+  utils = new Utils(),
   passport = require('passport'),
   GithubStrat = require('passport-github').Strategy;
 
@@ -95,7 +97,8 @@ var github = require('./routes/github/github'),
 
     // Gitdo imports
     gitdoUsers = require('./routes/users'),
-    gitdoRepos = require('./routes/repos');
+    gitdoRepos = require('./routes/repos'),
+    gitdoIssues = require('./routes/issues');
 
 /**
 * Github Routes
@@ -130,8 +133,16 @@ app.get('/api/user', gitdoUsers.get);
 app.post('/api/user', gitdoUsers.create);
 
 // Repos
-app.get('/api/repos', gitdoRepos.getAll);
-app.get('/api/repo', gitdoRepos.get);
+app.get('/api/repos', gitdoRepos.getAllRoute);
+app.get('/api/repo', gitdoRepos.getRoute);
+app.post('/api/repo', gitdoRepos.createRoute);
+app.delete('/api/repo/:name', gitdoRepos.deleteRoute);
+
+// Issues
+app.get('/api/issues', gitdoIssues.getAllRoute);
+app.get('/api/issue', gitdoIssues.getRoute);
+app.post('/api/issue', gitdoIssues.createRoute);
+//app.delete('/api/issue/:name', gitdoIssues.closeRoute);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
@@ -141,9 +152,8 @@ http.createServer(app).listen(app.get('port'), function () {
 * Views
 */
 app.get('/', function (req, res) {
-  res.render('index', 
-    { 
-      title: 'The index page!',
+  res.render('index',
+    {
       layout: 'landing-page'
     }
   );
@@ -152,51 +162,52 @@ app.get('/', function (req, res) {
 app.get('/repos', function (req, res) {
   // Get list of repos from GitHub
   repos.getRepos(req.user.accessToken, function (err, repos) {
-    res.render('repos', {
-      repos: repos
-    });
-  })
+    gitdoRepos.getAll(req, res, function (gdRepos) {
+      //this is the worst but Roman said its okay
+      var gdReposObj = utils.arrayToObj(gdRepos, "ghid");
+
+      for (var i = 0; i < repos.length; i++) {
+        var id = repos[i].id;
+
+        if (gdReposObj[id]) {
+          repos[i].gitdo = true;
+        }
+      }
+
+      res.render('repos', {
+        active: 'repos',
+        user: {
+          avatar: req.user._json.avatar_url, 
+          name: req.user.displayName || req.user.username
+        },
+        repos: repos
+      });
+    }); 
+  });
 });
 
 app.get('/dashboard', function (req, res) {
-  res.render('dashboard', {
-    repos: [
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
+  gitdoRepos.getAll(req, res, function (repos) {
+    res.render('dashboard', {
+      active: 'dash',
+      user: {
+        avatar: req.user._json.avatar_url, 
+        name: req.user.displayName || req.user.username
       },
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
-      },
-      {
-        name: '[string]',
-        dateCreated: '[string]',
-        github: {
-          id: '[integer]',
-          fullname: '[string]',
-          active: '[boolean]'
-        }
-      }
-    ]
+      repos: repos
+    });
   });
 });
 
 app.get('/dashboard/:repo', function (req, res) {
   res.render('issues', {
+    active: 'dash',
+    user: {
+      avatar: req.user._json.avatar_url, 
+      name: req.user.displayName || req.user.username
+    },
     issues: [
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -208,7 +219,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -220,7 +230,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "open",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -232,7 +241,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",
@@ -244,7 +252,6 @@ app.get('/dashboard/:repo', function (req, res) {
       }
     },
     {
-      "isOpen": "false",
       "name": "[string]",
       "filename": "[string]",
       "line": "[number]",

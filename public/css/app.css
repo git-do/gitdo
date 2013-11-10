@@ -472,10 +472,10 @@ body {
   top: 0;
   width: 33px; }
 
-.switch-checkbox:checked + .switch-label .switch-inner {
+.switch-checkbox[checked] + .switch-label .switch-inner {
   margin-left: 0; }
 
-.switch-checkbox:checked + .switch-label .switch-handle {
+.switch-checkbox[checked] + .switch-label .switch-handle {
   background: tomato;
   right: 0px; }
 
@@ -763,7 +763,8 @@ body {
   -moz-background-clip: padding-box;
   -ms-background-clip: padding-box;
   background-clip: padding-box;
-  background: url(../img/tbd-avatar.jpg) no-repeat;
+  background-repeat: no-repeat;
+  background-size: 50px;
   display: block;
   float: left;
   height: 50px;
