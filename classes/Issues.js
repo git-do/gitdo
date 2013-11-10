@@ -51,7 +51,7 @@ module.exports = (function () {
       obj = this.originalObj,
       data;
 
-    obj.username = obj.username ? obj.username : this.ghUser.username,
+    obj.username = obj.username ? obj.username : this.ghUser.username;
 
     this.ghGet(function (err, ghData) {
 

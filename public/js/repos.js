@@ -1,51 +1,116 @@
-$(function () {
+(function () {
 
-  var username = null;
+  /**
+  * Constructor
+  */
+  function RepoManager() {
+    this.initVars();
+    this.logIn();
+    this.setBinds();
+  }
 
-  $.ajax({
-    url: '/api/user',
-    type: 'GET',
-    success: function (data) {
-      username = data.username;
-    }
-  });
+  /**
+  * Instance methods and properties
+  */
 
-  $('[type="checkbox"]').click(function (event) {
-    event.preventDefault();
+  // Init vars
+  RepoManager.prototype.initVars = function () {
+    this.username = null;
+    this.$body = $("body");
+    this.$deleteRepoModal = $("#delete-repo-modal");
+  };
 
-    var $this = $(this);
+  // Log in
+  RepoManager.prototype.logIn = function () {
+    var self = this;
+    return $.ajax({
+      url: "/api/user",
+      type: "GET",
+      success: function (data) {
+        self.username = data.username;
+      }
+    });
+  };
 
-    if ($this.attr("checked") === "checked") {
-      
-      $('#delete-repo-modal').show();
-
-      $('.close-modal').click(function (event) {
-        $('#delete-repo-modal').hide();
-      });
-
-      $('.confirm-modal').click(function(event) {
-        $.ajax({
-          url: '/api/repo/' + $this.attr('name'),
-          type: 'DELETE',
-          success: function () {
-            $('#delete-repo-modal').hide();
-            $this.removeAttr("checked");
-          }
+  // Set binds
+  RepoManager.prototype.setBinds = function () {
+    var self = this;
+    this.$body
+      .on("click", "[type='checkbox']", this.handleCheckbox.bind(this))
+      .on("click", ".close-modal", this.closeModal.bind(this))
+      .on("click", ".confirm-modal", function (ev) {
+        ev.preventDefault();
+        self.deleteRepo().done(function () {
+          self.closeModal();
+          self.updateView();
         });
       });
-    } else {
-      $.ajax({
-        url: '/api/repo',
-        type: 'POST',
-        data: {
-          username: username,
-          name: $this.attr('name')
-        },
-        success: function () {
-          $this.attr("checked", "checked");
-        }
-      });
-    }
-  });
+  };
 
-});
+  // Handle checkbox
+  RepoManager.prototype.handleCheckbox = function (ev) {
+    ev.preventDefault();
+
+    var $checkbox;
+    if (this.username) {
+      $checkbox = $(ev.currentTarget);
+      this.$checkbox = $checkbox;
+      this.repo = $checkbox.attr("name");
+      this.state = $checkbox.attr("checked") ? "on" : "off";
+      if (this.state === "on") {
+        this.showModal();
+      } else {
+        this.addRepo();
+      }
+    }
+  };
+
+  // Show modal
+  RepoManager.prototype.showModal = function () {
+    this.$deleteRepoModal.show();
+  };
+
+  // Close modal
+  RepoManager.prototype.closeModal = function () {
+    this.$deleteRepoModal.hide();
+  };
+
+  // Add repo
+  RepoManager.prototype.addRepo = function () {
+    var self = this;
+    return $.ajax({
+      url: "/api/repo",
+      type: "POST",
+      data: {
+        username: this.username,
+        name: this.repo
+      },
+      success: function () {
+        self.updateView();
+      }
+    });
+  };
+
+  // Delete repo
+  RepoManager.prototype.deleteRepo = function () {
+    var self = this;
+    return $.ajax({
+      url: "/api/repo/" + this.repo,
+      type: "DELETE"
+    });
+  };
+
+  // Update view
+  RepoManager.prototype.updateView = function () {
+    if (this.state === "on") {
+      this.$checkbox.removeAttr("checked");
+    } else {
+      this.$checkbox.attr("checked", "checked");
+    }
+  };
+
+  // Expose
+  $(function () {
+    var repoManager = new RepoManager();
+  });
+}());
