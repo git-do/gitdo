@@ -13,8 +13,7 @@ var newHook = {
     'push'
   ],
   'config': {
-    'url': HOOK_URL,
-    'content_type': 'json'
+    'url': HOOK_URL
   }
 };
 
@@ -76,7 +75,6 @@ exports.addHookRoute = function (req, res) {
     res.redirect('/');
   }
 
-  
 };
 
 // Remove web hook from repo
@@ -120,10 +118,11 @@ exports.webHook = function (req, res) {
     var parser = new Parser();
     async.each(payloadInfo.changedFiles, function (item, callback) {
       // Get the user's access token
-      var accessToken = 'eca89c2aa0c1e8fd867efb6da061792400c6efdd';
+      var accessToken = 'eca89c2aa0c1e8fd867efb6da061792400c6efdd',
+          branch = payloadInfo.ref.replace('refs/heads', '');
 
       files.getFile(accessToken, payloadInfo.repo, payloadInfo.user, item, payloadInfo.ref, function (err, data) {
-        parser.parseCode(item, payloadInfo.repo, payloadInfo.user, data); // This will parse the code and create gitdos
+        parser.parseCode(item, payloadInfo.repo, payloadInfo.user, branch, data); // This will parse the code and create gitdos
       });
     });
 

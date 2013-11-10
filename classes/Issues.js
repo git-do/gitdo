@@ -28,7 +28,7 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: this.ghUser.username,
+        username: obj.username || this.ghUser.username,
         name: obj.repo
       };
     this.originalObj = obj;
@@ -37,7 +37,6 @@ module.exports = (function () {
 
     // Check if they have access to repo
     this.dbGetRepos(dbObj, function (err, repo) {
-
       // If so, get issues
       self.dbGet(obj, function (err, vals) {
         self.response(err, vals, self.onGet.bind(self), true);
@@ -51,6 +50,9 @@ module.exports = (function () {
       self = this,
       obj = this.originalObj,
       data;
+
+    obj.username = obj.username ? obj.username : this.ghUser.username,
+
     this.ghGet(function (err, ghData) {
 
       // If issues are disabled, return an empty array
@@ -65,7 +67,7 @@ module.exports = (function () {
           self.onGHGet(data);
         }, true);
       }
-    }, obj.repo, obj.number);
+    }, obj.repo, obj.username, obj.number);
   };
 
   // On gh get
@@ -84,8 +86,9 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: this.ghUser.username,
-        name: obj.repo
+        username: obj.username || this.ghUser.username,
+        name: obj.repo,
+        branch: obj.branch
       };
     this.originalObj = obj;
     this.callback = callback;
@@ -98,7 +101,7 @@ module.exports = (function () {
       githubIssues.createIssue(
         self.ghUser.accessToken,
         obj.repo,
-        self.ghUser.username,
+        obj.username,
         obj.description,
         obj.title,
         function (err, vals) {
@@ -115,6 +118,8 @@ module.exports = (function () {
       obj = this.originalObj,
       gitdoObj = {
         repo: obj.repo,
+        username: obj.username,
+        branch: obj.branch,
         filename: obj.filename,
         line: obj.line,
         fullLine: obj.fullLine,
@@ -144,8 +149,9 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: this.ghUser.username,
-        name: obj.repo
+        username: obj.username || this.ghUser.username,
+        name: obj.repo,
+        branch: obj.branch
       };
     this.originalObj = obj;
     this.callback = callback;
@@ -157,6 +163,25 @@ module.exports = (function () {
       // If so, get issues
       self.dbUpdate(obj, function (err, val, dbObj) {
         if (!err && !dbObj.err && dbObj.ok === 1) {
+          if (obj.state === 'closed') {
+            githubIssues.closeIssue(
+              self.ghUser.accessToken,
+              obj.repo,
+              obj.username,
+              obj.number,
+              function (err, data) {}
+            );
+          }
+          if (obj.description) {
+            githubIssues.editIssue(
+              self.ghUser.accessToken,
+              obj.repo,
+              obj.username,
+              obj.number,
+              obj.description,
+              function (err, data) {}
+            );
+          }
           self.send(200, "Success");
         }
       });
@@ -224,11 +249,11 @@ module.exports = (function () {
   };
 
   // Get github issues
-  Issues.prototype.ghGet = function (fn, repo, number) {
+  Issues.prototype.ghGet = function (fn, repo, user, number) {
     if (number) {
-      githubIssues.getIssue(this.ghUser.accessToken, repo, this.ghUser.username, number, fn);
+      githubIssues.getIssue(this.ghUser.accessToken, repo, user, number, fn);
     } else {
-      githubIssues.getIssues(this.ghUser.accessToken, repo, this.ghUser.username, fn);
+      githubIssues.getIssues(this.ghUser.accessToken, repo, user, fn);
     }
   };
 
