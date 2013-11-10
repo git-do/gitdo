@@ -321,16 +321,18 @@ body {
   width: 24px; }
 
 /* --- [ Issue List ] --- */
-.issue-list li.open {
-  border-color: tomato; }
-  .issue-list li.open .list-item-header {
-    background: tomato;
-    padding-left: 20px;
-    color: white; }
-  .issue-list li.open .timestamp {
-    color: white; }
-  .issue-list li.open .issue-details {
-    display: block; }
+.issue-list {
+  margin-bottom: 30px; }
+  .issue-list li.open {
+    border-color: tomato; }
+    .issue-list li.open .list-item-header {
+      background: tomato;
+      padding-left: 20px;
+      color: white; }
+    .issue-list li.open .timestamp {
+      color: white; }
+    .issue-list li.open .issue-details {
+      display: block; }
 
 .issue-date {
   position: absolute;
@@ -869,6 +871,8 @@ body {
         background-position: -125px -25px; }
       .admin-bar a.active .icon-logout {
         background-position: -150px -25px; }
+  .admin-bar iframe {
+    margin: 30px 45px; }
 
 #admin-bar-logo {
   background: url(../img/sprite.png) no-repeat 0 0;
