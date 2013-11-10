@@ -13,8 +13,13 @@
     <div class="admin-bar">
       <a id="admin-bar-logo" href="/dashboard">gitDo</a>
       <ul>
-        <li><a class="active" href="/dashboard"><span class="admin-bar-icon icon-dashboard"></span>Dashboard</a></li>
-        <li><a href="/repos"><span class="admin-bar-icon icon-repos"></span>Manage Repositories</a></li>
+        <% if (active === "repos") {%>
+          <li><a href="/dashboard"><span class="admin-bar-icon icon-dashboard"></span>Dashboard</a></li>
+          <li><a class="active" href="/repos"><span class="admin-bar-icon icon-repos"></span>Manage Repositories</a></li>
+        <%} else {%>
+          <li><a class="active" href="/dashboard"><span class="admin-bar-icon icon-dashboard"></span>Dashboard</a></li>
+          <li><a href="/repos"><span class="admin-bar-icon icon-repos"></span>Manage Repositories</a></li>
+        <% } %>
         <li><a href="/auth/logout"><span class="admin-bar-icon icon-logout"></span>Logout</a></li>
       </ul>
     </div>
