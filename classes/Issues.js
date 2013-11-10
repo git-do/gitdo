@@ -114,6 +114,10 @@ module.exports = (function () {
         fullLine: obj.fullLine,
         dateCreated: obj.dateCreated,
 
+        // Only use this if GH info is not available (ie. issue is closed)
+        title: obj.title,
+        description: obj.description,
+
         // From GH
         ghid: v.id,
         number: v.number,
