@@ -871,6 +871,8 @@ body {
         background-position: -125px -25px; }
       .admin-bar a.active .icon-logout {
         background-position: -150px -25px; }
+  .admin-bar iframe {
+    margin: 30px 45px; }
 
 #admin-bar-logo {
   background: url(../img/sprite.png) no-repeat 0 0;
