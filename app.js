@@ -97,7 +97,8 @@ var github = require('./routes/github/github'),
 
     // Gitdo imports
     gitdoUsers = require('./routes/users'),
-    gitdoRepos = require('./routes/repos');
+    gitdoRepos = require('./routes/repos'),
+    gitdoIssues = require('./routes/issues');
 
 /**
 * Github Routes
@@ -136,6 +137,12 @@ app.get('/api/repos', gitdoRepos.getAllRoute);
 app.get('/api/repo', gitdoRepos.getRoute);
 app.post('/api/repo', gitdoRepos.createRoute);
 app.delete('/api/repo/:name', gitdoRepos.deleteRoute);
+
+// Issues
+app.get('/api/issues', gitdoIssues.getAllRoute);
+app.get('/api/issue', gitdoIssues.getRoute);
+app.post('/api/issue', gitdoIssues.createRoute);
+//app.delete('/api/issue/:name', gitdoIssues.closeRoute);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
