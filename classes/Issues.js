@@ -28,7 +28,7 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: this.ghUser.username,
+        username: obj.username,
         name: obj.repo
       };
     this.originalObj = obj;
@@ -65,7 +65,7 @@ module.exports = (function () {
           self.onGHGet(data);
         }, true);
       }
-    }, obj.repo, obj.number);
+    }, obj.repo, obj.username, obj.number);
   };
 
   // On gh get
@@ -115,6 +115,7 @@ module.exports = (function () {
       obj = this.originalObj,
       gitdoObj = {
         repo: obj.repo,
+        username: obj.username,
         filename: obj.filename,
         line: obj.line,
         fullLine: obj.fullLine,
@@ -243,11 +244,11 @@ module.exports = (function () {
   };
 
   // Get github issues
-  Issues.prototype.ghGet = function (fn, repo, number) {
+  Issues.prototype.ghGet = function (fn, repo, user, number) {
     if (number) {
-      githubIssues.getIssue(this.ghUser.accessToken, repo, this.ghUser.username, number, fn);
+      githubIssues.getIssue(this.ghUser.accessToken, repo, user, number, fn);
     } else {
-      githubIssues.getIssues(this.ghUser.accessToken, repo, this.ghUser.username, fn);
+      githubIssues.getIssues(this.ghUser.accessToken, repo, user, fn);
     }
   };
 
