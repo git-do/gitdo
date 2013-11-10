@@ -334,7 +334,7 @@ body {
 
 .issue-date {
   position: absolute;
-  right: 30px;
+  right: 15px;
   top: 20px; }
 
 .issue-details {
@@ -563,6 +563,7 @@ body {
 
 .herospace-screenshot {
   margin: 0 auto;
+  max-width: 1153px;
   width: 100%; }
   @media only screen and (max-width: 580px) {
     .herospace-screenshot {
