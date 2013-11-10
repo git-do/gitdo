@@ -334,7 +334,7 @@ body {
 
 .issue-date {
   position: absolute;
-  right: 30px;
+  right: 15px;
   top: 20px; }
 
 .issue-details {
@@ -344,7 +344,7 @@ body {
 
 .issue-meta {
   float: left;
-  margin: 0 50px 25px 20px;
+  margin: 0 5% 25px 20px;
   padding: 0;
   width: 25%; }
   .issue-meta li {
@@ -563,6 +563,7 @@ body {
 
 .herospace-screenshot {
   margin: 0 auto;
+  max-width: 1153px;
   width: 100%; }
   @media only screen and (max-width: 580px) {
     .herospace-screenshot {
@@ -775,7 +776,7 @@ body {
   color: #8a8a8a;
   float: left;
   line-height: 50px;
-  padding-right: 20px;
+  padding-right: 25px;
   position: relative;
   text-decoration: none; }
   .user-name:hover .icon-arrow-down {
@@ -791,7 +792,6 @@ body {
   border-left: 1px solid #d0d0d0;
   height: 50px;
   line-height: 50px;
-  margin-left: 20px;
   padding-left: 25px; }
 
 .icon-arrow-down {

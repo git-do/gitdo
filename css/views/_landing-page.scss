@@ -104,6 +104,7 @@
 
 .herospace-screenshot {
   margin: 0 auto;
+  max-width: 1153px;
   width: 100%;
   @include apply-to(max-width, 580px){
     display: none;
