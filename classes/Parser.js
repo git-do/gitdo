@@ -30,12 +30,12 @@ module.exports = (function () {
 
   // Parse code
   // Shoving most of the issue handling stuff in here, because it's faster ... @TODO: Please, refactor.
-  Parser.prototype.parseCode = function (filename, repo, user, code) {
-    this.allGitDos(filename, repo, user, code); // Get a list of all gitdos
-    this.checkDeleted(repo, user, code);
+  Parser.prototype.parseCode = function (filename, repo, user, branch, code) {
+    this.allGitDos(filename, repo, user, branch, code); // Get a list of all gitdos
+    this.checkDeleted(repo, user, branch, code);
   };
 
-  Parser.prototype.allGitDos = function (filename, repo, user, code) {
+  Parser.prototype.allGitDos = function (filename, repo, user, branch, code) {
     var
       self = this,
       comments = code.match(this.commentRegex),
@@ -49,11 +49,12 @@ module.exports = (function () {
         gitdo.fullLine = comments[i].match(self.gitdoRegex)[0];
         gitdo.username = user;
         gitdo.repo = repo;
+        gitdo.branch = branch;
         gitdo.title = comments[i].match(self.gitdoRegex)[0].replace(self.cleanupRegex, '').replace(self.gitdoRegex, '$2');
         self.getLineNum(gitdo.fullLine, lines, function (num) {
           gitdo.line = num;
-          gitdo.description = gitdo.filename + ' - Line ' + gitdo.line + '\n```' + comments[i] + '```';
-          self.compare(repo, user, gitdo);
+          gitdo.description = comments[i];
+          self.compare(repo, user, branch, gitdo);
         });
       }
     }
@@ -73,10 +74,10 @@ module.exports = (function () {
   };
 
   // Compare existing gitdos
-  Parser.prototype.compare = function (repo, user, gitdo) {
+  Parser.prototype.compare = function (repo, user, branch, gitdo) {
     var self = this;
 
-    this.getSaved(repo, user, function (saved) {
+    this.getSaved(repo, user, branch, function (saved) {
       async.each(saved, function (item, callback) {
         var found = false;
         if (item.filename === gitdo.filename && item.fullLine === gitdo.fullLine) {
@@ -87,6 +88,7 @@ module.exports = (function () {
             request.body = {
               'repo': item.repo,
               'username': user,
+              'branch': branch,
               'number': item.number,
               'line': gitdo.line,
               'description': gitdo.description
@@ -101,6 +103,7 @@ module.exports = (function () {
             request.body = {
               'repo': item.repo,
               'username': user,
+              'branch': branch,
               'number': item.number,
               'state': 'ghost'
             };
@@ -121,11 +124,11 @@ module.exports = (function () {
   };
 
   // Check to see if we have deleted gitdos
-  Parser.prototype.checkDeleted = function (repo, user, code) {
+  Parser.prototype.checkDeleted = function (repo, user, branch, code) {
     var lines = code.split('\n'),
         self = this;
 
-    this.getSaved(repo, user, function (saved) {
+    this.getSaved(repo, user, branch, function (saved) {
       async.each(saved, function (gitdo, callback) {
         var index = code.indexOf(gitdo.fullLine);
 
@@ -135,6 +138,7 @@ module.exports = (function () {
           request.body = {
             'repo': gitdo.repo,
             'username': user,
+            'branch': branch,
             'number': gitdo.number,
             'state': 'closed'
           };
@@ -146,9 +150,9 @@ module.exports = (function () {
     });
   };
 
-  Parser.prototype.getSaved = function (repo, user, callback) {
+  Parser.prototype.getSaved = function (repo, user, branch, callback) {
     var issues = new Issues(this.request, this.response);
-    issues.get({ repo: repo, username: user }, function (data) {
+    issues.get({ repo: repo, username: user, branch: branch }, function (data) {
       callback(data);
     }, false);
   };

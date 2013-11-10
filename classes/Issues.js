@@ -28,7 +28,7 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: obj.username,
+        username: obj.username || this.ghUser.username,
         name: obj.repo
       };
     this.originalObj = obj;
@@ -37,7 +37,6 @@ module.exports = (function () {
 
     // Check if they have access to repo
     this.dbGetRepos(dbObj, function (err, repo) {
-
       // If so, get issues
       self.dbGet(obj, function (err, vals) {
         self.response(err, vals, self.onGet.bind(self), true);
@@ -51,6 +50,9 @@ module.exports = (function () {
       self = this,
       obj = this.originalObj,
       data;
+
+    obj.username = obj.username ? obj.username : this.ghUser.username,
+
     this.ghGet(function (err, ghData) {
 
       // If issues are disabled, return an empty array
@@ -84,8 +86,9 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: obj.username,
-        name: obj.repo
+        username: obj.username || this.ghUser.username,
+        name: obj.repo,
+        branch: obj.branch
       };
     this.originalObj = obj;
     this.callback = callback;
@@ -116,6 +119,7 @@ module.exports = (function () {
       gitdoObj = {
         repo: obj.repo,
         username: obj.username,
+        branch: obj.branch,
         filename: obj.filename,
         line: obj.line,
         fullLine: obj.fullLine,
@@ -145,8 +149,9 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: obj.username,
-        name: obj.repo
+        username: obj.username || this.ghUser.username,
+        name: obj.repo,
+        branch: obj.branch
       };
     this.originalObj = obj;
     this.callback = callback;
