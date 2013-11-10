@@ -6,7 +6,7 @@ var
 
 // Render
 Issues.render = function (req, res, issues) {
-  Issues.processMarkdown(issues);
+  //Issues.processMarkdown(issues);
   Issues.addRelativeUpdate(issues);
   var sortedIssues = Issues.sortByState(issues);
   res.render('issues', {
@@ -31,7 +31,7 @@ Issues.generateGithubData = function (issue) {
 };
 
 // Process markdown in description
-Issues.processMarkdown = function (issues) {
+/*Issues.processMarkdown = function (issues) {
   issues.forEach(function (issue) {
     if (issue.github && issue.github.body) {
       issue.htmlDescription = marked(issue.github.body);
@@ -43,7 +43,7 @@ Issues.processMarkdown = function (issues) {
   });
 
   return issues;
-};
+};*/
 
 // Add relative date updated
 Issues.addRelativeUpdate = function (issues) {
