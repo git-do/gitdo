@@ -78,7 +78,7 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: this.ghUser.username,
+        username: obj.username,
         name: obj.repo
       };
     this.originalObj = obj;
@@ -92,7 +92,7 @@ module.exports = (function () {
       githubIssues.createIssue(
         self.ghUser.accessToken,
         obj.repo,
-        self.ghUser.username,
+        obj.username,
         obj.description,
         obj.title,
         function (err, vals) {
@@ -134,7 +134,7 @@ module.exports = (function () {
     var
       self = this,
       dbObj = {
-        username: this.ghUser.username,
+        username: obj.username,
         name: obj.repo
       };
     this.originalObj = obj;
@@ -147,6 +147,25 @@ module.exports = (function () {
       // If so, get issues
       self.dbUpdate(obj, function (err, val, dbObj) {
         if (!err && !dbObj.err && dbObj.ok === 1) {
+          if (obj.state === 'closed') {
+            githubIssues.closeIssue(
+              self.ghUser.accessToken,
+              obj.repo,
+              obj.username,
+              obj.number,
+              function (err, data) {}
+            );
+          }
+          if (obj.description) {
+            githubIssues.editIssue(
+              self.ghUser.accessToken,
+              obj.repo,
+              obj.username,
+              obj.number,
+              obj.description,
+              function (err, data) {}
+            );
+          }
           self.send(200, "Success");
         }
       });

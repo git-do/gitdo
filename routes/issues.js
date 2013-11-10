@@ -147,7 +147,8 @@ exports.createRoute = createRoute = function(req, res, config) {
     repo: [string],
     line: [integer],
     filename: [string],
-    line: [integer]
+    line: [integer],
+    state: [string]
   }
 
   Returns:
@@ -162,33 +163,32 @@ exports.createRoute = createRoute = function(req, res, config) {
   }
 */
 exports.updateRoute = updateRoute = function(req, res, config) {
-  if (req.user) {
-    var
-      issues = new Issues(req, res),
-      b = req.body,
-      updateObj,
-      updateProps = [
-        "filename",
-        "line",
-        "fullLine"
-      ];
-    if (b.repo && b.number) {
-      updateObj = {
-        repo: b.repo,
-        number: b.number,
-        dateUpdated: moment().format()
-      };
-      updateProps.forEach(function (val) {
-        if (b[val]) {
-          updateObj[val] = b[val];
-        }
-      });
-      issues.update(updateObj, config.fn, config.silent);
-    } else {
-      issues.send(400, "Bad Request: Invalid parameters");
-    }
+  var
+    issues = new Issues(req, res),
+    b = req.body,
+    updateObj,
+    updateProps = [
+      "filename",
+      "line",
+      "fullLine",
+      "state",
+      "description",
+      "username"
+    ];
+  if (b.repo && b.number) {
+    updateObj = {
+      repo: b.repo,
+      number: b.number,
+      dateUpdated: moment().format()
+    };
+    updateProps.forEach(function (val) {
+      if (b[val]) {
+        updateObj[val] = b[val];
+      }
+    });
+    issues.update(updateObj, config.fn, config.silent);
   } else {
-    res.redirect("/");
+    issues.send(400, "Bad Request: Invalid parameters");
   }
 };
 

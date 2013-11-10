@@ -13,8 +13,7 @@ var newHook = {
     'push'
   ],
   'config': {
-    'url': HOOK_URL,
-    'content_type': 'json'
+    'url': HOOK_URL
   }
 };
 
@@ -76,7 +75,6 @@ exports.addHookRoute = function (req, res) {
     res.redirect('/');
   }
 
-  
 };
 
 // Remove web hook from repo
@@ -97,7 +95,6 @@ exports.removeHookRoute = function (req, res) {
 
 // Web hook listener
 exports.webHook = function (req, res) {
-  console.log(req.body.payload);
   var payload = JSON.parse(req.body.payload),
       payloadInfo = {};
 
