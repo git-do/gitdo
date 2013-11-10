@@ -23,6 +23,24 @@ var createIssue = function (accessToken, repo, user, desc, title, callback) {
 
 };
 
+// Get issues
+var getIssues = function (accessToken, repo, user, callback) {
+  var gh;
+
+  gh = github.getClient(accessToken);
+
+  gh.issues.repoIssues({
+    'user': user,
+    'repo': repo
+  }, function (err, data) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, data);
+    }
+  });
+};
+
 // Get issue
 var getIssue = function (accessToken, repo, user, number, callback) {
   var gh;
@@ -113,5 +131,6 @@ exports.closeIssueRoute = function (req, res) {
 
 // Exports
 exports.createIssue = createIssue;
+exports.getIssues = getIssues;
 exports.getIssue = getIssue;
 exports.closeIssue = closeIssue;
