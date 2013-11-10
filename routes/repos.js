@@ -1,5 +1,7 @@
 var
   Repos = require("../classes/Repos.js"),
+  db = require("../db"),
+  async = require("async"),
   moment = require("moment"),
   getAllRoute,
   getRoute,
@@ -149,7 +151,19 @@ exports.getAll = function (req, res, fn) {
   req.query = req.query || {};
   req.query.username = req.user.username;
   getAllRoute(req, res, {
-    fn: fn,
+    fn: function (repos) {
+      var allRepos = [];
+      async.each(repos, function (repo, cb) {
+        db.issues.find({ repo: repo.name }, function (err, issues) {
+          repo.issueTotal = issues.length;
+          allRepos.push(repo);
+          cb();
+        });
+      }, function () {
+        fn(allRepos);
+      });
+
+    },
     silent: true
   });
 };
