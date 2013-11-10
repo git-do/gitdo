@@ -1,10 +1,12 @@
 var
+  marked = require("marked"),
   moment = require("moment"),
   gitdoIssues = require("../issues.js"),
   Issues = {};
 
 // Render
 Issues.render = function (req, res, issues) {
+  Issues.processMarkdown(issues);
   Issues.addRelativeUpdate(issues);
   var sortedIssues = Issues.sortByState(issues);
   res.render('issues', {
@@ -28,8 +30,23 @@ Issues.generateGithubData = function (issue) {
   };
 };
 
-Issues.addRelativeUpdate = function (issues) {
+// Process markdown in description
+Issues.processMarkdown = function (issues) {
+  issues.forEach(function (issue) {
+    if (issue.github && issue.github.body) {
+      issue.htmlDescription = marked(issue.github.body);
+    } else if (issue.description) {
+      issue.htmlDescription = marked(issue.description);
+    } else {
+      issue.htmlDescription = null;
+    }
+  });
 
+  return issues;
+};
+
+// Add relative date updated
+Issues.addRelativeUpdate = function (issues) {
   issues.forEach(function (issue) {
     issue.relativeUpdated = moment(issue.dateUpdated || issue.dateCreated).fromNow();
   });
