@@ -64,6 +64,49 @@
   }
 }
 
+/* --- [ No Repos Notice ] --- */
+
+#no-repos-notice {
+  background: url(../img/faded-repos.jpg) no-repeat;
+  height: 330px;
+  width: 100%;
+  
+  a {
+    color: #8a8a8a;
+    display: block;
+    margin: 0 auto;
+    padding: 5px 0 0 80px;
+    position: relative;
+    text-decoration: none;
+    top: 130px;
+    width: 515px;
+  }
+
+  h3 {
+    color: tomato;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .add-btn {
+    background: $sprite -200px 0;
+    display: block;
+    height: 59px;
+    left: 0;
+    position: absolute;
+    text-indent: -9999px;
+    top: 0;
+    width: 63px;
+  }
+
+}
+
 /* --- [ Global List Styles ] --- */
 
 .list {

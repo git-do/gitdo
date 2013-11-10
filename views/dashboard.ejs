@@ -28,18 +28,25 @@
     </header>
     
     <% if (repos.length === 0) {%>
-      <h3 class="warn">You are not tracking any repositories in gitdo. Go to <a href="/repos">Manage Repositories</a> to add some.</h3>
+      <div id="no-repos-notice">
+        <a href="/repos">
+          <span class="add-btn">Add</span>
+          <h3>Click to add repositories</h3>
+          <p>You are not tracking any repositories in gitdo</p>
+        </a>
+      </div>
+    <% }  else { %>
+      <ul class="list">
+        <% for (var i = 0; i < repos.length; i++) {%>
+          <li>
+            <a href="/dashboard/<%- repos[i].name %>" class="list-item-header">
+              <h3 class="list-heading"><%- repos[i].name %></h3>
+              <span class="repo-issue-total"><%- repos[i].issueTotal %></span>
+            </a>
+          </li>
+        <% } %>
+      </ul>
     <% } %>
 
-    <ul class="list">
-      <% for (var i = 0; i < repos.length; i++) {%>
-        <li>
-          <a href="/dashboard/<%- repos[i].name %>" class="list-item-header">
-            <h3 class="list-heading"><%- repos[i].name %></h3>
-            <span class="repo-issue-total"><%- repos[i].issueTotal %></span>
-          </a>
-        </li>
-      <% } %>
-    </ul>
   </div>
 </div>
