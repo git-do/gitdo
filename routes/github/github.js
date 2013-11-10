@@ -21,7 +21,6 @@ exports.auth = function (req, res) {};
 
 // Callback from github
 exports.authCallback = function (req, res) {
-  console.log("auth callback");
   gitdoUsers.add(req, res);
   res.redirect('/dashboard');
 };
