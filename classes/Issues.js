@@ -36,7 +36,7 @@ module.exports = (function () {
     this.silent = silent;
 
     // Check if they have access to repo
-    this.dbGetRepos(dbObj, function () {
+    this.dbGetRepos(dbObj, function (err, repo) {
 
       // If so, get issues
       self.dbGet(obj, function (err, vals) {
@@ -52,13 +52,19 @@ module.exports = (function () {
       obj = this.originalObj,
       data;
     this.ghGet(function (err, ghData) {
-      self.response(err, ghData, function () {
-        if (ghData instanceof Array === false) {
-          ghData = [ghData];
-        }
-        data = self.mergeData(dbData, ghData);
-        self.onGHGet(data);
-      }, true);
+
+      // If issues are disabled, return an empty array
+      if (err && err.code === 410) {
+        self.send(200, []);
+      } else {
+        self.response(err, ghData, function () {
+          if (ghData instanceof Array === false) {
+            ghData = [ghData];
+          }
+          data = self.mergeData(dbData, ghData);
+          self.onGHGet(data);
+        }, true);
+      }
     }, obj.repo, obj.number);
   };
 

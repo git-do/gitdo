@@ -41,7 +41,6 @@ Issues.sortByState = function (issues) {
     if (!issue.github) {
       state = "closed";
       Issues.generateGithubData(issue);
-      console.log(issue);
     
     // If there is github data but it's marked closed, it's been
     // manually marked (the code should still be in the repo)
