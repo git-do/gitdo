@@ -15,12 +15,12 @@ module.exports = (function () {
   }
 
   // Parse code
-  Parser.prototype.parseCode = function (filename, code) {
-    this.allGitDos(filename, code); // Get a list of all gitdos
+  Parser.prototype.parseCode = function (filename, repo, user, code) {
+    this.allGitDos(filename, repo, user, code); // Get a list of all gitdos
     this.checkDeleted(code);
   };
 
-  Parser.prototype.allGitDos = function (filename, code) {
+  Parser.prototype.allGitDos = function (filename, repo, user, code) {
     var
       self = this,
       comments = code.match(this.commentRegex),
@@ -31,13 +31,17 @@ module.exports = (function () {
 
       if (comments[i].match(self.gitdoRegex)) {
         gitdo.filename = filename;
-        gitdo.block = comments[i];
-        gitdo.line = comments[i].match(self.gitdoRegex)[0];
-        gitdo.issue = comments[i].match(self.gitdoRegex)[0].replace(self.cleanupRegex, '').replace(self.gitdoRegex, '$2');
-        self.getLineNum(gitdo.line, lines, function (num) {
-          gitdo.lineNum = num;
+        gitdo.description = comments[i];
+        gitdo.fullLine = comments[i].match(self.gitdoRegex)[0];
+        // gitdo.fullLine = comments[i].replace(self.gitdoRegex, '$1');
+        gitdo.username = user;
+        gitdo.repo = repo;
+        gitdo.title = comments[i].match(self.gitdoRegex)[0].replace(self.cleanupRegex, '').replace(self.gitdoRegex, '$2');
+        self.getLineNum(gitdo.fullLine, lines, function (num) {
+          gitdo.line = num;
           var saved = self.getSaved();
           self.compare(gitdo, saved);
+          // console.log(gitdo);
         });
       }
     }
@@ -60,27 +64,31 @@ module.exports = (function () {
   Parser.prototype.compare = function (gitdo, saved) {
     async.each(saved, function (item, callback) {
       var found = false;
-      if (item.line === gitdo.line) {
+      if (item.fullLine === gitdo.fullLine) {
         found = true;
-        if (item.lineNum !== gitdo.lineNum) {
+        if (item.line !== gitdo.line) {
           // Update linenum
-          item.lineNum = gitdo.lineNum;
+          item.line = gitdo.line;
         }
       }
       callback(found);
     }, function (found) {
       if (!found) {
         // Add to our database and create a github issue
-        console.log(gitdo);
+        // console.log(gitdo);
       }
     });
   };
 
   // Check to see if we have deleted gitdos
   Parser.prototype.checkDeleted = function (code) {
-    var saved = this.getSaved();
+    var saved = this.getSaved(),
+        lines = code.split('\n');
+
     async.each(saved, function (gitdo, callback) {
-      if (code.indexOf(gitdo.line) === -1) {
+      var index = code.indexOf(gitdo.fullLine);
+
+      if (index === -1 || code.substr(index).split('\n')[0] !== gitdo.fullLine) {
         // REMOVE GITDO!!!
         console.log('I am removed.');
         console.log(gitdo);
@@ -90,27 +98,27 @@ module.exports = (function () {
   };
 
   Parser.prototype.getSaved = function () {
-    return [{
-        filename: 'test.js',
-        block: '/* This is a test JS file\n @todo: something */',
-        line: '  @todo: something */',
-        issue: 'something ',
-        lineNum: 2
-      },
-      {
-        filename: 'test.js',
-        block: '// @todo: asdfasdff',
-        line: '// @todo: asdfasdff',
-        issue: 'asdfasdff',
-        lineNum: 7
-      },
-      {
-        filename: 'test.js',
-        block: '// @todo: ALL THINGS',
-        line: '// @todo: ALL THINGS',
-        issue: 'ALL THINGS',
-        lineNum: 9
-      }];
+    return [{ filename: 'test.js',
+        description: '/* This is a test JS file\n  @todo: something */',
+        fullLine: '  @todo: something */',
+        username: 'gitdo',
+        repo: 'todo',
+        title: 'something ',
+        line: 2 },
+      { filename: 'test.js',
+        description: '// @todo: asdfasdff',
+        fullLine: '// @todo: asdfasdff',
+        username: 'gitdo',
+        repo: 'todo',
+        title: 'asdfasdff',
+        line: 7 },
+      { filename: 'test.js',
+        description: '// @todo: ALL THINGSSz',
+        fullLine: '// @todo: ALL THINGSSz',
+        username: 'gitdo',
+        repo: 'todo',
+        title: 'ALL THINGSSz',
+        line: 9 }];
   };
 
   return Parser;

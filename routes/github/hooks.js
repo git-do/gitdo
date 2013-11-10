@@ -98,8 +98,11 @@ exports.webHook = function (req, res) {
     // todo: give these files to the parser
     var parser = new Parser();
     async.each(payloadInfo.changedFiles, function (item, callback) {
-      files.getFile('eca89c2aa0c1e8fd867efb6da061792400c6efdd', payloadInfo.repo, payloadInfo.user, item, payloadInfo.ref, function (err, data) {
-        parser.parseCode(item, data);
+      // Get the user's access token
+      var accessToken = 'eca89c2aa0c1e8fd867efb6da061792400c6efdd';
+
+      files.getFile(accessToken, payloadInfo.repo, payloadInfo.user, item, payloadInfo.ref, function (err, data) {
+        parser.parseCode(item, payloadInfo.repo, payloadInfo.user, data); // This will parse the code and create gitdos
       });
     });
 
