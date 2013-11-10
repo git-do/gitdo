@@ -20,7 +20,7 @@ $(function () {
         url: '/api/repo/' + $this.attr('name'),
         type: 'DELETE',
         success: function () {
-          $this.prop("checked", "false");
+          $this.prop("checked", false);
         }
       });
     } else {
@@ -29,10 +29,10 @@ $(function () {
         type: 'POST',
         data: {
           username: username,
-          repo: $this.attr('name')
+          name: $this.attr('name')
         },
         success: function () {
-          $this.prop("checked", "checked");
+          $this.prop("checked", true);
         }
       });
     }
