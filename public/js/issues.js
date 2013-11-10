@@ -1,6 +1,9 @@
 $(function () {
 
-  $('.issue-list li').click(function(event) {
+  $('.issue-list li').on("click", function(ev) {
+    ev.preventDefault();
+    var _this = this;
+    $(this).find(".issue-details").slideToggle();
     $(this).toggleClass('open');
   });
 
