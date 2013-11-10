@@ -1,6 +1,6 @@
 
 <header id="page-header">
-  <h1>Repo Name Here</h1>
+  <h1>Repo Name Here <a class="external-link" href="#" target="_blank">View Repo in github</a></h1>
   <div id="user-info">
     <span class="user-avatar" style="background-image: url(<%- user.avatar %>);"></span>
     <span class="user-name"><%- user.name %></span>
@@ -9,6 +9,14 @@
     </div>
   </div>
 </header>
+
+<div class="section-tabs">
+  <ul>
+    <li><a class="section-tab active" href="#"><span class="section-tab-icon"></span>Open Issues<span class="blip"></span></a></li>
+    <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Pending<span class="blip"></span></a></li>
+    <li><a class="section-tab" href="#"><span class="section-tab-icon"></span>Closed Issues<span class="blip"></span></a></a></li>
+  </ul>
+</div>
 
 <div id="content-wrap">
   <div id="main">

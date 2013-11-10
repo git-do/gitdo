@@ -97,6 +97,7 @@ body {
 .container {
   margin: 0 auto;
   max-width: 1200px;
+  position: relative;
   width: 95%; }
 
 #global-container {
@@ -493,8 +494,20 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%; }
-  #herospace iframe {
-    margin-bottom: -60px; }
+
+#vote-counter {
+  left: 0;
+  position: absolute;
+  top: 30px; }
+  @media only screen and (max-width: 725px) {
+    #vote-counter {
+      left: 50%;
+      margin-left: -41px;
+      top: 310px;
+      width: 115px; } }
+  @media only screen and (max-width: 580px) {
+    #vote-counter {
+      bottom: 40px; } }
 
 .herospace-nav {
   float: right;
@@ -528,7 +541,7 @@ body {
   width: 735px; }
   @media only screen and (max-width: 800px) {
     .herospace-content {
-      padding-left: 0;
+      padding: 75px 0 100px;
       width: 100%; } }
 
 .herospace-logo {
@@ -869,6 +882,8 @@ body {
         background-position: -125px -25px; }
       .admin-bar a.active .icon-logout {
         background-position: -150px -25px; }
+  .admin-bar iframe {
+    margin: 30px 0 0 53px; }
 
 #admin-bar-logo {
   background: url(../img/sprite.png) no-repeat 0 0;
@@ -877,7 +892,7 @@ body {
   margin: 30px auto;
   position: relative;
   text-indent: -9999px;
-  width: 81px; }
+  width: 90px; }
 
 .admin-bar-icon {
   background: url(../img/sprite.png) no-repeat;

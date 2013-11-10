@@ -11,9 +11,20 @@
   overflow: hidden;
   position: relative;
   width: 100%;
+}
 
-  iframe {
-    margin-bottom: -60px;
+#vote-counter {
+  left: 0;
+  position: absolute;
+  top: 30px;
+  @include apply-to(max-width, 725px){
+    left: 50%;
+    margin-left: -41px;
+    top: 310px;
+    width: 115px;
+  }
+  @include apply-to(max-width, 580px){
+    bottom: 40px;
   }
 }
 
@@ -56,7 +67,7 @@
   padding: 100px 0 60px 30px;
   width: 735px;
   @include apply-to(max-width, 800px){
-    padding-left: 0;
+    padding: 75px 0 100px;
     width: 100%;
   }
 }
