@@ -98,6 +98,12 @@ module.exports = (function () {
 
   // Send
   Repos.prototype.send = function (code, msg) {
+
+    // This is silly. @TODO: figure out what 1 unknown is
+    if (msg === 1) {
+      msg = "Success";
+    }
+
     if (!this.silent) {
       this.resp.statusCode = code;
       this.resp.send(msg);
