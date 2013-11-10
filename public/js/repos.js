@@ -41,7 +41,7 @@
       .on("click", ".confirm-modal", function (ev) {
         ev.preventDefault();
         self.deleteRepo().done(function () {
-          self.closeModal();
+          self.closeModal(ev);
           self.updateView();
         });
       });
@@ -67,12 +67,13 @@
 
   // Show modal
   RepoManager.prototype.showModal = function () {
-    this.$deleteRepoModal.show();
+    this.$deleteRepoModal.fadeIn(300);
   };
 
   // Close modal
-  RepoManager.prototype.closeModal = function () {
-    this.$deleteRepoModal.hide();
+  RepoManager.prototype.closeModal = function (ev) {
+    ev.preventDefault();
+    this.$deleteRepoModal.fadeOut(300);
   };
 
   // Add repo
