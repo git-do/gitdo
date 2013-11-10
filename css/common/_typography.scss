@@ -32,6 +32,7 @@ p {
 
 a { 
   color: tomato;
+  outline: 0;
   text-decoration: underline;
 }
 
@@ -40,11 +41,13 @@ a:hover {
 }
 
 /* states for accessibility http://meyerweb.com/eric/css/tests/css2/sec05-11-03.htm */
-a:active { color: tomato; 
+a:active { 
+  color: tomato; 
+  outline: 0;
 }
 
-a:focus { 
-  border: 1px dotted tomato; 
+a:focus {
+  outline: 0;
 }
 
 /* --- [ Code Snippets ] --- */
