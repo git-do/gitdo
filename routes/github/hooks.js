@@ -97,6 +97,7 @@ exports.removeHookRoute = function (req, res) {
 
 // Web hook listener
 exports.webHook = function (req, res) {
+  console.log(req.body.payload);
   var payload = JSON.parse(req.body.payload),
       payloadInfo = {};
 
