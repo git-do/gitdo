@@ -66,6 +66,7 @@ p {
 /* --- [ Links ] --- */
 a {
   color: tomato;
+  outline: 0;
   text-decoration: underline; }
 
 a:hover {
@@ -73,10 +74,11 @@ a:hover {
 
 /* states for accessibility http://meyerweb.com/eric/css/tests/css2/sec05-11-03.htm */
 a:active {
-  color: tomato; }
+  color: tomato;
+  outline: 0; }
 
 a:focus {
-  border: 1px dotted tomato; }
+  outline: 0; }
 
 /* --- [ Code Snippets ] --- */
 code, pre {
@@ -246,8 +248,9 @@ body {
   -webkit-background-clip: padding-box;
   color: #7a7a7a;
   display: block;
-  min-height: 54px;
-  padding: 17px 10px 16px;
+  min-height: 55px;
+  outline: 0;
+  padding: 17px 10px;
   position: relative;
   text-decoration: none;
   -webkit-transition: all 0.3s ease;
@@ -262,6 +265,10 @@ body {
 .list-heading {
   font-weight: 400;
   margin: 0; }
+
+@-moz-document url-prefix() {
+  .list-heading {
+    padding-top: 3px; } }
 
 /*=================================
   Dashboard List
@@ -371,7 +378,7 @@ body {
   Manage Repositories
 -----------------------------------*/
 #repo-manager li {
-  padding: 17px 10px 16px;
+  padding: 17px 10px;
   position: relative; }
 
 /* --- [ Switch ] --- */
@@ -592,6 +599,10 @@ body {
   .callout-btn:hover {
     background: #333333;
     border-color: #333333; }
+
+@-moz-document url-prefix() {
+  .callout-btn {
+    padding: 15px 30px 13px; } }
 
 /* --- [ Features Section ] --- */
 #features {
@@ -909,7 +920,7 @@ body {
     float: left;
     list-style: none;
     margin: 0;
-    min-width: 200px;
+    min-width: 225px;
     padding: 0;
     width: 25%; }
 
@@ -921,7 +932,7 @@ body {
   font-size: 1.2em;
   font-weight: 200;
   height: 70px;
-  line-height: 70px;
+  line-height: 4.4em;
   padding: 0 30px 0 65px;
   position: relative;
   text-decoration: none;
@@ -955,7 +966,7 @@ body {
   font-weight: bold;
   height: 24px;
   left: 30px;
-  line-height: 24px;
+  line-height: 1.8em;
   position: absolute;
   text-align: center;
   top: 23px;
