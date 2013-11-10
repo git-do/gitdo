@@ -16,9 +16,8 @@ module.exports = (function () {
 
   // Parse code
   Parser.prototype.parseCode = function (filename, code) {
-    this.allGitDos(filename, code); // Get a list of all todos
-    // Compare to list of existing
-    // Add / close issues
+    this.allGitDos(filename, code); // Get a list of all gitdos
+    this.checkDeleted(code);
   };
 
   Parser.prototype.allGitDos = function (filename, code) {
@@ -37,7 +36,8 @@ module.exports = (function () {
         gitdo.issue = comments[i].match(self.gitdoRegex)[0].replace(self.cleanupRegex, '').replace(self.gitdoRegex, '$2');
         self.getLineNum(gitdo.line, lines, function (num) {
           gitdo.lineNum = num;
-          console.log(gitdo);
+          var saved = self.getSaved();
+          self.compare(gitdo, saved);
         });
       }
     }
@@ -54,6 +54,63 @@ module.exports = (function () {
     }, function (num) {
       callback(num);
     });
+  };
+
+  // Compare existing gitdos
+  Parser.prototype.compare = function (gitdo, saved) {
+    async.each(saved, function (item, callback) {
+      var found = false;
+      if (item.line === gitdo.line) {
+        found = true;
+        if (item.lineNum !== gitdo.lineNum) {
+          // Update linenum
+          item.lineNum = gitdo.lineNum;
+        }
+      }
+      callback(found);
+    }, function (found) {
+      if (!found) {
+        // Add to our database and create a github issue
+        console.log(gitdo);
+      }
+    });
+  };
+
+  // Check to see if we have deleted gitdos
+  Parser.prototype.checkDeleted = function (code) {
+    var saved = this.getSaved();
+    async.each(saved, function (gitdo, callback) {
+      if (code.indexOf(gitdo.line) === -1) {
+        // REMOVE GITDO!!!
+        console.log('I am removed.');
+        console.log(gitdo);
+      }
+      callback();
+    });
+  };
+
+  Parser.prototype.getSaved = function () {
+    return [{
+        filename: 'test.js',
+        block: '/* This is a test JS file\n @todo: something */',
+        line: '  @todo: something */',
+        issue: 'something ',
+        lineNum: 2
+      },
+      {
+        filename: 'test.js',
+        block: '// @todo: asdfasdff',
+        line: '// @todo: asdfasdff',
+        issue: 'asdfasdff',
+        lineNum: 7
+      },
+      {
+        filename: 'test.js',
+        block: '// @todo: ALL THINGS',
+        line: '// @todo: ALL THINGS',
+        issue: 'ALL THINGS',
+        lineNum: 9
+      }];
   };
 
   return Parser;
