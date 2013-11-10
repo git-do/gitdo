@@ -20,7 +20,7 @@ $(function () {
         url: '/api/repo/' + $this.attr('name'),
         type: 'DELETE',
         success: function () {
-          $this.prop("checked", false);
+          $this.removeAttr("checked");
         }
       });
     } else {
@@ -32,7 +32,7 @@ $(function () {
           name: $this.attr('name')
         },
         success: function () {
-          $this.prop("checked", true);
+          $this.attr("checked", "checked");
         }
       });
     }
