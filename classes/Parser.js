@@ -105,7 +105,7 @@ module.exports = (function () {
               'username': user,
               'branch': branch,
               'number': item.number,
-              'state': 'ghost'
+              'state': 'pending'
             };
 
             issuesRoute.update(request, self.response, function () {});
