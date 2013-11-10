@@ -147,8 +147,9 @@
   -webkit-background-clip: padding-box;
   color: #7a7a7a;
   display: block;
-  min-height: 54px;
-  padding: 17px 10px 16px;
+  min-height: 55px;
+  outline: 0;
+  padding: 17px 10px;
   position: relative;
   text-decoration: none;
   @include transition(all .3s ease);
@@ -163,6 +164,13 @@
   font-weight: 400;
   margin: 0;
 }
+
+@-moz-document url-prefix() { 
+  .list-heading {
+     padding-top: 3px;
+  }
+}
+
 
 /*=================================
   Dashboard List
@@ -296,7 +304,7 @@
 -----------------------------------*/
 
 #repo-manager li {
-  padding: 17px 10px 16px;
+  padding: 17px 10px;
   position: relative;
 }
 

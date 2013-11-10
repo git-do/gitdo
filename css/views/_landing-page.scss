@@ -152,6 +152,12 @@
   }
 }
 
+@-moz-document url-prefix() { 
+  .callout-btn {
+    padding: 15px 30px 13px;
+  }
+}
+
 /* --- [ Features Section ] --- */
 
 #features {
