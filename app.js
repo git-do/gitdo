@@ -110,7 +110,6 @@ var github = require('./routes/github/github'),
 // Gihub auth
 app.get('/auth/github', passport.authenticate('github'), github.auth);
 app.get('/auth/github/callback', passport.authenticate('github', {
-  successRedirect: '/dashboard',
   failureRedirect: '/login'
 }), github.authCallback);
 app.get('/auth/logout', github.logout);

@@ -1,4 +1,6 @@
-var GithubApi = require('github');
+var
+  GithubApi = require('github'),
+  gitdoUsers = require("../users.js");
 
 exports.getClient = function (accessToken) {
   var gh = new GithubApi({
@@ -19,7 +21,9 @@ exports.auth = function (req, res) {};
 
 // Callback from github
 exports.authCallback = function (req, res) {
-  res.redirect('/');
+  console.log("auth callback");
+  gitdoUsers.add(req, res);
+  res.redirect('/dashboard');
 };
 
 exports.logout = function (req, res) {
