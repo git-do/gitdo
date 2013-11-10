@@ -157,6 +157,11 @@
     background: #f8f8f8;
     color: tomato;
     padding-left: 20px;
+
+    .removed & {
+      padding-left: 10px;
+    }
+
   }
 }
 
@@ -219,24 +224,32 @@
 
 .issue-list {
   margin-bottom: 30px;
-
-  li.open {
-    border-color: tomato;
-
-    .list-item-header {
-      background: #FF6347;
-      padding-left: 20px;
-      color: #FFF;
+  li {
+    &.removed {
+      a,
+      span {
+        text-decoration: line-through;
+        color: #ddd;
+      }
     }
+    &.open:not(.removed) {
+      border-color: tomato;
 
-    .timestamp {
-      color: #fff;
-    }
+      .list-item-header {
+        background: #FF6347;
+        padding-left: 20px;
+        color: #FFF;
+      }
 
-    .issue-details {
-      border: solid #e0e0e0;
-      border-width: 0 1px;
-      display: block;
+      .timestamp {
+        color: #fff;
+      }
+
+      .issue-details {
+        border: solid #e0e0e0;
+        border-width: 0 1px;
+        display: block;
+      }
     }
   }
 }

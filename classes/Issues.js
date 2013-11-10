@@ -163,7 +163,7 @@ module.exports = (function () {
       // If so, get issues
       self.dbUpdate(obj, function (err, val, dbObj) {
         if (!err && !dbObj.err && dbObj.ok === 1) {
-          if (obj.state === 'closed') {
+          /*if (obj.state === 'closed') {
             githubIssues.closeIssue(
               self.ghUser.accessToken,
               obj.repo,
@@ -171,7 +171,7 @@ module.exports = (function () {
               obj.number,
               function (err, data) {}
             );
-          }
+          }*/
           if (obj.description) {
             githubIssues.editIssue(
               self.ghUser.accessToken,

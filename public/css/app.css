@@ -261,6 +261,8 @@ body {
     background: #f8f8f8;
     color: tomato;
     padding-left: 20px; }
+    .removed .list-item-header:hover {
+      padding-left: 10px; }
 
 .list-heading {
   font-weight: 400;
@@ -314,15 +316,18 @@ body {
 -----------------------------------*/
 .issue-list {
   margin-bottom: 30px; }
-  .issue-list li.open {
+  .issue-list li.removed a, .issue-list li.removed span {
+    text-decoration: line-through;
+    color: #dddddd; }
+  .issue-list li.open:not(.removed) {
     border-color: tomato; }
-    .issue-list li.open .list-item-header {
+    .issue-list li.open:not(.removed) .list-item-header {
       background: tomato;
       padding-left: 20px;
       color: white; }
-    .issue-list li.open .timestamp {
+    .issue-list li.open:not(.removed) .timestamp {
       color: white; }
-    .issue-list li.open .issue-details {
+    .issue-list li.open:not(.removed) .issue-details {
       border: solid #e0e0e0;
       border-width: 0 1px;
       display: block; }
