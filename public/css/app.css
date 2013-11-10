@@ -497,6 +497,11 @@ body {
   float: right;
   margin: 30px 0 0;
   padding: 0; }
+  @media only screen and (max-width: 725px) {
+    .herospace-nav {
+      float: none;
+      margin: 30px auto 0;
+      width: 280px; } }
   .herospace-nav li {
     float: left;
     list-style: none;
@@ -511,6 +516,8 @@ body {
     padding: 10px 15px;
     text-decoration: none;
     text-transform: uppercase; }
+  .herospace-nav .btn {
+    margin-left: 20px; }
 
 .herospace-content {
   margin: 0 auto;
@@ -658,7 +665,7 @@ body {
   padding: 100px 0; }
   @media only screen and (max-width: 800px) {
     #team {
-      padding: 75px 0; } }
+      padding: 75px 0 40px; } }
   @media only screen and (max-width: 580px) {
     #team {
       padding: 50px 0; } }
@@ -681,6 +688,7 @@ body {
   .team-member p {
     font-size: 0.8rem;
     font-weight: 300;
+    margin-bottom: 0;
     padding: 0 30px; }
 
 .team-member-headshot {
