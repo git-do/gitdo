@@ -76,10 +76,9 @@ module.exports = (function () {
   Parser.prototype.compare = function (repo, user, gitdo) {
     var self = this;
 
-    this.getSaved(repo, function (saved) {
+    this.getSaved(repo, user, function (saved) {
       async.each(saved, function (item, callback) {
         var found = false;
-
         if (item.filename === gitdo.filename && item.fullLine === gitdo.fullLine) {
           found = true;
           if (item.line !== gitdo.line) {
@@ -126,7 +125,7 @@ module.exports = (function () {
     var lines = code.split('\n'),
         self = this;
 
-    this.getSaved(repo, function (saved) {
+    this.getSaved(repo, user, function (saved) {
       async.each(saved, function (gitdo, callback) {
         var index = code.indexOf(gitdo.fullLine);
 
@@ -147,9 +146,9 @@ module.exports = (function () {
     });
   };
 
-  Parser.prototype.getSaved = function (repo, callback) {
+  Parser.prototype.getSaved = function (repo, user, callback) {
     var issues = new Issues(this.request, this.response);
-    issues.get({ repo: repo }, function (data) {
+    issues.get({ repo: repo, username: user }, function (data) {
       callback(data);
     }, false);
   };
