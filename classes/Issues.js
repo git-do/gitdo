@@ -83,10 +83,12 @@ module.exports = (function () {
       obj = this.originalObj,
       gitdoObj = {
         repo: obj.repo,
+        username: obj.username,
         filename: obj.filename,
         line: obj.line,
+        fullLine: obj.fullLine,
         dateCreated: obj.dateCreated,
-        
+
         // From GH
         ghid: v.id,
         number: v.number
