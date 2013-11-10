@@ -16,7 +16,7 @@ module.exports = (function () {
 
   // Parse code
   Parser.prototype.parseCode = function (filename, code) {
-    this.allGitDos(code); // Get a list of all todos
+    this.allGitDos(filename, code); // Get a list of all todos
     // Compare to list of existing
     // Add / close issues
   };
