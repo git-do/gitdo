@@ -42,6 +42,10 @@
   margin: 0 auto;
   padding: 100px 0 60px 30px;
   width: 735px;
+  @include apply-to(max-width, 800px){
+    padding-left: 0;
+    width: 100%;
+  }
 }
 
 .herospace-logo {
@@ -51,17 +55,32 @@
   margin: 0;
   text-indent: -9999px;
   width: 194px;
+  @include apply-to(max-width, 800px){
+    float: none;
+    margin: 0 auto 40px;
+  }
 }
 
 .herospace-headline {
   float: left;
   margin-left: 35px;
+  @include apply-to(max-width, 800px){
+    float: none;
+    margin-left: 0;
+    text-align: center;
+  }
   
   h2 {
     color: #fff;
     font-size: 1.8rem;
     font-weight: bold;
     margin: 10px 0 0 0;
+    @include apply-to(max-width, 800px){
+      font-size: 1.6rem;
+    }
+    @include apply-to(max-width, 480px){
+      font-size: 1.4rem;
+    }
   }
 
   h3 {
@@ -87,6 +106,9 @@
   background: #f3f3f3;
   padding: 60px 0;
   text-align: center;
+  @include apply-to(max-width, 800px){
+    padding: 40px 20px;
+  }
   
   h3 {
     color: #4a4a4a;
@@ -106,6 +128,10 @@
   margin-left: 30px;
   padding: 15px 30px;
   text-transform: uppercase;
+  @include apply-to(max-width, 800px){
+    margin-top: 25px;
+  }
+  
   &:hover {
     background: #333;
     border-color: #333;
@@ -119,21 +145,49 @@
 }
 
 .feature {
+  border-bottom: 1px solid #eaeaea;
   clear: both;
-  min-height: 400px;
-  padding: 50px 0;
+  padding: 85px 0;
+  @include apply-to(max-width, 800px){
+    padding: 85px 10%;
+  }
+  @include apply-to(max-width, 725px){
+    padding: 55px 0 40px;
+  }
+}
+
+.feature-img {
+  display: block;
+  float: right;
+  margin-left: 30px;
+  @include apply-to(max-width, 800px){
+    float: none;
+    margin: 0;
+  }
+  @include apply-to(max-width, 725px){
+    width: 100%;
+  }
 }
 
 .feature-heading {
   color: #4a4a4a;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 10px;
+  @include apply-to(max-width, 800px){
+    font-size: 1rem;
+  }
 }
 
 .feature-content {
   color: #8a8a8a;
   font-weight: 200;
+  margin: 70px 0 0 0;
   width: 40%;
+  @include apply-to(max-width, 800px){
+    margin-top: 30px;
+    width: 100%;
+  }
   
   p {
     line-height: 1.5;

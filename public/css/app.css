@@ -23,6 +23,9 @@
 .clear {
   clear: both; }
 
+.float-left {
+  float: left; }
+
 .float-right {
   float: right; }
 
@@ -513,6 +516,10 @@ body {
   margin: 0 auto;
   padding: 100px 0 60px 30px;
   width: 735px; }
+  @media only screen and (max-width: 800px) {
+    .herospace-content {
+      padding-left: 0;
+      width: 100%; } }
 
 .herospace-logo {
   background: url(../img/sprite.png) no-repeat 0 -50px;
@@ -521,15 +528,30 @@ body {
   margin: 0;
   text-indent: -9999px;
   width: 194px; }
+  @media only screen and (max-width: 800px) {
+    .herospace-logo {
+      float: none;
+      margin: 0 auto 40px; } }
 
 .herospace-headline {
   float: left;
   margin-left: 35px; }
+  @media only screen and (max-width: 800px) {
+    .herospace-headline {
+      float: none;
+      margin-left: 0;
+      text-align: center; } }
   .herospace-headline h2 {
     color: white;
     font-size: 1.8rem;
     font-weight: bold;
     margin: 10px 0 0 0; }
+    @media only screen and (max-width: 800px) {
+      .herospace-headline h2 {
+        font-size: 1.6rem; } }
+    @media only screen and (max-width: 480px) {
+      .herospace-headline h2 {
+        font-size: 1.4rem; } }
   .herospace-headline h3 {
     color: #9a9a9a;
     font-size: 1rem;
@@ -548,6 +570,9 @@ body {
   background: #f3f3f3;
   padding: 60px 0;
   text-align: center; }
+  @media only screen and (max-width: 800px) {
+    #herospace-callout {
+      padding: 40px 20px; } }
   #herospace-callout h3 {
     color: #4a4a4a;
     display: inline-block;
@@ -567,6 +592,9 @@ body {
   margin-left: 30px;
   padding: 15px 30px;
   text-transform: uppercase; }
+  @media only screen and (max-width: 800px) {
+    .callout-btn {
+      margin-top: 25px; } }
   .callout-btn:hover {
     background: #333333;
     border-color: #333333; }
@@ -576,19 +604,46 @@ body {
   max-width: 1050px; }
 
 .feature {
+  border-bottom: 1px solid #eaeaea;
   clear: both;
-  min-height: 400px;
-  padding: 50px 0; }
+  padding: 85px 0; }
+  @media only screen and (max-width: 800px) {
+    .feature {
+      padding: 85px 10%; } }
+  @media only screen and (max-width: 725px) {
+    .feature {
+      padding: 55px 0 40px; } }
+
+.feature-img {
+  display: block;
+  float: right;
+  margin-left: 30px; }
+  @media only screen and (max-width: 800px) {
+    .feature-img {
+      float: none;
+      margin: 0; } }
+  @media only screen and (max-width: 725px) {
+    .feature-img {
+      width: 100%; } }
 
 .feature-heading {
   color: #4a4a4a;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 10px; }
+  @media only screen and (max-width: 800px) {
+    .feature-heading {
+      font-size: 1rem; } }
 
 .feature-content {
   color: #8a8a8a;
   font-weight: 200;
+  margin: 70px 0 0 0;
   width: 40%; }
+  @media only screen and (max-width: 800px) {
+    .feature-content {
+      margin-top: 30px;
+      width: 100%; } }
   .feature-content p {
     line-height: 1.5; }
 
