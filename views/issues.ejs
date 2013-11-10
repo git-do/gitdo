@@ -52,7 +52,7 @@
                 <div class="clear"></div>
                 <% if (issue.github.html_url) { %>
                   <div class="issue-footer">
-                    <a href="#" class="issue-footer-btn btn">Mark as resolved</a>
+                    <a href="#" class="issue-footer-btn btn resolve-btn" data-repo="<%- repo %>" data-number="<%- issue.number %>">Mark as resolved</a>
                     <a href="<%- issue.github.html_url %>" class="issue-footer-btn btn btn-primary" target="_blank">View source</a>
                   </div>
                 <% } %>

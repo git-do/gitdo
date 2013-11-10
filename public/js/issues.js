@@ -30,6 +30,23 @@
     // Select open issues first
     $("[data-tab-content=open-issues]").trigger("click");
 
+    // "mark as resolved" button functionality
+    $(".resolve-btn").click(function (event) {
+      event.preventDefault();
+      
+      var $this = $(this);
+
+      $.ajax({
+        url: "/api/issue",
+        type: "POST",
+        data: {
+          number: $this.attr("data-number"),
+          repo: $this.attr("data-repo"),
+          state: "closed"
+        }
+      });
+    });
+
   });
 
 }(jQuery));
