@@ -89,6 +89,7 @@ exports.webHook = function (req, res) {
     payloadInfo.changedFiles = payloadInfo.changedFiles.concat(commit.removed);
     callback();
   }, function () {
+
     // Remove duplicates
     payloadInfo.changedFiles = payloadInfo.changedFiles.filter(function (elem, pos) {
       return payloadInfo.changedFiles.indexOf(elem) === pos;
@@ -96,9 +97,12 @@ exports.webHook = function (req, res) {
 
     // todo: give these files to the parser
     var parser = new Parser();
-    files.getFile('eca89c2aa0c1e8fd867efb6da061792400c6efdd', payloadInfo.repo, payloadInfo.user, payloadInfo.changedFiles[0], payloadInfo.ref, function (err, data) {
-      parser.parseCode(data);
+    async.each(payloadInfo.changedFiles, function (item, callback) {
+      files.getFile('eca89c2aa0c1e8fd867efb6da061792400c6efdd', payloadInfo.repo, payloadInfo.user, item, payloadInfo.ref, function (err, data) {
+        parser.parseCode(item, data);
+      });
     });
+
   });
 
   res.end();

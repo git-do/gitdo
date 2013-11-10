@@ -3,8 +3,7 @@ module.exports = (function () {
   /**
   * Imports
   */
-  var async = require('async'),
-      files = require('../routes/github/files');
+  var async = require('async');
 
   /**
   * Constructor
@@ -16,16 +15,23 @@ module.exports = (function () {
   }
 
   // Parse code
-  Parser.prototype.parseCode = function (code) {
+  Parser.prototype.parseCode = function (filename, code) {
+    this.allGitDos(code); // Get a list of all todos
+    // Compare to list of existing
+    // Add / close issues
+  };
+
+  Parser.prototype.allGitDos = function (filename, code) {
     var
       self = this,
       comments = code.match(this.commentRegex),
       lines = code.split('\n');
-  
+
     for (var i = 0; i < comments.length; i++) {
       var gitdo = {};
 
       if (comments[i].match(self.gitdoRegex)) {
+        gitdo.filename = filename;
         gitdo.block = comments[i];
         gitdo.line = comments[i].match(self.gitdoRegex)[0];
         gitdo.issue = comments[i].match(self.gitdoRegex)[0].replace(self.cleanupRegex, '').replace(self.gitdoRegex, '$2');
@@ -35,7 +41,6 @@ module.exports = (function () {
         });
       }
     }
-    
   };
 
   // Get line number
