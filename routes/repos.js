@@ -154,7 +154,7 @@ exports.getAll = function (req, res, fn) {
     fn: function (repos) {
       var allRepos = [];
       async.each(repos, function (repo, cb) {
-        db.issues.find({ repo: repo.name }, function (err, issues) {
+        db.issues.find({ repo: repo.name, state: 'open' }, function (err, issues) {
           repo.issueTotal = issues.length;
           allRepos.push(repo);
           cb();
