@@ -1,4 +1,5 @@
 var
+  moment = require("moment"),
   gitdoIssues = require("../issues.js"),
   Issues = {};
 
