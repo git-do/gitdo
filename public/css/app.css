@@ -64,7 +64,8 @@ p {
   margin: 0 0 1.5em; }
 
 /* --- [ Links ] --- */
-a, a:visited {
+a {
+  color: tomato;
   text-decoration: underline; }
 
 a:hover {
@@ -961,3 +962,72 @@ body {
   margin: 0; }
 .activity-list .timestamp {
   margin-top: 5px; }
+
+.modal {
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%; }
+
+.modal-close-btn {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  color: #7c3224;
+  font-size: 1rem;
+  font-weight: bold;
+  position: absolute;
+  right: 30px;
+  text-decoration: none;
+  top: 20px;
+  text-transform: uppercase; }
+  .modal-close-btn:hover {
+    color: white; }
+
+.modal-content {
+  color: #7c3224;
+  left: 0;
+  margin-top: -75px;
+  padding: 0 10%;
+  position: absolute;
+  top: 50%;
+  text-align: center; }
+  .modal-content p {
+    font-size: 1.5rem; }
+    @media only screen and (max-width: 580px) {
+      .modal-content p {
+        font-size: 1.1rem; } }
+
+.modal-heading {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 15px; }
+  @media only screen and (max-width: 580px) {
+    .modal-heading {
+      font-size: 1.4rem; } }
+
+.modal-btn {
+  border-color: #7c3224;
+  color: #7c3224;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0 15px 15px 0;
+  padding: 15px;
+  text-transform: uppercase;
+  width: 200px; }
+  @media only screen and (max-width: 580px) {
+    .modal-btn {
+      font-size: 0.9rem; } }
+  .modal-btn:hover {
+    border-color: white;
+    color: white; }
+
+#delete-repo-modal {
+  background: tomato; }
+  #delete-repo-modal .modal-content {
+    margin-top: -135px; }

@@ -28,45 +28,27 @@
 
       <%- body %>
       
-      <!-- 
-        <div id="sidebar">
-          <header class="section-header">
-            <h2 class="section-title">Activity Feed</h2>
-          </header>
-          <ul class="activity-list list">
-            <li>
-              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-            <li>
-              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-            <li>
-              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-            <li>
-              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-            <li>
-              <p><strong>Jimmy K.</strong> completed a gitdo, and removed the to do from the code.</p>
-              <p class="timestamp">Today, 3:24 pm</p>
-            </li>
-          </ul>
-        </div>
-      -->
+      <footer id="footer">
+        <p>Designed and developed by</p>
+        <p>Alex Mesarosh, Jimmy King, Roman Pacheco, and Michael Wolf</p>
+      </footer>
 
-        <footer id="footer">
-          <p>Designed and developed by</p>
-          <p>Alex Mesarosh, Jimmy King, Roman Pacheco, and Michael Wolf</p>
-        </footer>
-
-        <div class="clear"></div>
-      </div>
-      
+      <div class="clear"></div>
     </div>
+    
+    <!-- Remove Repo from gitdo modal -->
+    <div id="delete-repo-modal" class="modal">
+      <div class="modal-content">
+        <h3 class="modal-heading">Are you sure?</h3>
+        <p>If you decide you do not want gitdo to follow this repo anymore all of the issues will be completely removed from the gitdo database.</p>
+        <a href="#" class="modal-btn btn">Yes, I'm sure</a>
+        <a href="#" class="modal-btn btn">Cancel</a>
+      </div>
+      <a href="#" class="modal-close-btn">Close</a>
+    </div>
+    
+    <!-- Javascript
+    ==================================== -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="/js/issues.js"></script>
     <script src="/js/repos.js"></script>
