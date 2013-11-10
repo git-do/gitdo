@@ -43,9 +43,10 @@
   color: #8a8a8a;
   float: left;
   line-height: 50px;
-  padding-right: 20px;
+  padding-right: 25px;
   position: relative;
   text-decoration: none;
+  
   &:hover {
     .icon-arrow-down {
       background-position: -175px -25px;
@@ -65,7 +66,6 @@
   border-left: 1px solid #d0d0d0;
   height: 50px;
   line-height: 50px;
-  margin-left: 20px;
   padding-left: 25px;
 }
 
