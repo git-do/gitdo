@@ -178,7 +178,7 @@ exports.updateRoute = updateRoute = function(req, res, config) {
   if (b.repo && b.number) {
     updateObj = {
       repo: b.repo,
-      number: b.number,
+      number: parseInt(b.number, 10),
       dateUpdated: moment().format()
     };
     updateProps.forEach(function (val) {
