@@ -53,7 +53,7 @@ module.exports = (function () {
         gitdo.title = comments[i].match(self.gitdoRegex)[0].replace(self.cleanupRegex, '').replace(self.gitdoRegex, '$2');
         self.getLineNum(gitdo.fullLine, lines, function (num) {
           gitdo.line = num;
-          gitdo.description = comments[i];
+          gitdo.description = gitdo.filename + ' - Line ' + gitdo.line + '\n\n```' + comments[i] + '```';
           self.compare(repo, user, branch, gitdo);
         });
       }
@@ -105,7 +105,7 @@ module.exports = (function () {
               'username': user,
               'branch': branch,
               'number': item.number,
-              'state': 'closed'
+              'state': 'pending'
             };
 
             issuesRoute.update(request, self.response, function () {});
