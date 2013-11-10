@@ -53,7 +53,7 @@ module.exports = (function () {
         gitdo.title = comments[i].match(self.gitdoRegex)[0].replace(self.cleanupRegex, '').replace(self.gitdoRegex, '$2');
         self.getLineNum(gitdo.fullLine, lines, function (num) {
           gitdo.line = num;
-          gitdo.description = gitdo.filename + ' - Line ' + gitdo.line + '\n\n```' + comments[i] + '```';
+          gitdo.description = comments[i];
           self.compare(repo, user, branch, gitdo);
         });
       }
