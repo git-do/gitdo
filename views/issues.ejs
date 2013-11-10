@@ -31,11 +31,12 @@
         <ul class="issue-list list state-<%- state %>">
           <% for (var i = 0; i < issues[state].length; i++) {%>
             <% var issue = issues[state][i] %>
+            <% console.log(issue) %>
             <li>
               <header>
                 <a href="#" class="list-item-header">
                   <h3 class="list-heading"><%- issue.github.title %></h3>
-                  <span data-date="<%- issue.github.created_at %>" class="issue-date timestamp">Updated</span>
+                  <span class="issue-date timestamp">Updated <%- issue.relativeUpdated %></span>
                 </a>
               </header>
 
