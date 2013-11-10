@@ -98,7 +98,10 @@ var github = require('./routes/github/github'),
     // Gitdo imports
     gitdoUsers = require('./routes/users'),
     gitdoRepos = require('./routes/repos'),
-    gitdoIssues = require('./routes/issues');
+    gitdoIssues = require('./routes/issues'),
+    
+    // View routes
+    renderIssues = require('./routes/render/issues');
 
 /**
 * Github Routes
@@ -160,110 +163,55 @@ app.get('/', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  // Get list of repos from GitHub
-  repos.getRepos(req.user.accessToken, function (err, repos) {
-    gitdoRepos.getAll(req, res, function (gdRepos) {
-      //this is the worst but Roman said its okay
-      var gdReposObj = utils.arrayToObj(gdRepos, "ghid");
+  if (req.user) {
 
-      for (var i = 0; i < repos.length; i++) {
-        var id = repos[i].id;
+    // Get list of repos from GitHub
+    repos.getRepos(req.user.accessToken, function (err, repos) {
+      gitdoRepos.getAll(req, res, function (gdRepos) {
+        //this is the worst but Roman said its okay
+        var gdReposObj = utils.arrayToObj(gdRepos, "ghid");
 
-        if (gdReposObj[id]) {
-          repos[i].gitdo = true;
+        for (var i = 0; i < repos.length; i++) {
+          var id = repos[i].id;
+
+          if (gdReposObj[id]) {
+            repos[i].gitdo = true;
+          }
         }
-      }
 
-      res.render('repos', {
-        active: 'repos',
+        res.render('repos', {
+          active: 'repos',
+          user: {
+            avatar: req.user._json.avatar_url, 
+            name: req.user.displayName || req.user.username
+          },
+          repos: repos
+        });
+      }); 
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+app.get('/dashboard', function (req, res) {
+  if (req.user) {
+    gitdoRepos.getAll(req, res, function (repos) {
+      res.render('dashboard', {
+        active: 'dash',
         user: {
           avatar: req.user._json.avatar_url, 
           name: req.user.displayName || req.user.username
         },
         repos: repos
       });
-    }); 
-  });
-});
-
-app.get('/dashboard', function (req, res) {
-  gitdoRepos.getAll(req, res, function (repos) {
-    res.render('dashboard', {
-      active: 'dash',
-      user: {
-        avatar: req.user._json.avatar_url, 
-        name: req.user.displayName || req.user.username
-      },
-      repos: repos
     });
-  });
+  } else {
+    res.redirect("/");
+  }
 });
 
-app.get('/dashboard/:repo', function (req, res) {
-  res.render('issues', {
-    active: 'dash',
-    user: {
-      avatar: req.user._json.avatar_url, 
-      name: req.user.displayName || req.user.username
-    },
-    issues: [
-    {
-      "name": "[string]",
-      "filename": "[string]",
-      "line": "[number]",
-      "branch": "[string]",
-      "srcLink": "[string]",
-      "github": {
-        "body": "[string]",
-        "created_at": "[string]"
-      }
-    },
-    {
-      "name": "[string]",
-      "filename": "[string]",
-      "line": "[number]",
-      "branch": "[string]",
-      "srcLink": "[string]",
-      "github": {
-        "body": "[string]",
-        "created_at": "[string]"
-      }
-    },
-    {
-      "name": "[string]",
-      "filename": "[string]",
-      "line": "[number]",
-      "branch": "[string]",
-      "srcLink": "[string]",
-      "github": {
-        "body": "[string]",
-        "created_at": "[string]"
-      }
-    },
-    {
-      "name": "[string]",
-      "filename": "[string]",
-      "line": "[number]",
-      "branch": "[string]",
-      "srcLink": "[string]",
-      "github": {
-        "body": "[string]",
-        "created_at": "[string]"
-      }
-    },
-    {
-      "name": "[string]",
-      "filename": "[string]",
-      "line": "[number]",
-      "branch": "[string]",
-      "srcLink": "[string]",
-      "github": {
-        "body": "[string]",
-        "created_at": "[string]"
-      }
-    }]
-  });
-});
+app.get('/dashboard/:repo', renderIssues);
 
 
 // if run as root, downgrade to the owner of this file

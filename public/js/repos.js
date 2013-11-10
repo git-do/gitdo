@@ -14,14 +14,24 @@ $(function () {
     event.preventDefault();
 
     var $this = $(this);
-    
+
     if ($this.attr("checked") === "checked") {
-      $.ajax({
-        url: '/api/repo/' + $this.attr('name'),
-        type: 'DELETE',
-        success: function () {
-          $this.removeAttr("checked");
-        }
+      
+      $('#delete-repo-modal').show();
+
+      $('.close-modal').click(function (event) {
+        $('#delete-repo-modal').hide();
+      });
+
+      $('.confirm-modal').click(function(event) {
+        $.ajax({
+          url: '/api/repo/' + $this.attr('name'),
+          type: 'DELETE',
+          success: function () {
+            $('#delete-repo-modal').hide();
+            $this.removeAttr("checked");
+          }
+        });
       });
     } else {
       $.ajax({

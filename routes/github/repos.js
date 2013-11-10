@@ -20,11 +20,14 @@ var getRepos = function (accessToken, callback) {
       callback(err);
     } else {
       async.each(data, function (repo, cb) {
+
         // TODO: check to see if the repo is activated
         var newRepo = {
-          'id': repo['id'],
-          'fullname': repo['full_name'],
-          'active': false
+          id: repo.id,
+          fullname: repo.full_name,
+          active: false,
+          fork: repo.fork,
+          has_issues: repo.has_issues
         };
         repos.push(newRepo);
         // Save these to database

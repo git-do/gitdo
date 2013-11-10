@@ -83,6 +83,7 @@ module.exports = (function () {
       obj = this.originalObj;
     this.response(e, v, function (vals) {
       obj.ghid = vals.id;
+      obj.fork = vals.fork;
       self.dbCreate(obj, self.response.bind(self));
       // Add hook to github
       githubHooks.addHook(self.ghUser.accessToken, obj.name, obj.username, function (err) {});

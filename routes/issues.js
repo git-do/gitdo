@@ -225,6 +225,8 @@ exports.updateRoute = updateRoute = function(req, res, config) {
 * Server connectors
 */
 exports.getAll = function (req, res, fn) {
+  req.query = req.query || {};
+  req.query.repo = req.params.repo;
   getAllRoute(req, res, {
     fn: fn,
     silent: true
