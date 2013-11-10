@@ -13,8 +13,7 @@ var newHook = {
     'push'
   ],
   'config': {
-    'url': HOOK_URL,
-    'content_type': 'json'
+    'url': HOOK_URL
   }
 };
 
@@ -76,7 +75,6 @@ exports.addHookRoute = function (req, res) {
     res.redirect('/');
   }
 
-  
 };
 
 // Remove web hook from repo

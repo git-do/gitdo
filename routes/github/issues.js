@@ -79,6 +79,24 @@ var closeIssue = function (accessToken, repo, user, number, callback) {
   });
 };
 
+var editIssue = function (accessToken, repo, user, number, desc, callback) {
+  var gh;
+
+  gh = github.getClient(accessToken);
+
+  gh.issues.edit({
+    'user': user,
+    'repo': repo,
+    'number': number,
+    'body': desc
+  }, function (err, data) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, data);
+    }
+  });
+};
 
 // Routes
 exports.createIssueRoute = function (req, res) {
@@ -134,3 +152,4 @@ exports.createIssue = createIssue;
 exports.getIssues = getIssues;
 exports.getIssue = getIssue;
 exports.closeIssue = closeIssue;
+exports.editIssue = editIssue;
