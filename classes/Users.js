@@ -20,8 +20,12 @@ module.exports = (function () {
   */
 
   // Get
-  Users.prototype.get = function (obj) {
+  Users.prototype.get = function (obj, callback, silent) {
     var self = this;
+    this.originalObj = obj;
+    this.callback = callback;
+    this.silent = silent;
+
     this.dbGet(obj, function (err, vals) {
       self.response(err, vals, function (userObj) {
         if (userObj.length) {
@@ -35,8 +39,12 @@ module.exports = (function () {
   };
 
   // Create
-  Users.prototype.create = function (obj) {
+  Users.prototype.create = function (obj, callback, silent) {
     var self = this;
+    this.originalObj = obj;
+    this.callback = callback;
+    this.silent = silent;
+
     this.dbGet({
       username: obj.username
     }, function (e, v) {
@@ -57,8 +65,13 @@ module.exports = (function () {
 
   // Send
   Users.prototype.send = function (code, msg) {
-    this.resp.statusCode = code;
-    this.resp.send(msg);
+    if (!this.silent) {
+      this.resp.statusCode = code;
+      this.resp.send(msg);
+    }
+    if (typeof this.callback === "function") {
+      this.callback(msg);
+    }
   };
 
   // Get users
