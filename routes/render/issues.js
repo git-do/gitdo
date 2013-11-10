@@ -1,9 +1,11 @@
 var
+  moment = require("moment"),
   gitdoIssues = require("../issues.js"),
   Issues = {};
 
 // Render
 Issues.render = function (req, res, issues) {
+  Issues.addRelativeUpdate(issues);
   var sortedIssues = Issues.sortByState(issues);
   res.render('issues', {
     active: 'dash',
@@ -24,6 +26,15 @@ Issues.generateGithubData = function (issue) {
     body: issue.description,
     html_url: false
   };
+};
+
+Issues.addRelativeUpdate = function (issues) {
+
+  issues.forEach(function (issue) {
+    issue.relativeUpdated = moment(issue.dateUpdated || issue.dateCreated).fromNow();
+  });
+
+  return issues;
 };
 
 // Sort by state
