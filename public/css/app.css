@@ -83,6 +83,13 @@ code, pre {
   font-family: monospace, serif;
   font-size: 1em; }
 
+.timestamp {
+  color: #b0b0b0;
+  font-size: 0.7rem;
+  font-weight: 200;
+  letter-spacing: 0.02em;
+  text-transform: uppercase; }
+
 /*============================
   Layout
 ------------------------------*/
@@ -106,17 +113,9 @@ body {
 #content-wrap {
   margin: 30px; }
 
-/*============================
-  Modules
-------------------------------*/
-.timestamp {
-  color: #b0b0b0;
-  font-size: 0.7rem;
-  font-weight: 200;
-  letter-spacing: 0.02em;
-  text-transform: uppercase; }
-
-/* --- [ Buttons ] --- */
+/*=================================
+  Buttons
+-----------------------------------*/
 .btn {
   -webkit-background-clip: padding-box;
   border: 1px solid #d0d0d0;
@@ -175,7 +174,9 @@ body {
   .btn-view-more:hover {
     background: tomato; }
 
-/* --- [ No Repos Notice ] --- */
+/*=================================
+  No Repos Message
+-----------------------------------*/
 #no-repos-notice {
   background: url(../img/faded-repos.jpg) no-repeat;
   height: 330px;
@@ -207,7 +208,27 @@ body {
     top: 0;
     width: 63px; }
 
-/* --- [ Global List Styles ] --- */
+/*=================================
+  Section Header
+-----------------------------------*/
+.section-header {
+  border-bottom: 2px solid #666666;
+  padding-bottom: 13px;
+  position: relative; }
+
+.section-header-label {
+  color: #333333;
+  display: inline-block;
+  font-weight: 200;
+  margin: 0; }
+  .section-header-label.label-date {
+    float: right;
+    font-size: 0.9rem;
+    margin: 10px 15px 10px; }
+
+/*=================================
+  Global List Styles
+-----------------------------------*/
 .list {
   border-bottom: 1px solid #e0e0e0;
   margin: 0;
@@ -226,7 +247,7 @@ body {
   color: #7a7a7a;
   display: block;
   min-height: 54px;
-  padding: 17px 0 16px;
+  padding: 17px 10px 16px;
   position: relative;
   text-decoration: none;
   -webkit-transition: all 0.3s ease;
@@ -242,87 +263,24 @@ body {
   font-weight: 400;
   margin: 0; }
 
-/* --- [ Global Dropdown List ] --- */
-.dropdown-list {
-  background: white;
-  border: solid #d0d0d0;
-  border-width: 1px 1px 0;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  -ms-background-clip: padding-box;
-  background-clip: padding-box;
-  border-top-right-radius: 0;
-  display: none;
+/*=================================
+  Dashboard List
+-----------------------------------*/
+#dashboard-list .list-item-header {
+  padding-left: 50px; }
+  #dashboard-list .list-item-header:hover {
+    padding-left: 50px; }
+
+.repo-issue-meta {
+  float: right;
   margin: 0;
-  padding: 0;
-  position: relative; }
-  .dropdown-list li {
-    border-bottom: 1px solid #d0d0d0;
+  padding: 0; }
+  .repo-issue-meta li {
+    float: left;
     list-style: none;
     margin: 0;
     padding: 0; }
-  .dropdown-list a {
-    -webkit-background-clip: padding-box;
-    color: #aaaaaa;
-    display: block;
-    padding: 8px 15px;
-    text-decoration: none;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    transition: all 0.3s ease; }
-    .dropdown-list a:hover {
-      background: #f0f0f0;
-      color: #333333; }
 
-/* --- [ Section Header ] --- */
-.section-header {
-  border-bottom: 2px solid #666666;
-  padding-bottom: 13px;
-  position: relative; }
-
-.section-header-label {
-  color: #333333;
-  display: inline-block;
-  font-weight: 200;
-  margin: 0; }
-  .section-header-label.label-date {
-    float: right;
-    font-size: 0.9rem;
-    margin: 10px 15px 10px; }
-
-/* --- [ Filter List ] --- */
-.filter-wrap {
-  position: absolute;
-  right: 30px;
-  top: 15px; }
-  .filter-wrap:hover .filter-btn {
-    background: tomato;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-color: tomato;
-    color: white; }
-  .filter-wrap:hover .filter-dropdown {
-    display: block; }
-
-.filter-btn {
-  padding-right: 40px;
-  position: absolute;
-  right: 0;
-  top: 0; }
-
-.filter-dropdown {
-  position: absolute;
-  right: 0;
-  top: 35px;
-  width: 200px;
-  z-index: 1000; }
-
-/* --- [ Repo List ] --- */
 .repo-issue-total {
   background: tomato;
   color: white;
@@ -336,15 +294,17 @@ body {
   background-clip: padding-box;
   display: block;
   height: 24px;
+  left: 10px;
   line-height: 24px;
-  margin-top: -12px;
+  margin-top: -11px;
   position: absolute;
-  right: 30px;
   text-align: center;
   top: 50%;
   width: 24px; }
 
-/* --- [ Issue List ] --- */
+/*=================================
+  Issue Detail View
+-----------------------------------*/
 .issue-list {
   margin-bottom: 30px; }
   .issue-list li.open {
@@ -407,9 +367,11 @@ body {
   .issue-footer-btn:first-child {
     margin-right: 5px; }
 
-/* --- [ Manage Repos ] --- */
+/*=================================
+  Manage Repositories
+-----------------------------------*/
 #repo-manager li {
-  padding: 17px 0 16px;
+  padding: 17px 10px 16px;
   position: relative; }
 
 /* --- [ Switch ] --- */

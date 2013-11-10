@@ -25,7 +25,7 @@
       </a>
     </div>
   <% }  else { %>
-    <ul class="list">
+    <ul id="dashboard-list" class="list">
       <% for (var i = 0; i < repos.length; i++) {%>
         <li>
           <a href="/dashboard/<%- repos[i].name %>" class="list-item-header">
