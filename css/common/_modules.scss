@@ -64,6 +64,49 @@
   }
 }
 
+/* --- [ No Repos Notice ] --- */
+
+#no-repos-notice {
+  background: url(../img/faded-repos.jpg) no-repeat;
+  height: 330px;
+  width: 100%;
+  
+  a {
+    color: #8a8a8a;
+    display: block;
+    margin: 0 auto;
+    padding: 5px 0 0 80px;
+    position: relative;
+    text-decoration: none;
+    top: 130px;
+    width: 515px;
+  }
+
+  h3 {
+    color: tomato;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .add-btn {
+    background: $sprite -200px 0;
+    display: block;
+    height: 59px;
+    left: 0;
+    position: absolute;
+    text-indent: -9999px;
+    top: 0;
+    width: 63px;
+  }
+
+}
+
 /* --- [ Global List Styles ] --- */
 
 .list {
@@ -73,6 +116,7 @@
   
   li {
     border-top: 1px solid #e0e0e0;
+    color: #4a4a4a;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -84,8 +128,9 @@
 
 .list-item-header {
   -webkit-background-clip: padding-box;
-  color: #4a4a4a;
+  color: #7a7a7a;
   display: block;
+  min-height: 54px;
   padding: 17px 0 16px;
   position: relative;
   text-decoration: none;
@@ -98,6 +143,7 @@
 }
 
 .list-heading {
+  font-weight: 400;
   margin: 0;
 }
 
@@ -138,15 +184,22 @@
 /* --- [ Section Header ] --- */
 
 .section-header {
+  border-bottom: 2px solid #666;
+  padding-bottom: 13px;
   position: relative;
 }
 
-.section-title {
+.section-header-label {
   color: #333;
+  display: inline-block;
   font-weight: 200;
   margin: 0;
-  border-bottom: 2px solid #666;
-  padding-bottom: 13px;
+
+  &.label-date {
+    float: right;
+    font-size: .9rem;
+    margin: 10px 15px 10px;
+  }
 }
 
 /* --- [ Filter List ] --- */
@@ -222,6 +275,8 @@
     }
 
     .issue-details {
+      border: solid #e0e0e0;
+      border-width: 0 1px;
       display: block;
     }
   }
@@ -240,16 +295,16 @@
 }
 
 .issue-meta {
-  background: #f6f6f6;
   float: left;
-  margin: 0 5% 0 20px;
-  padding: 25px 20px 0;
+  margin: 0 50px 25px 20px;
+  padding: 0;
   width: 25%;
   
   li {
-    border:none;
-    margin-bottom: 15px;
-    padding: 7px 0 10px;
+    background: #f6f6f6;
+    border: none;
+    margin-bottom: 3px;
+    padding: 10px 15px;
     position: relative;
   }
 }
@@ -258,27 +313,21 @@
   color: #b0b0b0;
   display: block;
   font-size: .7rem;
-  left: 0;
-  margin-top: -7px;
-  position: absolute;
-  top: 0;
   text-transform: uppercase;
 }
 
 .issue-desc {
   float: left;
-  padding-top: 20px;
   position: relative;
   width: 65%;
   .issue-meta-label {
-    top: 7px;
+    margin-bottom: 10px;
   }
 }
 
 .issue-footer {
   background: #efefef;
   clear: both;
-  margin-top: 30px;
   padding: 10px;
   text-align: right;
   width: 100%;

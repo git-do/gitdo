@@ -27,6 +27,7 @@
   color: #4a4a4a;
   display: block;
   font-size: 1.2em;
+  font-weight: 200;
   height: 70px;
   line-height: 70px;
   padding: 0 30px 0 65px;
@@ -38,20 +39,70 @@
     background: #fff;
     border-bottom-color: #fff;
     height: 71px;
+    pointer-events: none;
   }
   &:hover {
-    background: #f0f0f0;
+    background: #f6f6f6;
+  }
+  &:active {
+    color: #4a4a4a;
   }
 }
 
-.section-tab-icon {
+.section-tab-notification {
   background: #dadada;
   @include border-radius(4px);
+  color: #FFF;
   display: block;
+  font-size: .9rem;
+  font-weight: bold;
   height: 24px;
   left: 30px;
-  margin-top: -12px;
+  line-height: 24px;
   position: absolute;
-  top: 50%;
+  text-align: center;
+  top: 23px;
   width: 24px;
+}
+
+.tab-content {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+.no-issues-msg {
+  @include border-radius(4px);
+  background: #f6f6f6;
+  border: 1px solid #d0d0d0;
+  color: #6a6a6a;
+  font-size: 1.1rem;
+  font-weight: 200;
+  margin: 150px auto;
+  padding: 20px 0;
+  text-align: center;
+  width: 350px;
+  
+  p {
+    margin: 0;
+  }
+}
+
+.tab-open {
+  .section-tab-notification {
+    background: tomato;
+  }
+}
+
+.tab-closed {
+  .section-tab-notification {
+    background: #dadada;
+  }
+}
+
+.tab-marked {
+  .section-tab-notification {
+    background: #8a8a8a;
+  }
 }

@@ -97,6 +97,7 @@ body {
 .container {
   margin: 0 auto;
   max-width: 1200px;
+  position: relative;
   width: 95%; }
 
 #global-container {
@@ -104,23 +105,6 @@ body {
 
 #content-wrap {
   margin: 30px; }
-
-#main {
-  float: left;
-  width: 100%; }
-  @media only screen and (max-width: 960px) {
-    #main {
-      float: none;
-      width: 100%; } }
-
-#sidebar {
-  float: right;
-  width: 33%; }
-  @media only screen and (max-width: 960px) {
-    #sidebar {
-      float: none;
-      margin-top: 30px;
-      width: 100%; } }
 
 /*============================
   Modules
@@ -191,6 +175,38 @@ body {
   .btn-view-more:hover {
     background: tomato; }
 
+/* --- [ No Repos Notice ] --- */
+#no-repos-notice {
+  background: url(../img/faded-repos.jpg) no-repeat;
+  height: 330px;
+  width: 100%; }
+  #no-repos-notice a {
+    color: #8a8a8a;
+    display: block;
+    margin: 0 auto;
+    padding: 5px 0 0 80px;
+    position: relative;
+    text-decoration: none;
+    top: 130px;
+    width: 515px; }
+  #no-repos-notice h3 {
+    color: tomato;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0; }
+  #no-repos-notice p {
+    font-size: 1.1rem;
+    margin: 0; }
+  #no-repos-notice .add-btn {
+    background: url(../img/sprite.png) no-repeat -200px 0;
+    display: block;
+    height: 59px;
+    left: 0;
+    position: absolute;
+    text-indent: -9999px;
+    top: 0;
+    width: 63px; }
+
 /* --- [ Global List Styles ] --- */
 .list {
   border-bottom: 1px solid #e0e0e0;
@@ -198,6 +214,7 @@ body {
   padding: 0; }
   .list li {
     border-top: 1px solid #e0e0e0;
+    color: #4a4a4a;
     list-style: none;
     margin: 0;
     padding: 0; }
@@ -206,8 +223,9 @@ body {
 
 .list-item-header {
   -webkit-background-clip: padding-box;
-  color: #4a4a4a;
+  color: #7a7a7a;
   display: block;
+  min-height: 54px;
   padding: 17px 0 16px;
   position: relative;
   text-decoration: none;
@@ -221,6 +239,7 @@ body {
     padding-left: 20px; }
 
 .list-heading {
+  font-weight: 400;
   margin: 0; }
 
 /* --- [ Global Dropdown List ] --- */
@@ -262,14 +281,19 @@ body {
 
 /* --- [ Section Header ] --- */
 .section-header {
+  border-bottom: 2px solid #666666;
+  padding-bottom: 13px;
   position: relative; }
 
-.section-title {
+.section-header-label {
   color: #333333;
+  display: inline-block;
   font-weight: 200;
-  margin: 0;
-  border-bottom: 2px solid #666666;
-  padding-bottom: 13px; }
+  margin: 0; }
+  .section-header-label.label-date {
+    float: right;
+    font-size: 0.9rem;
+    margin: 10px 15px 10px; }
 
 /* --- [ Filter List ] --- */
 .filter-wrap {
@@ -332,6 +356,8 @@ body {
     .issue-list li.open .timestamp {
       color: white; }
     .issue-list li.open .issue-details {
+      border: solid #e0e0e0;
+      border-width: 0 1px;
       display: block; }
 
 .issue-date {
@@ -345,39 +371,33 @@ body {
   padding: 25px 0 0; }
 
 .issue-meta {
-  background: #f6f6f6;
   float: left;
-  margin: 0 5% 0 20px;
-  padding: 25px 20px 0;
+  margin: 0 50px 25px 20px;
+  padding: 0;
   width: 25%; }
   .issue-meta li {
+    background: #f6f6f6;
     border: none;
-    margin-bottom: 15px;
-    padding: 7px 0 10px;
+    margin-bottom: 3px;
+    padding: 10px 15px;
     position: relative; }
 
 .issue-meta-label {
   color: #b0b0b0;
   display: block;
   font-size: 0.7rem;
-  left: 0;
-  margin-top: -7px;
-  position: absolute;
-  top: 0;
   text-transform: uppercase; }
 
 .issue-desc {
   float: left;
-  padding-top: 20px;
   position: relative;
   width: 65%; }
   .issue-desc .issue-meta-label {
-    top: 7px; }
+    margin-bottom: 10px; }
 
 .issue-footer {
   background: #efefef;
   clear: both;
-  margin-top: 30px;
   padding: 10px;
   text-align: right;
   width: 100%; }
@@ -495,18 +515,15 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%; }
-  #herospace iframe {
-    margin-bottom: -60px; }
+  #herospace #vote-counter {
+    left: 0;
+    position: absolute;
+    top: 35px; }
 
 .herospace-nav {
   float: right;
   margin: 30px 0 0;
   padding: 0; }
-  @media only screen and (max-width: 725px) {
-    .herospace-nav {
-      float: none;
-      margin: 30px auto 0;
-      width: 280px; } }
   .herospace-nav li {
     float: left;
     list-style: none;
@@ -530,7 +547,7 @@ body {
   width: 735px; }
   @media only screen and (max-width: 800px) {
     .herospace-content {
-      padding-left: 0;
+      padding: 75px 0 50px;
       width: 100%; } }
 
 .herospace-logo {
@@ -543,7 +560,7 @@ body {
   @media only screen and (max-width: 800px) {
     .herospace-logo {
       float: none;
-      margin: 20px auto 40px; } }
+      margin: 40px auto 40px; } }
 
 .herospace-headline {
   float: left;
@@ -813,13 +830,25 @@ body {
   font-size: 0.7rem;
   font-weight: 200;
   margin-top: 100px;
-  padding-top: 30px;
+  padding: 30px 0;
   position: relative;
   text-align: center;
   text-transform: uppercase;
   width: 100%; }
   #footer p {
     margin: 0 0 5px; }
+  #footer a {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    color: #cccccc;
+    text-decoration: none; }
+    #footer a:hover {
+      color: tomato; }
+
+.splash #footer {
+  margin-top: 25px; }
 
 /*===============================
   Features
@@ -871,8 +900,8 @@ body {
         background-position: -125px -25px; }
       .admin-bar a.active .icon-logout {
         background-position: -150px -25px; }
-  .admin-bar iframe {
-    margin: 30px 45px; }
+  .admin-bar #vote-counter {
+    margin: 30px 0 0 53px; }
 
 #admin-bar-logo {
   background: url(../img/sprite.png) no-repeat 0 0;
@@ -881,7 +910,7 @@ body {
   margin: 30px auto;
   position: relative;
   text-indent: -9999px;
-  width: 81px; }
+  width: 90px; }
 
 .admin-bar-icon {
   background: url(../img/sprite.png) no-repeat;
@@ -928,6 +957,7 @@ body {
   color: #4a4a4a;
   display: block;
   font-size: 1.2em;
+  font-weight: 200;
   height: 70px;
   line-height: 70px;
   padding: 0 30px 0 65px;
@@ -940,11 +970,14 @@ body {
   .section-tab.active, .section-tab.active:hover {
     background: white;
     border-bottom-color: white;
-    height: 71px; }
+    height: 71px;
+    pointer-events: none; }
   .section-tab:hover {
-    background: #f0f0f0; }
+    background: #f6f6f6; }
+  .section-tab:active {
+    color: #4a4a4a; }
 
-.section-tab-icon {
+.section-tab-notification {
   background: #dadada;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -954,13 +987,52 @@ body {
   -moz-background-clip: padding-box;
   -ms-background-clip: padding-box;
   background-clip: padding-box;
+  color: white;
   display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
   height: 24px;
   left: 30px;
-  margin-top: -12px;
+  line-height: 24px;
   position: absolute;
-  top: 50%;
+  text-align: center;
+  top: 23px;
   width: 24px; }
+
+.tab-content {
+  display: none; }
+  .tab-content.active {
+    display: block; }
+
+.no-issues-msg {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  background-clip: padding-box;
+  background: #f6f6f6;
+  border: 1px solid #d0d0d0;
+  color: #6a6a6a;
+  font-size: 1.1rem;
+  font-weight: 200;
+  margin: 150px auto;
+  padding: 20px 0;
+  text-align: center;
+  width: 350px; }
+  .no-issues-msg p {
+    margin: 0; }
+
+.tab-open .section-tab-notification {
+  background: tomato; }
+
+.tab-closed .section-tab-notification {
+  background: #dadada; }
+
+.tab-marked .section-tab-notification {
+  background: #8a8a8a; }
 
 .activity-list li {
   padding: 15px 0; }
