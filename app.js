@@ -152,8 +152,8 @@ http.createServer(app).listen(app.get('port'), function () {
 * Views
 */
 app.get('/', function (req, res) {
-  res.render('index', 
-    { 
+  res.render('index',
+    {
       layout: 'landing-page'
     }
   );
@@ -163,7 +163,7 @@ app.get('/repos', function (req, res) {
   // Get list of repos from GitHub
   repos.getRepos(req.user.accessToken, function (err, repos) {
     gitdoRepos.getAll(req, res, function (gdRepos) {
-      //this is the worst
+      //this is the worst but Roman said its okay
       var gdReposObj = utils.arrayToObj(gdRepos, "ghid");
 
       for (var i = 0; i < repos.length; i++) {
@@ -175,6 +175,7 @@ app.get('/repos', function (req, res) {
       }
 
       res.render('repos', {
+        active: 'repos',
         user: {
           avatar: req.user._json.avatar_url, 
           name: req.user.displayName || req.user.username
@@ -188,6 +189,7 @@ app.get('/repos', function (req, res) {
 app.get('/dashboard', function (req, res) {
   gitdoRepos.getAll(req, res, function (repos) {
     res.render('dashboard', {
+      active: 'dash',
       user: {
         avatar: req.user._json.avatar_url, 
         name: req.user.displayName || req.user.username
@@ -199,6 +201,7 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/dashboard/:repo', function (req, res) {
   res.render('issues', {
+    active: 'dash',
     user: {
       avatar: req.user._json.avatar_url, 
       name: req.user.displayName || req.user.username
