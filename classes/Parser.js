@@ -3,7 +3,8 @@ module.exports = (function () {
   /**
   * Imports
   */
-  var async = require('async');
+  var async = require('async'),
+      Issues = require('./Issues');
 
   /**
   * Constructor
@@ -15,9 +16,10 @@ module.exports = (function () {
   }
 
   // Parse code
+  // Shoving most of the issue handling stuff in here, because it's faster ... @TODO: Please, refactor.
   Parser.prototype.parseCode = function (filename, repo, user, code) {
     this.allGitDos(filename, repo, user, code); // Get a list of all gitdos
-    this.checkDeleted(code);
+    this.checkDeleted(repo, code);
   };
 
   Parser.prototype.allGitDos = function (filename, repo, user, code) {
@@ -31,17 +33,14 @@ module.exports = (function () {
 
       if (comments[i].match(self.gitdoRegex)) {
         gitdo.filename = filename;
-        gitdo.description = comments[i];
         gitdo.fullLine = comments[i].match(self.gitdoRegex)[0];
-        // gitdo.fullLine = comments[i].replace(self.gitdoRegex, '$1');
         gitdo.username = user;
         gitdo.repo = repo;
         gitdo.title = comments[i].match(self.gitdoRegex)[0].replace(self.cleanupRegex, '').replace(self.gitdoRegex, '$2');
         self.getLineNum(gitdo.fullLine, lines, function (num) {
           gitdo.line = num;
-          var saved = self.getSaved();
-          self.compare(gitdo, saved);
-          // console.log(gitdo);
+          gitdo.description = gitdo.filename + ' - Line ' + gitdo.line + '\n```' + comments[i] + '```';
+          self.compare(repo, gitdo);
         });
       }
     }
@@ -61,64 +60,75 @@ module.exports = (function () {
   };
 
   // Compare existing gitdos
-  Parser.prototype.compare = function (gitdo, saved) {
-    async.each(saved, function (item, callback) {
-      var found = false;
-      if (item.fullLine === gitdo.fullLine) {
-        found = true;
-        if (item.line !== gitdo.line) {
-          // Update linenum
-          item.line = gitdo.line;
+  Parser.prototype.compare = function (repo, gitdo) {
+    this.getSaved(repo, function (saved) {
+      async.each(saved, function (item, callback) {
+        var found = false;
+
+        if (item.filename === gitdo.filename && item.fullLine === gitdo.fullLine) {
+          found = true;
+          if (item.line !== gitdo.line) {
+            // Update linenum
+            item.line = gitdo.line;
+          }
         }
-      }
-      callback(found);
-    }, function (found) {
-      if (!found) {
-        // Add to our database and create a github issue
-        // console.log(gitdo);
-      }
+        callback(found);
+      }, function (found) {
+        if (!found) {
+          // Add to our database and create a github issue
+          var request = {
+            user: {
+              username: 'gitdo',
+              accessToken: 'eca89c2aa0c1e8fd867efb6da061792400c6efdd'
+            }
+          };
+
+          var response = {
+            send: function () {}
+          };
+
+          var issues = new Issues(request, response);
+          issues.create(gitdo, function () {}, false);
+        }
+      });
     });
+
   };
 
   // Check to see if we have deleted gitdos
-  Parser.prototype.checkDeleted = function (code) {
-    var saved = this.getSaved(),
-        lines = code.split('\n');
+  Parser.prototype.checkDeleted = function (repo, code) {
+    var lines = code.split('\n');
 
-    async.each(saved, function (gitdo, callback) {
-      var index = code.indexOf(gitdo.fullLine);
+    this.getSaved(repo, function (saved) {
+      async.each(saved, function (gitdo, callback) {
+        var index = code.indexOf(gitdo.fullLine);
 
-      if (index === -1 || code.substr(index).split('\n')[0] !== gitdo.fullLine) {
-        // REMOVE GITDO!!!
-        console.log('I am removed.');
-        console.log(gitdo);
-      }
-      callback();
+        if (index === -1 || code.substr(index).split('\n')[0] !== gitdo.fullLine) {
+          // REMOVE GITDO!!!
+
+        }
+        callback();
+      });
     });
   };
 
-  Parser.prototype.getSaved = function () {
-    return [{ filename: 'test.js',
-        description: '/* This is a test JS file\n  @todo: something */',
-        fullLine: '  @todo: something */',
+  Parser.prototype.getSaved = function (repo, callback) {
+    var request = {
+      user: {
         username: 'gitdo',
-        repo: 'todo',
-        title: 'something ',
-        line: 2 },
-      { filename: 'test.js',
-        description: '// @todo: asdfasdff',
-        fullLine: '// @todo: asdfasdff',
-        username: 'gitdo',
-        repo: 'todo',
-        title: 'asdfasdff',
-        line: 7 },
-      { filename: 'test.js',
-        description: '// @todo: ALL THINGSSz',
-        fullLine: '// @todo: ALL THINGSSz',
-        username: 'gitdo',
-        repo: 'todo',
-        title: 'ALL THINGSSz',
-        line: 9 }];
+        accessToken: 'eca89c2aa0c1e8fd867efb6da061792400c6efdd'
+      }
+    };
+
+    var response = {
+      send: function (code, data) {  }
+    };
+
+    var issues = new Issues(request, response);
+    issues.get({ repo: repo }, function (data) {
+      callback(data);
+    }, false);
+
   };
 
   return Parser;
